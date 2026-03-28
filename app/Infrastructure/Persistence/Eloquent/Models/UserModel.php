@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Persistence\Eloquent\Models;
 
+use Database\Factories\UserModelFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -11,6 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 final class UserModel extends Authenticatable
 {
+    /** @use HasFactory<UserModelFactory> */
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'users';
