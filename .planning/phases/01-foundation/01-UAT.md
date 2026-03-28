@@ -19,9 +19,11 @@ result: pass
 
 ### 2. Admin Login — Valid Credentials
 expected: POST /api/v1/admin/login with {"email":"admin@banchimbocau.vn","password":"[seeded password]"} returns HTTP 200 with body like {"success":true,"data":{"token":"...","expires_at":"..."}}.
-result: issue
-reported: "{"success": true, "token": "2|lspns8vBWQQdwj5tKXAlhoMH4HQ4Jhc1egG7IwkD1f6a359b"} — token is top-level, not nested under data, and expires_at is missing"
+result: issue → fixed
+reported: "token is top-level, not nested under data, and expires_at is missing"
 severity: major
+fixed_by: quick-260328-pl9 (createToken returns array, AuthController wraps under data key)
+verified: true
 
 ### 3. Token Has Non-Null expires_at
 expected: The token object returned from login has a non-null, non-empty expires_at field (e.g. "2026-04-27T..."). Confirms SANCTUM_TOKEN_EXPIRY is working.
@@ -68,11 +70,10 @@ blocked: 0
 ## Gaps
 
 - truth: "POST /api/v1/admin/login returns {\"success\":true,\"data\":{\"token\":\"...\",\"expires_at\":\"...\"}} with token nested under data and expires_at present"
-  status: failed
+  status: resolved
   reason: "User reported: response is {\"success\": true, \"token\": \"...\"} — token is top-level, not nested under data, and expires_at is missing"
   severity: major
   test: 2
-  root_cause: ""
-  artifacts: []
-  missing: []
-  debug_session: ""
+  root_cause: "createToken() returned plain string; AuthController built response directly — expires_at discarded"
+  fix: "quick-260328-pl9 — createToken returns array{token, expires_at}; AuthController wraps under data key"
+  verified: true
