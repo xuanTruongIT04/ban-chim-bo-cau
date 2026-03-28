@@ -1,7 +1,9 @@
 <?php
 
 use App\Presentation\Http\Controllers\Admin\CategoryController;
+use App\Presentation\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Presentation\Http\Controllers\Auth\AuthController;
+use App\Presentation\Http\Controllers\Public\ProductController as PublicProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->name('api.v1.')->group(function () {
@@ -15,10 +17,15 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
             ->name('auth.logout');
 
         Route::apiResource('categories', CategoryController::class);
+
+        Route::apiResource('products', AdminProductController::class);
+        Route::patch('products/{product}/toggle-active', [AdminProductController::class, 'toggleActive'])
+            ->name('products.toggle-active');
     });
 
-    // Public customer routes (future phases) — AUTH-03
+    // Public customer routes — AUTH-03, PROD-01, PROD-05
     Route::prefix('products')->name('products.')->group(function () {
-        // Phase 2+
+        Route::get('/', [PublicProductController::class, 'index'])->name('index');
+        Route::get('/{product}', [PublicProductController::class, 'show'])->name('show');
     });
 });

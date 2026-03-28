@@ -14,15 +14,15 @@
 
 ### Sản phẩm & Danh mục (PROD)
 
-- [ ] **PROD-01**: Admin có thể tạo, sửa, xóa sản phẩm với tên tiếng Việt, giá, mô tả, ảnh
-- [x] **PROD-02**: Mỗi sản phẩm có unit_type: `con` (bán lẻ theo con) hoặc `kg` (bán theo cân/lô)
-- [x] **PROD-03**: Admin có thể tạo và quản lý danh mục (chim bồ câu / gia cầm / khác)
-- [ ] **PROD-04**: Admin có thể bật/tắt hiển thị sản phẩm (is_active) — ẩn hàng hết mùa hoặc hết hàng
-- [ ] **PROD-05**: Khách có thể xem danh sách và chi tiết sản phẩm đang bán
+- [x] **PROD-01**: Admin có thể tạo, sửa, xóa sản phẩm với tên tiếng Việt, giá, mô tả, ảnh
+- [ ] **PROD-02**: Mỗi sản phẩm có unit_type: `con` (bán lẻ theo con) hoặc `kg` (bán theo cân/lô)
+- [ ] **PROD-03**: Admin có thể tạo và quản lý danh mục (chim bồ câu / gia cầm / khác)
+- [x] **PROD-04**: Admin có thể bật/tắt hiển thị sản phẩm (is_active) — ẩn hàng hết mùa hoặc hết hàng
+- [x] **PROD-05**: Khách có thể xem danh sách và chi tiết sản phẩm đang bán
 
 ### Tồn kho (INVT)
 
-- [x] **INVT-01**: Tồn kho lưu dạng DECIMAL(10,3) — hỗ trợ cả con (integer) và kg (thập phân)
+- [ ] **INVT-01**: Tồn kho lưu dạng DECIMAL(10,3) — hỗ trợ cả con (integer) và kg (thập phân)
 - [ ] **INVT-02**: Admin có thể điều chỉnh tồn kho thủ công (nhập thêm hàng, kiểm kê)
 - [ ] **INVT-03**: Hệ thống không bao giờ cho phép tồn kho xuống dưới 0
 - [ ] **INVT-04**: Admin có thể xem lịch sử điều chỉnh tồn kho (ai, bao nhiêu, khi nào)
@@ -132,12 +132,12 @@
 | AUTH-02 | Phase 1 | Complete |
 | AUTH-03 | Phase 1 | Complete |
 | AUTH-04 | Phase 1 | Complete |
-| PROD-01 | Phase 2 | Pending |
-| PROD-02 | Phase 2 | Complete |
-| PROD-03 | Phase 2 | Complete |
-| PROD-04 | Phase 2 | Pending |
-| PROD-05 | Phase 2 | Pending |
-| INVT-01 | Phase 2 | Complete |
+| PROD-01 | Phase 2 | Complete |
+| PROD-02 | Phase 2 | Pending |
+| PROD-03 | Phase 2 | Pending |
+| PROD-04 | Phase 2 | Complete |
+| PROD-05 | Phase 2 | Complete |
+| INVT-01 | Phase 2 | Pending |
 | INVT-02 | Phase 2 | Pending |
 | INVT-03 | Phase 2 | Pending |
 | INVT-04 | Phase 2 | Pending |
