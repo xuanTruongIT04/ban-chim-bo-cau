@@ -20,9 +20,9 @@ final class ProductController
         $qb = new QueryBuilder(ProductModel::query()->where('is_active', true), $request);
 
         $products = $qb
-            ->allowedFilters(['category_id'])
+            ->allowedFilters('category_id')
             ->defaultSort('name')
-            ->allowedSorts(['name', 'price_vnd', 'created_at'])
+            ->allowedSorts('name', 'price_vnd', 'created_at')
             ->with(['images' => fn ($q) => $q->where('is_primary', true)])
             ->paginate($request->integer('per_page', 20));
 
