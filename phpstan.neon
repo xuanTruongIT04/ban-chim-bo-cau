@@ -4,6 +4,7 @@ includes:
 parameters:
     paths:
         - app/
+        - database/factories/
     level: 6
     phpVersion: 80300
 
