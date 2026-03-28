@@ -70,13 +70,13 @@
 
 ### Kỹ thuật (TECH)
 
-- [ ] **TECH-01**: Clean Architecture: Domain / Application / Infrastructure / Presentation tách rõ ràng; Domain không phụ thuộc Laravel
-- [ ] **TECH-02**: API versioned tại `/api/v1/` từ ngày đầu
+- [x] **TECH-01**: Clean Architecture: Domain / Application / Infrastructure / Presentation tách rõ ràng; Domain không phụ thuộc Laravel
+- [x] **TECH-02**: API versioned tại `/api/v1/` từ ngày đầu
 - [ ] **TECH-03**: Tất cả API error trả về JSON envelope nhất quán (code, message, errors)
 - [ ] **TECH-04**: Validation messages, status labels, email notifications hoàn toàn bằng tiếng Việt
 - [ ] **TECH-05**: API documentation tự động qua Scribe
-- [ ] **TECH-06**: Test coverage cho PlaceOrderAction (concurrent oversell) và idempotency (duplicate order)
-- [ ] **TECH-07**: PHPStan level 6+ để enforce layer boundaries
+- [x] **TECH-06**: Test coverage cho PlaceOrderAction (concurrent oversell) và idempotency (duplicate order)
+- [x] **TECH-07**: PHPStan level 6+ để enforce layer boundaries
 
 ---
 
@@ -165,12 +165,12 @@
 | ADMN-02 | Phase 4 | Pending |
 | ADMN-03 | Phase 4 | Pending |
 | ADMN-04 | Phase 4 | Pending |
-| TECH-01 | Phase 1 | Pending |
-| TECH-02 | Phase 1 | Pending |
+| TECH-01 | Phase 1 | Complete (01-01) |
+| TECH-02 | Phase 1 | Complete (01-01) |
 | TECH-03 | Phase 1 | Pending |
 | TECH-04 | Phase 1 | Pending |
-| TECH-06 | Phase 1 | Pending |
-| TECH-07 | Phase 1 | Pending |
+| TECH-06 | Phase 1 | Complete (01-01, stubs) |
+| TECH-07 | Phase 1 | Complete (01-01) |
 
 **Coverage:**
 - v1 requirements: 43 total
@@ -179,4 +179,4 @@
 
 ---
 *Requirements defined: 2026-03-28*
-*Last updated: 2026-03-28 after roadmap creation — all 43 requirements mapped*
+*Last updated: 2026-03-28 after Plan 01-01 execution — TECH-01, TECH-02, TECH-06 (stubs), TECH-07 marked complete*

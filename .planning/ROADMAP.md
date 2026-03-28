@@ -33,7 +33,7 @@
 **Plans:** 2 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Project setup, Clean Architecture skeleton, PHPStan config, Wave 0 test stubs
+- [x] 01-01-PLAN.md — Project setup, Clean Architecture skeleton, PHPStan config, Wave 0 test stubs
 - [ ] 01-02-PLAN.md — Sanctum auth (login/logout), JSON error envelope, Vietnamese localization, real tests
 
 ---
@@ -96,7 +96,7 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/2 | Planned | - |
+| 1. Foundation | 1/2 | In Progress | - |
 | 2. Product & Inventory | 0/? | Not started | - |
 | 3. Orders, Cart & Payments | 0/? | Not started | - |
 | 4. Admin Operations & Docs | 0/? | Not started | - |
@@ -157,4 +157,4 @@ Plans:
 ---
 
 *Roadmap created: 2026-03-28*
-*Last updated: 2026-03-28 after Phase 1 planning*
+*Last updated: 2026-03-28 after Plan 01-01 execution (Laravel skeleton + PHPStan + Wave 0 test stubs)*
