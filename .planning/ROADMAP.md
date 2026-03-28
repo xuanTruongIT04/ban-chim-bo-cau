@@ -34,7 +34,7 @@
 
 Plans:
 - [x] 01-01-PLAN.md — Project setup, Clean Architecture skeleton, PHPStan config, Wave 0 test stubs
-- [ ] 01-02-PLAN.md — Sanctum auth (login/logout), JSON error envelope, Vietnamese localization, real tests
+- [x] 01-02-PLAN.md — Sanctum auth (login/logout), JSON error envelope, Vietnamese localization, real tests
 
 ---
 

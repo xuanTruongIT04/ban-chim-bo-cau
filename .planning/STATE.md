@@ -1,23 +1,23 @@
 # Execution State
 
 **Project:** Ban Chim Bồ Câu — Laravel Backend
-**Last session:** 2026-03-28T07:25:00Z
-**Stopped at:** Completed 01-01-PLAN.md
+**Last session:** 2026-03-28T07:38:00Z
+**Stopped at:** Completed 01-02-PLAN.md
 
 ---
 
 ## Position
 
 - **Current phase:** 01-foundation
-- **Current plan:** 01-02 (next to execute)
-- **Plans complete:** 1/2 in phase 01
-- **Overall progress:** 1 plan completed
+- **Current plan:** 01-02 (completed — phase 01 done)
+- **Plans complete:** 2/2 in phase 01
+- **Overall progress:** 2 plans completed
 
 ## Progress
 
 ```
-Phase 01: [##########..........] 1/2 plans
-Overall:  [####################] Phase 1 → 2 plans defined (1 done)
+Phase 01: [####################] 2/2 plans
+Overall:  [####################] Phase 1 → 2/2 plans done
 ```
 
 ## Decisions
@@ -26,6 +26,10 @@ Overall:  [####################] Phase 1 → 2 plans defined (1 done)
 - UserModel @use HasFactory<UserModelFactory> generic annotation — PHPStan level 6 requires explicit generics; @extends on non-generic parent is wrong
 - RepositoryServiceProvider bind commented out — EloquentAdminUserRepository not created until Plan 02; binding unresolvable class causes boot failure
 - ignoreErrors for #PHPDoc tag @var# removed from phpstan.neon — unused patterns cause PHPStan to error
+- redirectGuestsTo(null) in withMiddleware — pure API app has no web login route; prevents RouteNotFoundException on api/* auth failures
+- app('auth')->forgetGuards() between test requests for token revocation — auth guard caches user in-process; forgetGuards() resets cache to simulate real HTTP isolation
+- APP_LOCALE=vi added to .env.testing — test env needs locale set explicitly; without it tests use English locale
+- php -d memory_limit=512M for phpstan analyse — codebase exceeds 128M default; phpVersion: 80300 also added to phpstan.neon
 
 ## Blockers
 
@@ -36,6 +40,7 @@ None
 | Phase | Plan | Duration | Tasks | Files |
 |-------|------|----------|-------|-------|
 | 01-foundation | 01 | 28min | 2 | 75+ |
+| 01-foundation | 02 | 32min | 3 | 24+ |
 
 ---
 

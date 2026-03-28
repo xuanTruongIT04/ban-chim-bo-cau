@@ -7,10 +7,10 @@
 
 ### Authentication (AUTH)
 
-- [ ] **AUTH-01**: Admin (mẹ) có thể đăng nhập bằng email/password qua Sanctum
-- [ ] **AUTH-02**: Token admin có thời hạn hết hạn (không vĩnh viễn)
-- [ ] **AUTH-03**: Khách hàng mua hàng không cần tài khoản (anonymous cart với token)
-- [ ] **AUTH-04**: Admin có thể đăng xuất và hủy token
+- [x] **AUTH-01**: Admin (mẹ) có thể đăng nhập bằng email/password qua Sanctum
+- [x] **AUTH-02**: Token admin có thời hạn hết hạn (không vĩnh viễn)
+- [x] **AUTH-03**: Khách hàng mua hàng không cần tài khoản (anonymous cart với token)
+- [x] **AUTH-04**: Admin có thể đăng xuất và hủy token
 
 ### Sản phẩm & Danh mục (PROD)
 
@@ -72,8 +72,8 @@
 
 - [x] **TECH-01**: Clean Architecture: Domain / Application / Infrastructure / Presentation tách rõ ràng; Domain không phụ thuộc Laravel
 - [x] **TECH-02**: API versioned tại `/api/v1/` từ ngày đầu
-- [ ] **TECH-03**: Tất cả API error trả về JSON envelope nhất quán (code, message, errors)
-- [ ] **TECH-04**: Validation messages, status labels, email notifications hoàn toàn bằng tiếng Việt
+- [x] **TECH-03**: Tất cả API error trả về JSON envelope nhất quán (code, message, errors)
+- [x] **TECH-04**: Validation messages, status labels, email notifications hoàn toàn bằng tiếng Việt
 - [ ] **TECH-05**: API documentation tự động qua Scribe
 - [x] **TECH-06**: Test coverage cho PlaceOrderAction (concurrent oversell) và idempotency (duplicate order)
 - [x] **TECH-07**: PHPStan level 6+ để enforce layer boundaries
@@ -128,10 +128,10 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUTH-01 | Phase 1 | Pending |
-| AUTH-02 | Phase 1 | Pending |
-| AUTH-03 | Phase 1 | Pending |
-| AUTH-04 | Phase 1 | Pending |
+| AUTH-01 | Phase 1 | Complete |
+| AUTH-02 | Phase 1 | Complete |
+| AUTH-03 | Phase 1 | Complete |
+| AUTH-04 | Phase 1 | Complete |
 | PROD-01 | Phase 2 | Pending |
 | PROD-02 | Phase 2 | Pending |
 | PROD-03 | Phase 2 | Pending |
@@ -167,8 +167,8 @@
 | ADMN-04 | Phase 4 | Pending |
 | TECH-01 | Phase 1 | Complete (01-01) |
 | TECH-02 | Phase 1 | Complete (01-01) |
-| TECH-03 | Phase 1 | Pending |
-| TECH-04 | Phase 1 | Pending |
+| TECH-03 | Phase 1 | Complete |
+| TECH-04 | Phase 1 | Complete |
 | TECH-06 | Phase 1 | Complete (01-01, stubs) |
 | TECH-07 | Phase 1 | Complete (01-01) |
 
