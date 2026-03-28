@@ -1,8 +1,24 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+current_phase: 01-foundation
+current_plan: 01-02 (completed — phase 01 done)
+status: unknown
+stopped_at: Completed 02-01-PLAN.md — Category CRUD + Domain layer + Infrastructure
+last_updated: "2026-03-28T12:26:06.120Z"
+progress:
+  total_phases: 4
+  completed_phases: 1
+  total_plans: 6
+  completed_plans: 2
+---
+
 # Execution State
 
 **Project:** Ban Chim Bồ Câu — Laravel Backend
-**Last session:** 2026-03-28T11:25:00Z
-**Stopped at:** Completed quick task 260328-pl9 (fix login response structure)
+**Last session:** 2026-03-28T12:26:06.117Z
+**Stopped at:** Completed 02-01-PLAN.md — Category CRUD + Domain layer + Infrastructure
 
 ---
 
@@ -30,6 +46,9 @@ Overall:  [####################] Phase 1 → 2/2 plans done
 - app('auth')->forgetGuards() between test requests for token revocation — auth guard caches user in-process; forgetGuards() resets cache to simulate real HTTP isolation
 - APP_LOCALE=vi added to .env.testing — test env needs locale set explicitly; without it tests use English locale
 - php -d memory_limit=512M for phpstan analyse — codebase exceeds 128M default; phpVersion: 80300 also added to phpstan.neon
+- [Phase 02-product-inventory]: @property annotations on Eloquent models — larastan 3.x does not infer enum types from casts() method
+- [Phase 02-product-inventory]: @mixin CategoryModel on JsonResource — PHPStan property access through __get requires @mixin
+- [Phase 02-product-inventory]: database/factories/ added to phpstan.neon paths — factory classes outside app/ not scanned by default
 
 ## Blockers
 
@@ -51,3 +70,4 @@ None
 ---
 
 *State managed by GSD execute-phase workflow*
+| Phase 02-product-inventory P01 | 11min | 2 tasks | 46 files |
