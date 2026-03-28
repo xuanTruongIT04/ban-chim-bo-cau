@@ -27,10 +27,14 @@
   1. `POST /api/v1/admin/login` returns a Sanctum token; the token expires after a configured duration and is invalidated by `POST /api/v1/admin/logout`
   2. Any invalid request to any endpoint returns a JSON body with the shape `{ code, message, errors }` — never an HTML error page or unstructured JSON
   3. All validation error messages and status labels are in Vietnamese (e.g., "Trường này là bắt buộc")
-  4. `php artisan test` runs with Pest 3 and the test suite passes; `php artisan analyse` (PHPStan level 6) passes with zero Domain-layer Laravel imports flagged
+  4. `php artisan test` runs with Pest 4 and the test suite passes; `php artisan analyse` (PHPStan level 6) passes with zero Domain-layer Laravel imports flagged
   5. Guest requests to public endpoints do not require authentication; admin routes return 401 without a valid token
 
-**Plans:** TBD
+**Plans:** 2 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Project setup, Clean Architecture skeleton, PHPStan config, Wave 0 test stubs
+- [ ] 01-02-PLAN.md — Sanctum auth (login/logout), JSON error envelope, Vietnamese localization, real tests
 
 ---
 
@@ -92,7 +96,7 @@
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/? | Not started | - |
+| 1. Foundation | 0/2 | Planned | - |
 | 2. Product & Inventory | 0/? | Not started | - |
 | 3. Orders, Cart & Payments | 0/? | Not started | - |
 | 4. Admin Operations & Docs | 0/? | Not started | - |
@@ -153,4 +157,4 @@
 ---
 
 *Roadmap created: 2026-03-28*
-*Last updated: 2026-03-28 after initial creation*
+*Last updated: 2026-03-28 after Phase 1 planning*
