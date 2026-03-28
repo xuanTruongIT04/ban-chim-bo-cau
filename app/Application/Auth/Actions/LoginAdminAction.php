@@ -14,7 +14,10 @@ final class LoginAdminAction
         private readonly AdminUserRepositoryInterface $adminUsers,
     ) {}
 
-    public function handle(string $email, string $password): string
+    /**
+     * @return array{token: string, expires_at: string}
+     */
+    public function handle(string $email, string $password): array
     {
         $user = $this->adminUsers->findByEmail($email);
 

@@ -9,5 +9,9 @@ use App\Domain\Auth\Entities\AdminUser;
 interface AdminUserRepositoryInterface
 {
     public function findByEmail(string $email): ?AdminUser;
-    public function createToken(AdminUser $user): string;
+
+    /**
+     * @return array{token: string, expires_at: string}
+     */
+    public function createToken(AdminUser $user): array;
 }

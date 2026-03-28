@@ -22,14 +22,23 @@ final class EloquentAdminUserRepository implements AdminUserRepositoryInterface
         return UserMapper::toDomain($model);
     }
 
-    public function createToken(AdminUser $user): string
+    /**
+     * @return array{token: string, expires_at: string}
+     */
+    public function createToken(AdminUser $user): array
     {
         $model = UserModel::findOrFail($user->id);
+        $expiresAt = now()->addMinutes((int) config('sanctum.expiration', 43200));
 
-        return $model->createToken(
+        $newAccessToken = $model->createToken(
             name: 'admin-session',
             abilities: ['*'],
-            expiresAt: now()->addMinutes((int) config('sanctum.expiration', 43200)),
-        )->plainTextToken;
+            expiresAt: $expiresAt,
+        );
+
+        return [
+            'token'      => $newAccessToken->plainTextToken,
+            'expires_at' => $expiresAt->toIso8601String(),
+        ];
     }
 }
