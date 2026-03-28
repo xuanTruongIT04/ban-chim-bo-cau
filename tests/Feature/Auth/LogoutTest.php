@@ -27,7 +27,7 @@ describe('POST /api/v1/admin/logout', function () {
             'email'    => $user->email,
             'password' => 'secret1234',
         ]);
-        $token = $loginResponse->json('token');
+        $token = $loginResponse->json('data.token');
 
         // Logout with that token
         $this->withHeader('Authorization', "Bearer {$token}")
