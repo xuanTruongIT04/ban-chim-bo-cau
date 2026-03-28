@@ -5,20 +5,20 @@ milestone_name: milestone
 current_phase: 01-foundation
 current_plan: 01-02 (completed — phase 01 done)
 status: unknown
-stopped_at: Completed 02-01-PLAN.md — Category CRUD + Domain layer + Infrastructure
-last_updated: "2026-03-28T12:26:06.120Z"
+stopped_at: Completed 02-03-PLAN.md — stock adjustment endpoints
+last_updated: "2026-03-28T12:36:39.972Z"
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 6
-  completed_plans: 2
+  completed_plans: 4
 ---
 
 # Execution State
 
 **Project:** Ban Chim Bồ Câu — Laravel Backend
-**Last session:** 2026-03-28T12:26:06.117Z
-**Stopped at:** Completed 02-01-PLAN.md — Category CRUD + Domain layer + Infrastructure
+**Last session:** 2026-03-28T12:36:39.969Z
+**Stopped at:** Completed 02-03-PLAN.md — stock adjustment endpoints
 
 ---
 
@@ -49,6 +49,8 @@ Overall:  [####################] Phase 1 → 2/2 plans done
 - [Phase 02-product-inventory]: @property annotations on Eloquent models — larastan 3.x does not infer enum types from casts() method
 - [Phase 02-product-inventory]: @mixin CategoryModel on JsonResource — PHPStan property access through __get requires @mixin
 - [Phase 02-product-inventory]: database/factories/ added to phpstan.neon paths — factory classes outside app/ not scanned by default
+- [Phase 02-product-inventory]: EloquentStockAdjustmentRepository.create() passes created_at explicitly — timestamps=false means Eloquent doesn't auto-populate created_at on returned instance; now() ensures domain entity has valid createdAt
+- [Phase 02-product-inventory]: StockAdjustmentResource wraps domain entity directly — avoids second DB query to reload Eloquent model after adjustment is created
 
 ## Blockers
 
@@ -71,3 +73,4 @@ None
 
 *State managed by GSD execute-phase workflow*
 | Phase 02-product-inventory P01 | 11min | 2 tasks | 46 files |
+| Phase 02-product-inventory P03 | 15min | 2 tasks | 9 files |

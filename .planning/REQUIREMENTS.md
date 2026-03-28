@@ -23,9 +23,9 @@
 ### Tồn kho (INVT)
 
 - [x] **INVT-01**: Tồn kho lưu dạng DECIMAL(10,3) — hỗ trợ cả con (integer) và kg (thập phân)
-- [ ] **INVT-02**: Admin có thể điều chỉnh tồn kho thủ công (nhập thêm hàng, kiểm kê)
-- [ ] **INVT-03**: Hệ thống không bao giờ cho phép tồn kho xuống dưới 0
-- [ ] **INVT-04**: Admin có thể xem lịch sử điều chỉnh tồn kho (ai, bao nhiêu, khi nào)
+- [x] **INVT-02**: Admin có thể điều chỉnh tồn kho thủ công (nhập thêm hàng, kiểm kê)
+- [x] **INVT-03**: Hệ thống không bao giờ cho phép tồn kho xuống dưới 0
+- [x] **INVT-04**: Admin có thể xem lịch sử điều chỉnh tồn kho (ai, bao nhiêu, khi nào)
 
 ### Giỏ hàng (CART)
 
@@ -138,9 +138,9 @@
 | PROD-04 | Phase 2 | Pending |
 | PROD-05 | Phase 2 | Pending |
 | INVT-01 | Phase 2 | Complete |
-| INVT-02 | Phase 2 | Pending |
-| INVT-03 | Phase 2 | Pending |
-| INVT-04 | Phase 2 | Pending |
+| INVT-02 | Phase 2 | Complete |
+| INVT-03 | Phase 2 | Complete |
+| INVT-04 | Phase 2 | Complete |
 | CART-01 | Phase 3 | Pending |
 | CART-02 | Phase 3 | Pending |
 | CART-03 | Phase 3 | Pending |
