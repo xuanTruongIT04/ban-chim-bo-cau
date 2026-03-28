@@ -48,6 +48,30 @@ return Application::configure(basePath: dirname(__DIR__))
                     $e->getMessage(),
                     (object) [],
                 ],
+                $e instanceof \App\Domain\Product\Exceptions\InsufficientStockException => [
+                    422,
+                    'INSUFFICIENT_STOCK',
+                    $e->getMessage(),
+                    (object) [],
+                ],
+                $e instanceof \App\Domain\Product\Exceptions\CategoryDepthExceededException => [
+                    422,
+                    'CATEGORY_DEPTH_EXCEEDED',
+                    $e->getMessage(),
+                    (object) [],
+                ],
+                $e instanceof \App\Domain\Product\Exceptions\CategoryNotFoundException => [
+                    404,
+                    'CATEGORY_NOT_FOUND',
+                    $e->getMessage(),
+                    (object) [],
+                ],
+                $e instanceof \App\Domain\Product\Exceptions\ProductNotFoundException => [
+                    404,
+                    'PRODUCT_NOT_FOUND',
+                    $e->getMessage(),
+                    (object) [],
+                ],
                 $e instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException => [
                     404,
                     'NOT_FOUND',

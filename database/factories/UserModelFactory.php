@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
+/**
+ * @extends Factory<UserModel>
+ */
 final class UserModelFactory extends Factory
 {
     protected $model = UserModel::class;
