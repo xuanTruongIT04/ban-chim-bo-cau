@@ -16,9 +16,10 @@ describe('POST /api/v1/admin/login', function () {
         ]);
 
         $response->assertStatus(200)
-                 ->assertJsonStructure(['success', 'token'])
+                 ->assertJsonStructure(['success', 'data' => ['token', 'expires_at']])
                  ->assertJsonPath('success', true)
-                 ->assertJsonPath('token', fn ($v) => is_string($v) && strlen($v) > 10);
+                 ->assertJsonPath('data.token', fn ($v) => is_string($v) && strlen($v) > 10)
+                 ->assertJsonPath('data.expires_at', fn ($v) => is_string($v) && strlen($v) > 10);
     });
 
     it('returns 401 INVALID_CREDENTIALS envelope on wrong password (AUTH-01)', function () {

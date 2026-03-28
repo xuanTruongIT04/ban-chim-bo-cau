@@ -19,14 +19,17 @@ final class AuthController
 
     public function login(LoginRequest $request): JsonResponse
     {
-        $token = $this->loginAction->handle(
+        $tokenData = $this->loginAction->handle(
             email: $request->validated('email'),
             password: $request->validated('password'),
         );
 
         return response()->json([
             'success' => true,
-            'token'   => $token,
+            'data'    => [
+                'token'      => $tokenData['token'],
+                'expires_at' => $tokenData['expires_at'],
+            ],
         ], 200);
     }
 
