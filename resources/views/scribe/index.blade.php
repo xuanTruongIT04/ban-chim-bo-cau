@@ -373,7 +373,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"parent_id\": 16,
     \"description\": \"Et animi quos velit et fugiat.\",
     \"sort_order\": 42,
-    \"is_active\": false
+    \"is_active\": true
 }"
 </code></pre></div>
 
@@ -395,7 +395,7 @@ let body = {
     "parent_id": 16,
     "description": "Et animi quos velit et fugiat.",
     "sort_order": 42,
-    "is_active": false
+    "is_active": true
 };
 
 fetch(url, {
@@ -572,7 +572,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
         </form>
 
@@ -1689,9 +1689,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"name\": \"b\",
     \"description\": \"Et animi quos velit et fugiat.\",
     \"price_vnd\": 42,
-    \"unit_type\": \"kg\",
+    \"unit_type\": \"con\",
     \"category_id\": 16,
-    \"is_active\": true
+    \"is_active\": false
 }"
 </code></pre></div>
 
@@ -1711,9 +1711,9 @@ let body = {
     "name": "b",
     "description": "Et animi quos velit et fugiat.",
     "price_vnd": 42,
-    "unit_type": "kg",
+    "unit_type": "con",
     "category_id": 16,
-    "is_active": true
+    "is_active": false
 };
 
 fetch(url, {
@@ -1870,10 +1870,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="unit_type"                data-endpoint="PUTapi-v1-admin-products--id-"
-               value="kg"
+               value="con"
                data-component="body">
     <br>
-<p>Example: <code>kg</code></p>
+<p>Example: <code>con</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>con</code></li> <li><code>kg</code></li></ul>
         </div>
@@ -1909,7 +1909,7 @@ Must be one of:
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>true</code></p>
+<p>Example: <code>false</code></p>
         </div>
         </form>
 
@@ -2373,7 +2373,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Accept: application/json" \
     --data "{
     \"delta\": 4326.41688,
-    \"adjustment_type\": \"kiem_ke\",
+    \"adjustment_type\": \"nhap_hang\",
     \"note\": \"m\"
 }"
 </code></pre></div>
@@ -2392,7 +2392,7 @@ const headers = {
 
 let body = {
     "delta": 4326.41688,
-    "adjustment_type": "kiem_ke",
+    "adjustment_type": "nhap_hang",
     "note": "m"
 };
 
@@ -2522,10 +2522,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="adjustment_type"                data-endpoint="POSTapi-v1-admin-products--product_id--stock-adjustments"
-               value="kiem_ke"
+               value="nhap_hang"
                data-component="body">
     <br>
-<p>Example: <code>kiem_ke</code></p>
+<p>Example: <code>nhap_hang</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>nhap_hang</code></li> <li><code>kiem_ke</code></li> <li><code>hu_hong</code></li> <li><code>khac</code></li></ul>
         </div>
