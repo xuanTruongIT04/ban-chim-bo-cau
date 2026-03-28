@@ -51,8 +51,13 @@ Plans:
   4. Admin can record a manual stock adjustment (nhập thêm hàng, kiểm kê) and view the full adjustment history for any product showing who changed what and when
   5. Customer can list all active products and view the detail of a single product without authentication
 
-**Plans:** TBD
-**UI hint**: no
+**Plans:** 4 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Domain layer, migrations, infrastructure (models/mappers/repos), category CRUD, Wave 0 test stubs
+- [ ] 02-02-PLAN.md — Product admin CRUD + public product API (list with filter/pagination, detail)
+- [ ] 02-03-PLAN.md — Stock adjustment with DB::transaction + lockForUpdate, adjustment history
+- [ ] 02-04-PLAN.md — Product image gallery (S3 upload + auto-thumbnail via Intervention Image)
 
 ---
 
@@ -96,8 +101,8 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 1/2 | In Progress | - |
-| 2. Product & Inventory | 0/? | Not started | - |
+| 1. Foundation | 2/2 | Complete | 2026-03-28 |
+| 2. Product & Inventory | 0/4 | Planned | - |
 | 3. Orders, Cart & Payments | 0/? | Not started | - |
 | 4. Admin Operations & Docs | 0/? | Not started | - |
 
@@ -157,4 +162,4 @@ Plans:
 ---
 
 *Roadmap created: 2026-03-28*
-*Last updated: 2026-03-28 after Plan 01-01 execution (Laravel skeleton + PHPStan + Wave 0 test stubs)*
+*Last updated: 2026-03-28 after Phase 2 planning (4 plans created)*
