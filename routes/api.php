@@ -17,6 +17,8 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
 
         Route::apiResource('categories', CategoryController::class);
 
+        Route::get('products/{product}/stock-adjustments', [StockAdjustmentController::class, 'index'])
+            ->name('products.stock-adjustments.index');
         Route::post('products/{product}/stock-adjustments', [StockAdjustmentController::class, 'store'])
             ->name('products.stock-adjustments.store');
     });
