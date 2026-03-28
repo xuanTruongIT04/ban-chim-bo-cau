@@ -1,6 +1,7 @@
 <?php
 
 use App\Presentation\Http\Controllers\Admin\CategoryController;
+use App\Presentation\Http\Controllers\Admin\StockAdjustmentController;
 use App\Presentation\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,9 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
             ->name('auth.logout');
 
         Route::apiResource('categories', CategoryController::class);
+
+        Route::post('products/{product}/stock-adjustments', [StockAdjustmentController::class, 'store'])
+            ->name('products.stock-adjustments.store');
     });
 
     // Public customer routes (future phases) — AUTH-03
