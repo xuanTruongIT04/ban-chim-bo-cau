@@ -2,6 +2,7 @@
 
 use App\Presentation\Http\Controllers\Admin\CategoryController;
 use App\Presentation\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Presentation\Http\Controllers\Admin\StockAdjustmentController;
 use App\Presentation\Http\Controllers\Auth\AuthController;
 use App\Presentation\Http\Controllers\Public\ProductController as PublicProductController;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,11 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
         Route::apiResource('products', AdminProductController::class);
         Route::patch('products/{product}/toggle-active', [AdminProductController::class, 'toggleActive'])
             ->name('products.toggle-active');
+
+        Route::get('products/{product}/stock-adjustments', [StockAdjustmentController::class, 'index'])
+            ->name('products.stock-adjustments.index');
+        Route::post('products/{product}/stock-adjustments', [StockAdjustmentController::class, 'store'])
+            ->name('products.stock-adjustments.store');
     });
 
     // Public customer routes — AUTH-03, PROD-01, PROD-05

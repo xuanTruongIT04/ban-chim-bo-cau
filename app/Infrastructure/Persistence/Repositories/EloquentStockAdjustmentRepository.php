@@ -22,6 +22,7 @@ final class EloquentStockAdjustmentRepository implements StockAdjustmentReposito
             'note'            => $note,
             'stock_before'    => $stockBefore,
             'stock_after'     => $stockAfter,
+            'created_at'      => now(),
         ]);
 
         return StockAdjustmentMapper::toDomain($model);
