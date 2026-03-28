@@ -2,6 +2,7 @@
 
 use App\Presentation\Http\Controllers\Admin\CategoryController;
 use App\Presentation\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Presentation\Http\Controllers\Admin\ProductImageController;
 use App\Presentation\Http\Controllers\Admin\StockAdjustmentController;
 use App\Presentation\Http\Controllers\Auth\AuthController;
 use App\Presentation\Http\Controllers\Public\ProductController as PublicProductController;
@@ -27,6 +28,13 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
             ->name('products.stock-adjustments.index');
         Route::post('products/{product}/stock-adjustments', [StockAdjustmentController::class, 'store'])
             ->name('products.stock-adjustments.store');
+
+        Route::post('products/{product}/images', [ProductImageController::class, 'store'])
+            ->name('products.images.store');
+        Route::patch('products/{product}/images/{image}/primary', [ProductImageController::class, 'setPrimary'])
+            ->name('products.images.set-primary');
+        Route::delete('products/{product}/images/{image}', [ProductImageController::class, 'destroy'])
+            ->name('products.images.destroy');
     });
 
     // Public customer routes — AUTH-03, PROD-01, PROD-05
