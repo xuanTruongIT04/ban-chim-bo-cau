@@ -2,38 +2,39 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_phase: 01-foundation
-current_plan: 01-02 (completed — phase 01 done)
-status: unknown
-stopped_at: Completed 02-03-PLAN.md — stock adjustment endpoints
-last_updated: "2026-03-28T12:36:39.972Z"
+current_phase: 02-product-inventory
+current_plan: 02-04 (completed — phase 02 done)
+status: in_progress
+stopped_at: Completed 02-04-PLAN.md — product image management
+last_updated: "2026-03-28T12:55:00.000Z"
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 6
-  completed_plans: 4
+  completed_plans: 5
 ---
 
 # Execution State
 
 **Project:** Ban Chim Bồ Câu — Laravel Backend
-**Last session:** 2026-03-28T12:36:39.969Z
-**Stopped at:** Completed 02-03-PLAN.md — stock adjustment endpoints
+**Last session:** 2026-03-28T12:55:00.000Z
+**Stopped at:** Completed 02-04-PLAN.md — product image management
 
 ---
 
 ## Position
 
-- **Current phase:** 01-foundation
-- **Current plan:** 01-02 (completed — phase 01 done)
-- **Plans complete:** 2/2 in phase 01
-- **Overall progress:** 2 plans completed
+- **Current phase:** 02-product-inventory
+- **Current plan:** 02-04 (completed — phase 02 done)
+- **Plans complete:** 4/4 in phase 02
+- **Overall progress:** 5 plans completed (phase 01 + phase 02)
 
 ## Progress
 
 ```
 Phase 01: [####################] 2/2 plans
-Overall:  [####################] Phase 1 → 2/2 plans done
+Phase 02: [####################] 4/4 plans
+Overall:  [################----] Phase 1-2 complete → 5/6 plans done
 ```
 
 ## Decisions
@@ -51,6 +52,9 @@ Overall:  [####################] Phase 1 → 2/2 plans done
 - [Phase 02-product-inventory]: database/factories/ added to phpstan.neon paths — factory classes outside app/ not scanned by default
 - [Phase 02-product-inventory]: EloquentStockAdjustmentRepository.create() passes created_at explicitly — timestamps=false means Eloquent doesn't auto-populate created_at on returned instance; now() ensures domain entity has valid createdAt
 - [Phase 02-product-inventory]: StockAdjustmentResource wraps domain entity directly — avoids second DB query to reload Eloquent model after adjustment is created
+- [02-04]: Intervention Image 3.x uses read() not make() — v2 API make() does not exist in 3.x
+- [02-04]: UploadProductImageAction returns ProductImageModel — acceptable for Application layer feeding directly into Presentation resources without extra mapping
+- [02-04]: Auto-promote next image when primary deleted — prevents product having images but no primary
 
 ## Blockers
 
@@ -72,5 +76,6 @@ None
 ---
 
 *State managed by GSD execute-phase workflow*
-| Phase 02-product-inventory P01 | 11min | 2 tasks | 46 files |
-| Phase 02-product-inventory P03 | 15min | 2 tasks | 9 files |
+| 02-product-inventory | 01 | 11min | 2 | 46+ |
+| 02-product-inventory | 03 | 15min | 2 | 9+ |
+| 02-product-inventory | 04 | 18min | 1 | 7 |
