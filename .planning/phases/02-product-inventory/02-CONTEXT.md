@@ -37,7 +37,7 @@ Không bao gồm: giỏ hàng, đặt hàng, trừ tồn kho khi mua (Phase 3).
 
 ### API sản phẩm công khai
 
-- **D-12:** Public API không trả về số lượng tồn kho cụ thể — chỉ trả về `in_stock: true/false` (true nếu stock > 0)
+- **D-12:** Public API  trả về số lượng tồn kho cụ thể để show lên cho người dùng xem
 - **D-13:** Public product list hỗ trợ filter theo `category_id`. Sort mặc định theo tên. Pagination chuẩn (per_page mặc định 20)
 - **D-14:** Public API chỉ trả về sản phẩm có `is_active = true`
 
