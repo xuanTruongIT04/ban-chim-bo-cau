@@ -1,4 +1,4 @@
-<?php
+file<?php
 
 return [
 
@@ -41,13 +41,20 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
+            'url' => rtrim(env('APP_URL', 'http://127.0.0.1:8000'), '/').'/storage',
             'visibility' => 'public',
             'throw' => false,
             'report' => false,
         ],
 
-        's3' => [
+        's3' => env('FILESYSTEM_S3_DRIVER', 's3') === 'local' ? [
+            'driver' => 'local',
+            'root' => storage_path('app/public/s3'),
+            'url' => rtrim(env('APP_URL', 'http://127.0.0.1:8000'), '/').'/storage/s3',
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ] : [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
             'secret' => env('AWS_SECRET_ACCESS_KEY'),
