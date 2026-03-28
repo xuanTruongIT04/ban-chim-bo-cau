@@ -1,0 +1,1274 @@
+openapi: 3.0.3
+info:
+  title: 'Ban Chim Bồ Câu — API Documentation'
+  description: 'Backend API cho hệ thống bán gia cầm & thú nuôi. Hỗ trợ quản lý sản phẩm, tồn kho, đơn hàng.'
+  version: 1.0.0
+servers:
+  -
+    url: 'http://127.0.0.1:8000'
+tags:
+  -
+    name: 'Admin > Danh mục'
+    description: "\nQuản lý danh mục sản phẩm (max 2 cấp)"
+  -
+    name: 'Admin > Sản phẩm'
+    description: "\nCRUD sản phẩm và toggle trạng thái active"
+  -
+    name: 'Admin > Tồn kho'
+    description: "\nĐiều chỉnh tồn kho và xem lịch sử thay đổi"
+  -
+    name: 'Admin > Ảnh sản phẩm'
+    description: "\nUpload, đặt ảnh chính, xóa ảnh sản phẩm (lưu trên S3)"
+  -
+    name: Auth
+    description: "\nXác thực admin (Sanctum token)"
+  -
+    name: 'Public > Sản phẩm'
+    description: "\nXem danh sách và chi tiết sản phẩm (không cần đăng nhập)"
+components:
+  securitySchemes:
+    default:
+      type: http
+      scheme: bearer
+      description: 'Gửi `POST /api/v1/admin/login` với `email` và `password` để nhận token. Thêm header `Authorization: Bearer {token}` cho các admin endpoint. Public endpoint không cần token.'
+security:
+  -
+    default: []
+paths:
+  /api/v1/admin/categories:
+    get:
+      summary: ''
+      operationId: getApiV1AdminCategories
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  code: UNAUTHENTICATED
+                  message: 'Bạn chưa đăng nhập.'
+                  errors: {  }
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  code:
+                    type: string
+                    example: UNAUTHENTICATED
+                  message:
+                    type: string
+                    example: 'Bạn chưa đăng nhập.'
+                  errors:
+                    type: object
+                    properties: {  }
+      tags:
+        - 'Admin > Danh mục'
+    post:
+      summary: ''
+      operationId: postApiV1AdminCategories
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Admin > Danh mục'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'value không được vượt quá 255 ký tự.'
+                  example: b
+                slug:
+                  type: string
+                  description: 'Must match the regex /^[a-z0-9]+(?:-[a-z0-9]+)*$/. value không được vượt quá 255 ký tự.'
+                  example: 'n'
+                parent_id:
+                  type: integer
+                  description: 'The <code>id</code> of an existing record in the categories table.'
+                  example: 16
+                  nullable: true
+                description:
+                  type: string
+                  description: 'value không được vượt quá 1000 ký tự.'
+                  example: 'Et animi quos velit et fugiat.'
+                  nullable: true
+                sort_order:
+                  type: integer
+                  description: 'value phải tối thiểu 0.'
+                  example: 42
+                is_active:
+                  type: boolean
+                  description: ''
+                  example: false
+              required:
+                - name
+                - slug
+  '/api/v1/admin/categories/{id}':
+    get:
+      summary: ''
+      operationId: getApiV1AdminCategoriesId
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  code: UNAUTHENTICATED
+                  message: 'Bạn chưa đăng nhập.'
+                  errors: {  }
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  code:
+                    type: string
+                    example: UNAUTHENTICATED
+                  message:
+                    type: string
+                    example: 'Bạn chưa đăng nhập.'
+                  errors:
+                    type: object
+                    properties: {  }
+      tags:
+        - 'Admin > Danh mục'
+    put:
+      summary: ''
+      operationId: putApiV1AdminCategoriesId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Admin > Danh mục'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'value không được vượt quá 255 ký tự.'
+                  example: b
+                slug:
+                  type: string
+                  description: 'Must match the regex /^[a-z0-9]+(?:-[a-z0-9]+)*$/. value không được vượt quá 255 ký tự.'
+                  example: 'n'
+                parent_id:
+                  type: integer
+                  description: 'The <code>id</code> of an existing record in the categories table.'
+                  example: 16
+                  nullable: true
+                description:
+                  type: string
+                  description: 'value không được vượt quá 1000 ký tự.'
+                  example: 'Et animi quos velit et fugiat.'
+                  nullable: true
+                sort_order:
+                  type: integer
+                  description: 'value phải tối thiểu 0.'
+                  example: 42
+                is_active:
+                  type: boolean
+                  description: ''
+                  example: true
+              required:
+                - name
+                - slug
+    delete:
+      summary: ''
+      operationId: deleteApiV1AdminCategoriesId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Admin > Danh mục'
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the category.'
+        example: architecto
+        required: true
+        schema:
+          type: string
+  /api/v1/admin/products:
+    get:
+      summary: ''
+      operationId: getApiV1AdminProducts
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  code: UNAUTHENTICATED
+                  message: 'Bạn chưa đăng nhập.'
+                  errors: {  }
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  code:
+                    type: string
+                    example: UNAUTHENTICATED
+                  message:
+                    type: string
+                    example: 'Bạn chưa đăng nhập.'
+                  errors:
+                    type: object
+                    properties: {  }
+      tags:
+        - 'Admin > Sản phẩm'
+    post:
+      summary: ''
+      operationId: postApiV1AdminProducts
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Admin > Sản phẩm'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'value không được vượt quá 255 ký tự.'
+                  example: b
+                description:
+                  type: string
+                  description: 'value không được vượt quá 5000 ký tự.'
+                  example: 'Et animi quos velit et fugiat.'
+                  nullable: true
+                price_vnd:
+                  type: integer
+                  description: 'value phải tối thiểu 0.'
+                  example: 42
+                unit_type:
+                  type: string
+                  description: ''
+                  example: con
+                  enum:
+                    - con
+                    - kg
+                category_id:
+                  type: integer
+                  description: 'The <code>id</code> of an existing record in the categories table.'
+                  example: 16
+                stock_quantity:
+                  type: number
+                  description: 'value phải tối thiểu 0.'
+                  example: 39
+                is_active:
+                  type: boolean
+                  description: ''
+                  example: false
+              required:
+                - name
+                - price_vnd
+                - unit_type
+                - category_id
+  '/api/v1/admin/products/{id}':
+    get:
+      summary: ''
+      operationId: getApiV1AdminProductsId
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  code: UNAUTHENTICATED
+                  message: 'Bạn chưa đăng nhập.'
+                  errors: {  }
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  code:
+                    type: string
+                    example: UNAUTHENTICATED
+                  message:
+                    type: string
+                    example: 'Bạn chưa đăng nhập.'
+                  errors:
+                    type: object
+                    properties: {  }
+      tags:
+        - 'Admin > Sản phẩm'
+    put:
+      summary: ''
+      operationId: putApiV1AdminProductsId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Admin > Sản phẩm'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'value không được vượt quá 255 ký tự.'
+                  example: b
+                description:
+                  type: string
+                  description: 'value không được vượt quá 5000 ký tự.'
+                  example: 'Et animi quos velit et fugiat.'
+                  nullable: true
+                price_vnd:
+                  type: integer
+                  description: 'value phải tối thiểu 0.'
+                  example: 42
+                unit_type:
+                  type: string
+                  description: ''
+                  example: kg
+                  enum:
+                    - con
+                    - kg
+                category_id:
+                  type: integer
+                  description: 'The <code>id</code> of an existing record in the categories table.'
+                  example: 16
+                is_active:
+                  type: boolean
+                  description: ''
+                  example: true
+              required:
+                - name
+    delete:
+      summary: ''
+      operationId: deleteApiV1AdminProductsId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Admin > Sản phẩm'
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the product.'
+        example: architecto
+        required: true
+        schema:
+          type: string
+  '/api/v1/admin/products/{product}/toggle-active':
+    patch:
+      summary: ''
+      operationId: patchApiV1AdminProductsProductToggleActive
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Admin > Sản phẩm'
+    parameters:
+      -
+        in: path
+        name: product
+        description: 'The product.'
+        example: architecto
+        required: true
+        schema:
+          type: string
+  '/api/v1/admin/products/{product_id}/stock-adjustments':
+    get:
+      summary: ''
+      operationId: getApiV1AdminProductsProduct_idStockAdjustments
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  code: UNAUTHENTICATED
+                  message: 'Bạn chưa đăng nhập.'
+                  errors: {  }
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  code:
+                    type: string
+                    example: UNAUTHENTICATED
+                  message:
+                    type: string
+                    example: 'Bạn chưa đăng nhập.'
+                  errors:
+                    type: object
+                    properties: {  }
+      tags:
+        - 'Admin > Tồn kho'
+    post:
+      summary: ''
+      operationId: postApiV1AdminProductsProduct_idStockAdjustments
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Admin > Tồn kho'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                delta:
+                  type: number
+                  description: ''
+                  example: 4326.41688
+                adjustment_type:
+                  type: string
+                  description: ''
+                  example: kiem_ke
+                  enum:
+                    - nhap_hang
+                    - kiem_ke
+                    - hu_hong
+                    - khac
+                note:
+                  type: string
+                  description: 'value không được vượt quá 1000 ký tự.'
+                  example: m
+                  nullable: true
+              required:
+                - delta
+                - adjustment_type
+    parameters:
+      -
+        in: path
+        name: product_id
+        description: 'The ID of the product.'
+        example: architecto
+        required: true
+        schema:
+          type: string
+  '/api/v1/admin/products/{product}/images/{image}/primary':
+    patch:
+      summary: ''
+      operationId: patchApiV1AdminProductsProductImagesImagePrimary
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Admin > Ảnh sản phẩm'
+    parameters:
+      -
+        in: path
+        name: product
+        description: 'The product.'
+        example: architecto
+        required: true
+        schema:
+          type: string
+      -
+        in: path
+        name: image
+        description: 'The image.'
+        example: architecto
+        required: true
+        schema:
+          type: string
+  '/api/v1/admin/products/{product_id}/images/{id}':
+    delete:
+      summary: ''
+      operationId: deleteApiV1AdminProductsProduct_idImagesId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Admin > Ảnh sản phẩm'
+    parameters:
+      -
+        in: path
+        name: product_id
+        description: 'The ID of the product.'
+        example: architecto
+        required: true
+        schema:
+          type: string
+      -
+        in: path
+        name: id
+        description: 'The ID of the image.'
+        example: architecto
+        required: true
+        schema:
+          type: string
+  /api/v1/admin/login:
+    post:
+      summary: 'Đăng nhập admin'
+      operationId: ngNhpAdmin
+      description: 'Trả về Sanctum token để sử dụng cho các admin endpoint.'
+      parameters: []
+      responses: {  }
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'value phải là địa chỉ email hợp lệ.'
+                  example: gbailey@example.net
+                password:
+                  type: string
+                  description: 'value phải có ít nhất 8 ký tự.'
+                  example: '+-0pBNvYgxwmi/#iw'
+              required:
+                - email
+                - password
+      security: []
+  /api/v1/admin/logout:
+    post:
+      summary: ''
+      operationId: postApiV1AdminLogout
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Auth
+  /api/v1/products:
+    get:
+      summary: ''
+      operationId: getApiV1Products
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 13
+                      name: 'Product 10'
+                      description: null
+                      price_vnd: 840000
+                      unit_type: con
+                      category_id: 4
+                      stock_quantity: '0.000'
+                      is_active: true
+                      primary_image: null
+                      created_at: '2026-03-28T15:13:58.000000Z'
+                      updated_at: '2026-03-28T15:13:58.000000Z'
+                    -
+                      id: 14
+                      name: 'Product 11'
+                      description: null
+                      price_vnd: 440000
+                      unit_type: con
+                      category_id: 2
+                      stock_quantity: '0.000'
+                      is_active: true
+                      primary_image: null
+                      created_at: '2026-03-28T15:14:07.000000Z'
+                      updated_at: '2026-03-28T15:14:07.000000Z'
+                    -
+                      id: 15
+                      name: 'Product 12'
+                      description: null
+                      price_vnd: 410000
+                      unit_type: con
+                      category_id: 3
+                      stock_quantity: '0.000'
+                      is_active: true
+                      primary_image: null
+                      created_at: '2026-03-28T15:14:16.000000Z'
+                      updated_at: '2026-03-28T15:14:16.000000Z'
+                    -
+                      id: 16
+                      name: 'Product 13'
+                      description: null
+                      price_vnd: 510000
+                      unit_type: con
+                      category_id: 4
+                      stock_quantity: '0.000'
+                      is_active: true
+                      primary_image: null
+                      created_at: '2026-03-28T15:14:24.000000Z'
+                      updated_at: '2026-03-28T15:14:24.000000Z'
+                    -
+                      id: 17
+                      name: 'Product 14'
+                      description: null
+                      price_vnd: 610000
+                      unit_type: con
+                      category_id: 2
+                      stock_quantity: '0.000'
+                      is_active: true
+                      primary_image: null
+                      created_at: '2026-03-28T15:14:31.000000Z'
+                      updated_at: '2026-03-28T15:14:31.000000Z'
+                    -
+                      id: 18
+                      name: 'Product 15'
+                      description: null
+                      price_vnd: 710000
+                      unit_type: con
+                      category_id: 3
+                      stock_quantity: '0.000'
+                      is_active: true
+                      primary_image: null
+                      created_at: '2026-03-28T15:14:35.000000Z'
+                      updated_at: '2026-03-28T15:14:35.000000Z'
+                    -
+                      id: 19
+                      name: 'Product 16'
+                      description: null
+                      price_vnd: 810000
+                      unit_type: con
+                      category_id: 4
+                      stock_quantity: '0.000'
+                      is_active: true
+                      primary_image: null
+                      created_at: '2026-03-28T15:14:42.000000Z'
+                      updated_at: '2026-03-28T15:14:42.000000Z'
+                    -
+                      id: 20
+                      name: 'Product 18'
+                      description: null
+                      price_vnd: 110000
+                      unit_type: con
+                      category_id: 2
+                      stock_quantity: '0.000'
+                      is_active: true
+                      primary_image: null
+                      created_at: '2026-03-28T15:14:52.000000Z'
+                      updated_at: '2026-03-28T15:14:52.000000Z'
+                    -
+                      id: 21
+                      name: 'Product 19'
+                      description: null
+                      price_vnd: 85000
+                      unit_type: con
+                      category_id: 3
+                      stock_quantity: '0.000'
+                      is_active: true
+                      primary_image: null
+                      created_at: '2026-03-28T15:15:00.000000Z'
+                      updated_at: '2026-03-28T15:15:00.000000Z'
+                    -
+                      id: 3
+                      name: 'Product 2'
+                      description: null
+                      price_vnd: 43000
+                      unit_type: con
+                      category_id: 3
+                      stock_quantity: '1.000'
+                      is_active: true
+                      primary_image:
+                        url: 'http://127.0.0.1:8000/storage/s3/products/3/94b5bee6-2ccb-417b-9a01-704d1603fa0e.jpg'
+                        thumbnail_url: 'http://127.0.0.1:8000/storage/s3/products/3/thumb_94b5bee6-2ccb-417b-9a01-704d1603fa0e.jpg'
+                      created_at: '2026-03-28T15:11:52.000000Z'
+                      updated_at: '2026-03-28T15:32:56.000000Z'
+                    -
+                      id: 22
+                      name: 'Product 20'
+                      description: null
+                      price_vnd: 89000
+                      unit_type: con
+                      category_id: 4
+                      stock_quantity: '0.000'
+                      is_active: true
+                      primary_image: null
+                      created_at: '2026-03-28T15:15:07.000000Z'
+                      updated_at: '2026-03-28T15:15:07.000000Z'
+                    -
+                      id: 23
+                      name: 'Product 21'
+                      description: null
+                      price_vnd: 87000
+                      unit_type: con
+                      category_id: 2
+                      stock_quantity: '0.000'
+                      is_active: true
+                      primary_image: null
+                      created_at: '2026-03-28T15:15:18.000000Z'
+                      updated_at: '2026-03-28T15:15:18.000000Z'
+                    -
+                      id: 4
+                      name: 'Product 3'
+                      description: null
+                      price_vnd: 45000
+                      unit_type: con
+                      category_id: 4
+                      stock_quantity: '0.000'
+                      is_active: true
+                      primary_image: null
+                      created_at: '2026-03-28T15:12:03.000000Z'
+                      updated_at: '2026-03-28T15:12:03.000000Z'
+                    -
+                      id: 5
+                      name: 'Product 4'
+                      description: null
+                      price_vnd: 47000
+                      unit_type: con
+                      category_id: 2
+                      stock_quantity: '0.000'
+                      is_active: true
+                      primary_image: null
+                      created_at: '2026-03-28T15:12:18.000000Z'
+                      updated_at: '2026-03-28T15:12:18.000000Z'
+                    -
+                      id: 6
+                      name: 'Product 4'
+                      description: null
+                      price_vnd: 47000
+                      unit_type: con
+                      category_id: 2
+                      stock_quantity: '0.000'
+                      is_active: true
+                      primary_image: null
+                      created_at: '2026-03-28T15:12:52.000000Z'
+                      updated_at: '2026-03-28T15:12:52.000000Z'
+                    -
+                      id: 7
+                      name: 'Product 5'
+                      description: null
+                      price_vnd: 57000
+                      unit_type: con
+                      category_id: 2
+                      stock_quantity: '0.000'
+                      is_active: true
+                      primary_image: null
+                      created_at: '2026-03-28T15:13:05.000000Z'
+                      updated_at: '2026-03-28T15:13:05.000000Z'
+                    -
+                      id: 8
+                      name: 'Product 6'
+                      description: null
+                      price_vnd: 120000
+                      unit_type: con
+                      category_id: 3
+                      stock_quantity: '0.000'
+                      is_active: true
+                      primary_image: null
+                      created_at: '2026-03-28T15:13:13.000000Z'
+                      updated_at: '2026-03-28T15:13:13.000000Z'
+                    -
+                      id: 9
+                      name: 'Product 6'
+                      description: null
+                      price_vnd: 110000
+                      unit_type: con
+                      category_id: 4
+                      stock_quantity: '0.000'
+                      is_active: true
+                      primary_image: null
+                      created_at: '2026-03-28T15:13:21.000000Z'
+                      updated_at: '2026-03-28T15:13:21.000000Z'
+                    -
+                      id: 10
+                      name: 'Product 7'
+                      description: null
+                      price_vnd: 990000
+                      unit_type: con
+                      category_id: 2
+                      stock_quantity: '0.000'
+                      is_active: true
+                      primary_image: null
+                      created_at: '2026-03-28T15:13:32.000000Z'
+                      updated_at: '2026-03-28T15:13:32.000000Z'
+                    -
+                      id: 11
+                      name: 'Product 8'
+                      description: null
+                      price_vnd: 880000
+                      unit_type: con
+                      category_id: 3
+                      stock_quantity: '0.000'
+                      is_active: true
+                      primary_image: null
+                      created_at: '2026-03-28T15:13:39.000000Z'
+                      updated_at: '2026-03-28T15:13:39.000000Z'
+                  links:
+                    first: 'http://127.0.0.1:8000/api/v1/products?page=1'
+                    last: 'http://127.0.0.1:8000/api/v1/products?page=2'
+                    prev: null
+                    next: 'http://127.0.0.1:8000/api/v1/products?page=2'
+                  meta:
+                    current_page: 1
+                    from: 1
+                    last_page: 2
+                    links:
+                      -
+                        url: null
+                        label: '&laquo; Previous'
+                        page: null
+                        active: false
+                      -
+                        url: 'http://127.0.0.1:8000/api/v1/products?page=1'
+                        label: '1'
+                        page: 1
+                        active: true
+                      -
+                        url: 'http://127.0.0.1:8000/api/v1/products?page=2'
+                        label: '2'
+                        page: 2
+                        active: false
+                      -
+                        url: 'http://127.0.0.1:8000/api/v1/products?page=2'
+                        label: 'Next &raquo;'
+                        page: 2
+                        active: false
+                    path: 'http://127.0.0.1:8000/api/v1/products'
+                    per_page: 20
+                    to: 20
+                    total: 21
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 13
+                        name: 'Product 10'
+                        description: null
+                        price_vnd: 840000
+                        unit_type: con
+                        category_id: 4
+                        stock_quantity: '0.000'
+                        is_active: true
+                        primary_image: null
+                        created_at: '2026-03-28T15:13:58.000000Z'
+                        updated_at: '2026-03-28T15:13:58.000000Z'
+                      -
+                        id: 14
+                        name: 'Product 11'
+                        description: null
+                        price_vnd: 440000
+                        unit_type: con
+                        category_id: 2
+                        stock_quantity: '0.000'
+                        is_active: true
+                        primary_image: null
+                        created_at: '2026-03-28T15:14:07.000000Z'
+                        updated_at: '2026-03-28T15:14:07.000000Z'
+                      -
+                        id: 15
+                        name: 'Product 12'
+                        description: null
+                        price_vnd: 410000
+                        unit_type: con
+                        category_id: 3
+                        stock_quantity: '0.000'
+                        is_active: true
+                        primary_image: null
+                        created_at: '2026-03-28T15:14:16.000000Z'
+                        updated_at: '2026-03-28T15:14:16.000000Z'
+                      -
+                        id: 16
+                        name: 'Product 13'
+                        description: null
+                        price_vnd: 510000
+                        unit_type: con
+                        category_id: 4
+                        stock_quantity: '0.000'
+                        is_active: true
+                        primary_image: null
+                        created_at: '2026-03-28T15:14:24.000000Z'
+                        updated_at: '2026-03-28T15:14:24.000000Z'
+                      -
+                        id: 17
+                        name: 'Product 14'
+                        description: null
+                        price_vnd: 610000
+                        unit_type: con
+                        category_id: 2
+                        stock_quantity: '0.000'
+                        is_active: true
+                        primary_image: null
+                        created_at: '2026-03-28T15:14:31.000000Z'
+                        updated_at: '2026-03-28T15:14:31.000000Z'
+                      -
+                        id: 18
+                        name: 'Product 15'
+                        description: null
+                        price_vnd: 710000
+                        unit_type: con
+                        category_id: 3
+                        stock_quantity: '0.000'
+                        is_active: true
+                        primary_image: null
+                        created_at: '2026-03-28T15:14:35.000000Z'
+                        updated_at: '2026-03-28T15:14:35.000000Z'
+                      -
+                        id: 19
+                        name: 'Product 16'
+                        description: null
+                        price_vnd: 810000
+                        unit_type: con
+                        category_id: 4
+                        stock_quantity: '0.000'
+                        is_active: true
+                        primary_image: null
+                        created_at: '2026-03-28T15:14:42.000000Z'
+                        updated_at: '2026-03-28T15:14:42.000000Z'
+                      -
+                        id: 20
+                        name: 'Product 18'
+                        description: null
+                        price_vnd: 110000
+                        unit_type: con
+                        category_id: 2
+                        stock_quantity: '0.000'
+                        is_active: true
+                        primary_image: null
+                        created_at: '2026-03-28T15:14:52.000000Z'
+                        updated_at: '2026-03-28T15:14:52.000000Z'
+                      -
+                        id: 21
+                        name: 'Product 19'
+                        description: null
+                        price_vnd: 85000
+                        unit_type: con
+                        category_id: 3
+                        stock_quantity: '0.000'
+                        is_active: true
+                        primary_image: null
+                        created_at: '2026-03-28T15:15:00.000000Z'
+                        updated_at: '2026-03-28T15:15:00.000000Z'
+                      -
+                        id: 3
+                        name: 'Product 2'
+                        description: null
+                        price_vnd: 43000
+                        unit_type: con
+                        category_id: 3
+                        stock_quantity: '1.000'
+                        is_active: true
+                        primary_image:
+                          url: 'http://127.0.0.1:8000/storage/s3/products/3/94b5bee6-2ccb-417b-9a01-704d1603fa0e.jpg'
+                          thumbnail_url: 'http://127.0.0.1:8000/storage/s3/products/3/thumb_94b5bee6-2ccb-417b-9a01-704d1603fa0e.jpg'
+                        created_at: '2026-03-28T15:11:52.000000Z'
+                        updated_at: '2026-03-28T15:32:56.000000Z'
+                      -
+                        id: 22
+                        name: 'Product 20'
+                        description: null
+                        price_vnd: 89000
+                        unit_type: con
+                        category_id: 4
+                        stock_quantity: '0.000'
+                        is_active: true
+                        primary_image: null
+                        created_at: '2026-03-28T15:15:07.000000Z'
+                        updated_at: '2026-03-28T15:15:07.000000Z'
+                      -
+                        id: 23
+                        name: 'Product 21'
+                        description: null
+                        price_vnd: 87000
+                        unit_type: con
+                        category_id: 2
+                        stock_quantity: '0.000'
+                        is_active: true
+                        primary_image: null
+                        created_at: '2026-03-28T15:15:18.000000Z'
+                        updated_at: '2026-03-28T15:15:18.000000Z'
+                      -
+                        id: 4
+                        name: 'Product 3'
+                        description: null
+                        price_vnd: 45000
+                        unit_type: con
+                        category_id: 4
+                        stock_quantity: '0.000'
+                        is_active: true
+                        primary_image: null
+                        created_at: '2026-03-28T15:12:03.000000Z'
+                        updated_at: '2026-03-28T15:12:03.000000Z'
+                      -
+                        id: 5
+                        name: 'Product 4'
+                        description: null
+                        price_vnd: 47000
+                        unit_type: con
+                        category_id: 2
+                        stock_quantity: '0.000'
+                        is_active: true
+                        primary_image: null
+                        created_at: '2026-03-28T15:12:18.000000Z'
+                        updated_at: '2026-03-28T15:12:18.000000Z'
+                      -
+                        id: 6
+                        name: 'Product 4'
+                        description: null
+                        price_vnd: 47000
+                        unit_type: con
+                        category_id: 2
+                        stock_quantity: '0.000'
+                        is_active: true
+                        primary_image: null
+                        created_at: '2026-03-28T15:12:52.000000Z'
+                        updated_at: '2026-03-28T15:12:52.000000Z'
+                      -
+                        id: 7
+                        name: 'Product 5'
+                        description: null
+                        price_vnd: 57000
+                        unit_type: con
+                        category_id: 2
+                        stock_quantity: '0.000'
+                        is_active: true
+                        primary_image: null
+                        created_at: '2026-03-28T15:13:05.000000Z'
+                        updated_at: '2026-03-28T15:13:05.000000Z'
+                      -
+                        id: 8
+                        name: 'Product 6'
+                        description: null
+                        price_vnd: 120000
+                        unit_type: con
+                        category_id: 3
+                        stock_quantity: '0.000'
+                        is_active: true
+                        primary_image: null
+                        created_at: '2026-03-28T15:13:13.000000Z'
+                        updated_at: '2026-03-28T15:13:13.000000Z'
+                      -
+                        id: 9
+                        name: 'Product 6'
+                        description: null
+                        price_vnd: 110000
+                        unit_type: con
+                        category_id: 4
+                        stock_quantity: '0.000'
+                        is_active: true
+                        primary_image: null
+                        created_at: '2026-03-28T15:13:21.000000Z'
+                        updated_at: '2026-03-28T15:13:21.000000Z'
+                      -
+                        id: 10
+                        name: 'Product 7'
+                        description: null
+                        price_vnd: 990000
+                        unit_type: con
+                        category_id: 2
+                        stock_quantity: '0.000'
+                        is_active: true
+                        primary_image: null
+                        created_at: '2026-03-28T15:13:32.000000Z'
+                        updated_at: '2026-03-28T15:13:32.000000Z'
+                      -
+                        id: 11
+                        name: 'Product 8'
+                        description: null
+                        price_vnd: 880000
+                        unit_type: con
+                        category_id: 3
+                        stock_quantity: '0.000'
+                        is_active: true
+                        primary_image: null
+                        created_at: '2026-03-28T15:13:39.000000Z'
+                        updated_at: '2026-03-28T15:13:39.000000Z'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 13
+                        name:
+                          type: string
+                          example: 'Product 10'
+                        description:
+                          type: string
+                          example: null
+                          nullable: true
+                        price_vnd:
+                          type: integer
+                          example: 840000
+                        unit_type:
+                          type: string
+                          example: con
+                        category_id:
+                          type: integer
+                          example: 4
+                        stock_quantity:
+                          type: string
+                          example: '0.000'
+                        is_active:
+                          type: boolean
+                          example: true
+                        primary_image:
+                          type: string
+                          example: null
+                          nullable: true
+                        created_at:
+                          type: string
+                          example: '2026-03-28T15:13:58.000000Z'
+                        updated_at:
+                          type: string
+                          example: '2026-03-28T15:13:58.000000Z'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                        example: 'http://127.0.0.1:8000/api/v1/products?page=1'
+                      last:
+                        type: string
+                        example: 'http://127.0.0.1:8000/api/v1/products?page=2'
+                      prev:
+                        type: string
+                        example: null
+                        nullable: true
+                      next:
+                        type: string
+                        example: 'http://127.0.0.1:8000/api/v1/products?page=2'
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        example: 1
+                      from:
+                        type: integer
+                        example: 1
+                      last_page:
+                        type: integer
+                        example: 2
+                      links:
+                        type: array
+                        example:
+                          -
+                            url: null
+                            label: '&laquo; Previous'
+                            page: null
+                            active: false
+                          -
+                            url: 'http://127.0.0.1:8000/api/v1/products?page=1'
+                            label: '1'
+                            page: 1
+                            active: true
+                          -
+                            url: 'http://127.0.0.1:8000/api/v1/products?page=2'
+                            label: '2'
+                            page: 2
+                            active: false
+                          -
+                            url: 'http://127.0.0.1:8000/api/v1/products?page=2'
+                            label: 'Next &raquo;'
+                            page: 2
+                            active: false
+                        items:
+                          type: object
+                          properties:
+                            url:
+                              type: string
+                              example: null
+                              nullable: true
+                            label:
+                              type: string
+                              example: '&laquo; Previous'
+                            page:
+                              type: string
+                              example: null
+                              nullable: true
+                            active:
+                              type: boolean
+                              example: false
+                      path:
+                        type: string
+                        example: 'http://127.0.0.1:8000/api/v1/products'
+                      per_page:
+                        type: integer
+                        example: 20
+                      to:
+                        type: integer
+                        example: 20
+                      total:
+                        type: integer
+                        example: 21
+      tags:
+        - 'Public > Sản phẩm'
+      security: []
+  '/api/v1/products/{id}':
+    get:
+      summary: ''
+      operationId: getApiV1ProductsId
+      description: ''
+      parameters: []
+      responses:
+        500:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  code: SERVER_ERROR
+                  message: 'App\Presentation\Http\Controllers\Public\ProductController::show(): Argument #1 ($product) must be of type int, string given, called in /Users/toney/projects/ban-chim-bo-cau/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php on line 46'
+                  errors: {  }
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  code:
+                    type: string
+                    example: SERVER_ERROR
+                  message:
+                    type: string
+                    example: 'App\Presentation\Http\Controllers\Public\ProductController::show(): Argument #1 ($product) must be of type int, string given, called in /Users/toney/projects/ban-chim-bo-cau/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php on line 46'
+                  errors:
+                    type: object
+                    properties: {  }
+      tags:
+        - 'Public > Sản phẩm'
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the product.'
+        example: architecto
+        required: true
+        schema:
+          type: string

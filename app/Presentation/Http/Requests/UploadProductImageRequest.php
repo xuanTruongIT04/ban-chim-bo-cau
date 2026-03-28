@@ -17,7 +17,7 @@ final class UploadProductImageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image'      => ['required', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
+            'image'      => ['required', 'file', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
             'is_primary' => ['boolean'],
         ];
     }

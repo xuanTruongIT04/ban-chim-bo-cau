@@ -14,6 +14,11 @@ use App\Presentation\Http\Requests\UpdateCategoryRequest;
 use App\Presentation\Http\Resources\CategoryResource;
 use Illuminate\Http\JsonResponse;
 
+/**
+ * @group Admin > Danh mục
+ *
+ * Quản lý danh mục sản phẩm (max 2 cấp)
+ */
 final class CategoryController
 {
     public function __construct(

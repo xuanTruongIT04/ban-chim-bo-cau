@@ -12,6 +12,11 @@ use App\Presentation\Http\Resources\ProductImageResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
+/**
+ * @group Admin > Ảnh sản phẩm
+ *
+ * Upload, đặt ảnh chính, xóa ảnh sản phẩm (lưu trên S3)
+ */
 final class ProductImageController
 {
     public function __construct(

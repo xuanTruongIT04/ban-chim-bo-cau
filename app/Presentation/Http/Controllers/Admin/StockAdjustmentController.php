@@ -12,6 +12,11 @@ use App\Presentation\Http\Resources\StockAdjustmentResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
+/**
+ * @group Admin > Tồn kho
+ *
+ * Điều chỉnh tồn kho và xem lịch sử thay đổi
+ */
 final class StockAdjustmentController
 {
     public function __construct(

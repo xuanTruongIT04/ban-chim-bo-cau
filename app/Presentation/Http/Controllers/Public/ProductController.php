@@ -13,6 +13,13 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Spatie\QueryBuilder\QueryBuilder;
 
+/**
+ * @group Public > Sản phẩm
+ *
+ * Xem danh sách và chi tiết sản phẩm (không cần đăng nhập)
+ *
+ * @unauthenticated
+ */
 final class ProductController
 {
     public function index(Request $request): AnonymousResourceCollection

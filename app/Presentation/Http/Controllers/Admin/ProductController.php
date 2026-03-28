@@ -17,6 +17,11 @@ use App\Presentation\Http\Resources\ProductResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
+/**
+ * @group Admin > Sản phẩm
+ *
+ * CRUD sản phẩm và toggle trạng thái active
+ */
 final class ProductController
 {
     public function __construct(

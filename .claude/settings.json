@@ -1,7 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Bash(node \"$HOME/.claude/get-shit-done/bin/gsd-tools.cjs\" state record-session --stopped-at \"Phase 2 context gathered\" --resume-file \".planning/phases/02-product-inventory/02-CONTEXT.md\")"
+      "Bash(node \"$HOME/.claude/get-shit-done/bin/gsd-tools.cjs\" state record-session --stopped-at \"Phase 2 context gathered\" --resume-file \".planning/phases/02-product-inventory/02-CONTEXT.md\")",
+      "Bash(php artisan:*)",
+      "Bash(composer show:*)",
+      "Bash(composer require:*)"
     ]
   }
 }
