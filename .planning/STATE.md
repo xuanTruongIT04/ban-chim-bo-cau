@@ -1,8 +1,8 @@
 # Execution State
 
 **Project:** Ban Chim Bồ Câu — Laravel Backend
-**Last session:** 2026-03-28T07:38:00Z
-**Stopped at:** Completed 01-02-PLAN.md
+**Last session:** 2026-03-28T11:25:00Z
+**Stopped at:** Completed quick task 260328-pl9 (fix login response structure)
 
 ---
 
@@ -34,6 +34,12 @@ Overall:  [####################] Phase 1 → 2/2 plans done
 ## Blockers
 
 None
+
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 260328-pl9 | Fix login response structure: createToken returns array with token + expires_at, wrap under data key | 2026-03-28 | cd575db | [260328-pl9-fix-login-response-structure-change-crea](.planning/quick/260328-pl9-fix-login-response-structure-change-crea/) |
 
 ## Performance Metrics
 
