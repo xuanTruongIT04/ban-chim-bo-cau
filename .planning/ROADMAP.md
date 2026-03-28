@@ -76,7 +76,14 @@ Plans:
   6. `payment_status` is a separate field from `order status`; COD orders start as `chưa thanh toán`; bank-transfer orders move to `chờ xác nhận` then `đã thanh toán` when admin confirms
   7. Within seconds of a new order being placed, admin receives a Vietnamese email listing product names, quantities, and the delivery address — the email is dispatched via a queued job that fires after the transaction commits
 
-**Plans:** TBD
+**Plans:** 5 plans
+
+Plans:
+- [ ] 03-01-PLAN.md — Domain layer (enums, entities, exceptions, repos), migrations, Eloquent models, mappers, factories, config
+- [ ] 03-02-PLAN.md — Cart API (create, add, view, update, remove) with X-Cart-Token middleware
+- [ ] 03-03-PLAN.md — Atomic checkout + idempotency, admin manual order, order detail
+- [ ] 03-04-PLAN.md — Order state machine transitions, cancellation with stock restore, payment confirm, delivery method
+- [ ] 03-05-PLAN.md — New order email notification (queued, afterCommit), cart cleanup command
 
 ---
 
@@ -103,7 +110,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Foundation | 2/2 | Complete | 2026-03-28 |
 | 2. Product & Inventory | 0/4 | Planned | - |
-| 3. Orders, Cart & Payments | 0/? | Not started | - |
+| 3. Orders, Cart & Payments | 0/5 | Planned | - |
 | 4. Admin Operations & Docs | 0/? | Not started | - |
 
 ---
@@ -162,4 +169,4 @@ Plans:
 ---
 
 *Roadmap created: 2026-03-28*
-*Last updated: 2026-03-28 after Phase 2 planning (4 plans created)*
+*Last updated: 2026-03-29 after Phase 3 planning (5 plans created)*
