@@ -40,7 +40,8 @@ final class CancelOrderAction
                 throw new OrderNotFoundException($orderId);
             }
 
-            if (! $order->orderStatus->isCancellable()) {
+            // Already cancelled — idempotent check or reject (Huy -> Huy is not a valid re-cancel)
+            if ($order->orderStatus === OrderStatus::Huy || ! $order->orderStatus->isCancellable()) {
                 throw new InvalidOrderTransitionException(
                     $order->orderStatus,
                     OrderStatus::Huy

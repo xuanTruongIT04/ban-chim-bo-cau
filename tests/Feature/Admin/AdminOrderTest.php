@@ -126,4 +126,120 @@ describe('Admin Orders', function () {
 
         $response->assertStatus(401);
     });
+
+    // State machine transition tests — ORDR-04, ORDR-07
+
+    it('transitions order from cho_xac_nhan to xac_nhan', function () {
+        $token = makeAdminForOrder();
+        $order = OrderModel::factory()->create(['order_status' => 'cho_xac_nhan']);
+
+        $response = $this->withToken($token)
+            ->patchJson("/api/v1/admin/orders/{$order->id}/status", [
+                'status' => 'xac_nhan',
+            ]);
+
+        $response->assertStatus(200)
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.order_status', 'xac_nhan');
+    });
+
+    it('transitions through full lifecycle: cho_xac_nhan -> xac_nhan -> dang_giao -> hoan_thanh', function () {
+        $token = makeAdminForOrder();
+        $order = OrderModel::factory()->create(['order_status' => 'cho_xac_nhan']);
+
+        $this->withToken($token)
+            ->patchJson("/api/v1/admin/orders/{$order->id}/status", ['status' => 'xac_nhan'])
+            ->assertStatus(200);
+
+        $this->withToken($token)
+            ->patchJson("/api/v1/admin/orders/{$order->id}/status", ['status' => 'dang_giao'])
+            ->assertStatus(200);
+
+        $response = $this->withToken($token)
+            ->patchJson("/api/v1/admin/orders/{$order->id}/status", ['status' => 'hoan_thanh']);
+
+        $response->assertStatus(200)
+            ->assertJsonPath('data.order_status', 'hoan_thanh');
+    });
+
+    it('rejects invalid transition cho_xac_nhan -> hoan_thanh', function () {
+        $token = makeAdminForOrder();
+        $order = OrderModel::factory()->create(['order_status' => 'cho_xac_nhan']);
+
+        $response = $this->withToken($token)
+            ->patchJson("/api/v1/admin/orders/{$order->id}/status", [
+                'status' => 'hoan_thanh',
+            ]);
+
+        $response->assertStatus(422)
+            ->assertJsonPath('code', 'INVALID_ORDER_TRANSITION');
+    });
+
+    it('rejects invalid transition cho_xac_nhan -> dang_giao', function () {
+        $token = makeAdminForOrder();
+        $order = OrderModel::factory()->create(['order_status' => 'cho_xac_nhan']);
+
+        $response = $this->withToken($token)
+            ->patchJson("/api/v1/admin/orders/{$order->id}/status", [
+                'status' => 'dang_giao',
+            ]);
+
+        $response->assertStatus(422)
+            ->assertJsonPath('code', 'INVALID_ORDER_TRANSITION');
+    });
+
+    it('allows stepping back 1 state: dang_giao -> xac_nhan', function () {
+        $token = makeAdminForOrder();
+        $order = OrderModel::factory()->create(['order_status' => 'dang_giao']);
+
+        $response = $this->withToken($token)
+            ->patchJson("/api/v1/admin/orders/{$order->id}/status", [
+                'status' => 'xac_nhan',
+            ]);
+
+        $response->assertStatus(200)
+            ->assertJsonPath('data.order_status', 'xac_nhan');
+    });
+
+    it('allows stepping back 1 state: xac_nhan -> cho_xac_nhan', function () {
+        $token = makeAdminForOrder();
+        $order = OrderModel::factory()->create(['order_status' => 'xac_nhan']);
+
+        $response = $this->withToken($token)
+            ->patchJson("/api/v1/admin/orders/{$order->id}/status", [
+                'status' => 'cho_xac_nhan',
+            ]);
+
+        $response->assertStatus(200)
+            ->assertJsonPath('data.order_status', 'cho_xac_nhan');
+    });
+
+    // Delivery method tests — DELV-02
+
+    it('admin sets delivery method on order', function () {
+        $token = makeAdminForOrder();
+        $order = OrderModel::factory()->create(['delivery_method' => null]);
+
+        $response = $this->withToken($token)
+            ->patchJson("/api/v1/admin/orders/{$order->id}/delivery-method", [
+                'delivery_method' => 'noi_tinh',
+            ]);
+
+        $response->assertStatus(200)
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.delivery_method', 'noi_tinh');
+    });
+
+    it('rejects invalid delivery method', function () {
+        $token = makeAdminForOrder();
+        $order = OrderModel::factory()->create(['delivery_method' => null]);
+
+        $response = $this->withToken($token)
+            ->patchJson("/api/v1/admin/orders/{$order->id}/delivery-method", [
+                'delivery_method' => 'invalid',
+            ]);
+
+        $response->assertStatus(422)
+            ->assertJsonPath('code', 'VALIDATION_ERROR');
+    });
 });
