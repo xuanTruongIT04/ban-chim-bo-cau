@@ -79,7 +79,7 @@ Plans:
 **Plans:** 5 plans
 
 Plans:
-- [ ] 03-01-PLAN.md — Domain layer (enums, entities, exceptions, repos), migrations, Eloquent models, mappers, factories, config
+- [x] 03-01-PLAN.md — Domain layer (enums, entities, exceptions, repos), migrations, Eloquent models, mappers, factories, config
 - [ ] 03-02-PLAN.md — Cart API (create, add, view, update, remove) with X-Cart-Token middleware
 - [ ] 03-03-PLAN.md — Atomic checkout + idempotency, admin manual order, order detail
 - [ ] 03-04-PLAN.md — Order state machine transitions, cancellation with stock restore, payment confirm, delivery method
@@ -110,7 +110,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Foundation | 2/2 | Complete | 2026-03-28 |
 | 2. Product & Inventory | 0/4 | Planned | - |
-| 3. Orders, Cart & Payments | 0/5 | Planned | - |
+| 3. Orders, Cart & Payments | 1/5 | In progress | - |
 | 4. Admin Operations & Docs | 0/? | Not started | - |
 
 ---
