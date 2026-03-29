@@ -13,6 +13,8 @@ use App\Domain\Order\Repositories\OrderRepositoryInterface;
 use App\Domain\Product\Exceptions\InsufficientStockException;
 use App\Domain\Product\Exceptions\ProductNotFoundException;
 use App\Domain\Product\Repositories\ProductRepositoryInterface;
+use App\Infrastructure\Notifications\NewOrderNotification;
+use App\Infrastructure\Persistence\Eloquent\Models\UserModel;
 use Illuminate\Support\Facades\DB;
 
 final class AdminPlaceOrderAction
@@ -33,7 +35,7 @@ final class AdminPlaceOrderAction
         array $items,
         int $adminUserId,
     ): Order {
-        return DB::transaction(function () use ($customerName, $customerPhone, $deliveryAddress, $paymentMethod, $items, $adminUserId): Order {
+        $order = DB::transaction(function () use ($customerName, $customerPhone, $deliveryAddress, $paymentMethod, $items, $adminUserId): Order {
             // 1. Sort product IDs ascending to prevent deadlocks (per RESEARCH Pattern 2)
             $sortedProductIds = collect($items)
                 ->pluck('product_id')
@@ -93,5 +95,13 @@ final class AdminPlaceOrderAction
                 'created_by'       => $adminUserId,
             ], $orderItems);
         });
+
+        // Dispatch notification OUTSIDE transaction — afterCommit=true ensures it queues after commit
+        $admin = UserModel::first();
+        if ($admin !== null) {
+            $admin->notify(new NewOrderNotification($order));
+        }
+
+        return $order;
     }
 }
