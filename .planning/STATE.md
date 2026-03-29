@@ -5,20 +5,20 @@ milestone_name: milestone
 current_phase: 03
 current_plan: 1
 status: unknown
-stopped_at: Completed 03-02-PLAN.md — cart API with actions, middleware, resources, feature tests
-last_updated: "2026-03-29T00:36:34.402Z"
+stopped_at: Completed 03-03-PLAN.md
+last_updated: "2026-03-29T00:39:14.198Z"
 progress:
   total_phases: 4
   completed_phases: 2
   total_plans: 11
-  completed_plans: 8
+  completed_plans: 9
 ---
 
 # Execution State
 
 **Project:** Ban Chim Bồ Câu — Laravel Backend
-**Last session:** 2026-03-29T00:36:34.399Z
-**Stopped at:** Completed 03-02-PLAN.md — cart API with actions, middleware, resources, feature tests
+**Last session:** 2026-03-29T00:39:14.195Z
+**Stopped at:** Completed 03-03-PLAN.md
 
 ---
 
@@ -60,6 +60,8 @@ Overall:  [################----] Phase 1-2 complete → 7/11 plans done
 - [Phase 03-orders-cart-payments]: Migration filenames use 000005-000008 suffix — avoid collision with Phase 2 migrations 000001-000004
 - [Phase 03-orders-cart-payments]: CartResource wraps Eloquent CartModel with items.product — domain Cart used for business logic in middleware/actions, Eloquent used in Presentation for current prices (D-05)
 - [Phase 03-orders-cart-payments]: ResolveCartToken returns direct JSON response (not exception) for CART_TOKEN_REQUIRED/CART_NOT_FOUND — middleware-level responses bypass bootstrap/app.php exception handler
+- [Phase 03-orders-cart-payments]: PlaceOrderAction sorts product IDs ascending before locking — prevents deadlocks in concurrent orders
+- [Phase 03-orders-cart-payments]: bank_info returned inline in response body (not data envelope) for chuyen_khoan — matches D-19
 
 ## Blockers
 
@@ -86,3 +88,4 @@ None
 | 02-product-inventory | 04 | 18min | 1 | 7 |
 | 03-orders-cart-payments | 01 | ~6min | 2 | 36 |
 | Phase 03-orders-cart-payments P02 | 3min | 2 tasks | 12 files |
+| Phase 03-orders-cart-payments P03 | 10min | 2 tasks | 13 files |
