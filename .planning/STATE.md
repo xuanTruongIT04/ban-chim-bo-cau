@@ -5,20 +5,20 @@ milestone_name: milestone
 current_phase: 03
 current_plan: 1
 status: unknown
-stopped_at: Completed 03-05-PLAN.md — new order notification and cart cleanup
-last_updated: "2026-03-29T00:45:23.901Z"
+stopped_at: "Completed 03-04-PLAN.md — admin order management: state machine, cancellation, payment"
+last_updated: "2026-03-29T00:46:29.176Z"
 progress:
   total_phases: 4
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 11
-  completed_plans: 10
+  completed_plans: 11
 ---
 
 # Execution State
 
 **Project:** Ban Chim Bồ Câu — Laravel Backend
-**Last session:** 2026-03-29T00:45:23.898Z
-**Stopped at:** Completed 03-05-PLAN.md — new order notification and cart cleanup
+**Last session:** 2026-03-29T00:46:29.173Z
+**Stopped at:** Completed 03-04-PLAN.md — admin order management: state machine, cancellation, payment
 
 ---
 
@@ -64,6 +64,9 @@ Overall:  [################----] Phase 1-2 complete → 7/11 plans done
 - [Phase 03-orders-cart-payments]: bank_info returned inline in response body (not data envelope) for chuyen_khoan — matches D-19
 - [Phase 03-05]: afterCommit set in constructor not as property — Queueable trait already declares it; redeclaring causes PHP fatal
 - [Phase 03-05]: Notification dispatch OUTSIDE DB::transaction closure — makes intent clear, works with afterCommit=true
+- [Phase 03-orders-cart-payments]: [03-04]: CancelOrderAction rejects huy->huy: isCancellable() only guards HoanThanh, explicit Huy check added for re-cancel prevention
+- [Phase 03-orders-cart-payments]: [03-04]: UpdateOrderStatusRequest excludes huy — cancellation through dedicated endpoint with atomic stock restoration
+- [Phase 03-orders-cart-payments]: [03-04]: ConfirmPaymentAction is idempotent — second confirm returns 200 unchanged (no error)
 
 ## Blockers
 
@@ -92,3 +95,4 @@ None
 | Phase 03-orders-cart-payments P02 | 3min | 2 tasks | 12 files |
 | Phase 03-orders-cart-payments P03 | 10min | 2 tasks | 13 files |
 | Phase 03-orders-cart-payments P05 | 15min | 2 tasks | 8 files |
+| Phase 03-orders-cart-payments P04 | 4min | 2 tasks | 10 files |

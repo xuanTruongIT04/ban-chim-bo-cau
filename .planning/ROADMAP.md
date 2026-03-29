@@ -10,7 +10,7 @@
 
 - [ ] **Phase 1: Foundation** — Clean Architecture skeleton, database migrations, Sanctum auth, global JSON error envelope, PHPStan + Pest scaffolding
 - [ ] **Phase 2: Product & Inventory** — Full product catalog CRUD with category management, mixed-unit inventory with admin stock adjustment and audit log
-- [ ] **Phase 3: Orders, Cart & Payments** — Atomic order placement with pessimistic locking, idempotency, cart, order state machine, payment tracking, delivery fields, new-order email notification
+- [x] **Phase 3: Orders, Cart & Payments** — Atomic order placement with pessimistic locking, idempotency, cart, order state machine, payment tracking, delivery fields, new-order email notification (completed 2026-03-29)
 - [ ] **Phase 4: Admin Operations & Docs** — Admin dashboard, order filtering and search, payment confirmation, Scribe API documentation
 
 ---
@@ -76,13 +76,13 @@ Plans:
   6. `payment_status` is a separate field from `order status`; COD orders start as `chưa thanh toán`; bank-transfer orders move to `chờ xác nhận` then `đã thanh toán` when admin confirms
   7. Within seconds of a new order being placed, admin receives a Vietnamese email listing product names, quantities, and the delivery address — the email is dispatched via a queued job that fires after the transaction commits
 
-**Plans:** 4/5 plans executed
+**Plans:** 5/5 plans complete
 
 Plans:
 - [x] 03-01-PLAN.md — Domain layer (enums, entities, exceptions, repos), migrations, Eloquent models, mappers, factories, config
 - [x] 03-02-PLAN.md — Cart API (create, add, view, update, remove) with X-Cart-Token middleware
 - [x] 03-03-PLAN.md — Atomic checkout + idempotency, admin manual order, order detail
-- [ ] 03-04-PLAN.md — Order state machine transitions, cancellation with stock restore, payment confirm, delivery method
+- [x] 03-04-PLAN.md — Order state machine transitions, cancellation with stock restore, payment confirm, delivery method
 - [x] 03-05-PLAN.md — New order email notification (queued, afterCommit), cart cleanup command
 
 ---
@@ -110,7 +110,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Foundation | 2/2 | Complete | 2026-03-28 |
 | 2. Product & Inventory | 0/4 | Planned | - |
-| 3. Orders, Cart & Payments | 4/5 | In Progress|  |
+| 3. Orders, Cart & Payments | 5/5 | Complete   | 2026-03-29 |
 | 4. Admin Operations & Docs | 0/? | Not started | - |
 
 ---

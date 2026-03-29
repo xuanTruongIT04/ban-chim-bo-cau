@@ -40,16 +40,16 @@
 - [x] **ORDR-02**: API đặt hàng có idempotency key — không tạo 2 đơn nếu client gửi 2 lần
 - [x] **ORDR-03**: Admin có thể nhập đơn thủ công (cho khách Zalo/điện thoại) — cùng cơ chế lock tồn kho
 - [x] **ORDR-04**: Đơn hàng có 5 trạng thái: `chờ xác nhận → xác nhận → đang giao → hoàn thành` hoặc `hủy`
-- [ ] **ORDR-05**: Khi hủy đơn, tồn kho được hoàn lại trong cùng transaction với việc đổi trạng thái
+- [x] **ORDR-05**: Khi hủy đơn, tồn kho được hoàn lại trong cùng transaction với việc đổi trạng thái
 - [x] **ORDR-06**: Admin có thể xem chi tiết đơn hàng (sản phẩm, số lượng, địa chỉ, trạng thái)
-- [ ] **ORDR-07**: Admin có thể cập nhật trạng thái đơn hàng; chuyển trạng thái sai bị từ chối
+- [x] **ORDR-07**: Admin có thể cập nhật trạng thái đơn hàng; chuyển trạng thái sai bị từ chối
 
 ### Thanh toán (PAYM)
 
 - [x] **PAYM-01**: Đơn hàng có payment_status riêng biệt: `chưa thanh toán / chờ xác nhận / đã thanh toán`
 - [x] **PAYM-02**: Hỗ trợ COD: payment_status là `chưa thanh toán` cho đến khi mẹ xác nhận sau giao hàng
 - [x] **PAYM-03**: Hỗ trợ chuyển khoản ngân hàng: admin xác nhận thủ công khi nhận tiền
-- [ ] **PAYM-04**: Admin có thể xác nhận thanh toán đã nhận
+- [x] **PAYM-04**: Admin có thể xác nhận thanh toán đã nhận
 
 ### Giao hàng (DELV)
 
@@ -149,13 +149,13 @@
 | ORDR-02 | Phase 3 | Complete |
 | ORDR-03 | Phase 3 | Complete |
 | ORDR-04 | Phase 3 | Complete |
-| ORDR-05 | Phase 3 | Pending |
+| ORDR-05 | Phase 3 | Complete |
 | ORDR-06 | Phase 3 | Complete |
-| ORDR-07 | Phase 3 | Pending |
+| ORDR-07 | Phase 3 | Complete |
 | PAYM-01 | Phase 3 | Complete |
 | PAYM-02 | Phase 3 | Complete |
 | PAYM-03 | Phase 3 | Complete |
-| PAYM-04 | Phase 3 | Pending |
+| PAYM-04 | Phase 3 | Complete |
 | DELV-01 | Phase 3 | Complete |
 | DELV-02 | Phase 3 | Complete |
 | NOTI-01 | Phase 3 | Complete |
