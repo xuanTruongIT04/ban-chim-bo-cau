@@ -27,6 +27,25 @@ final class CategoryController
         private readonly DeleteCategoryAction $deleteAction,
     ) {}
 
+    /**
+     * Danh sách danh mục
+     *
+     * Trả về toàn bộ danh mục kèm danh mục con (tối đa 2 cấp).
+     *
+     * @response 200 {
+     *   "success": true,
+     *   "data": [
+     *     {
+     *       "id": 1,
+     *       "name": "Chim bồ câu",
+     *       "slug": "chim-bo-cau",
+     *       "parent_id": null,
+     *       "is_active": true,
+     *       "children": []
+     *     }
+     *   ]
+     * }
+     */
     public function index(): JsonResponse
     {
         $models = CategoryModel::with('children')->get();
@@ -37,6 +56,30 @@ final class CategoryController
         ]);
     }
 
+    /**
+     * Tạo danh mục mới
+     *
+     * Tạo danh mục gốc hoặc danh mục con (tối đa 2 cấp).
+     *
+     * @bodyParam name string required Tên danh mục. Example: Chim bồ câu sống
+     * @bodyParam slug string required Slug URL. Example: chim-bo-cau-song
+     * @bodyParam parent_id integer optional ID danh mục cha (null nếu là gốc). Example: 1
+     * @bodyParam description string optional Mô tả danh mục. Example: Bồ câu sống bán theo con
+     * @bodyParam sort_order integer optional Thứ tự hiển thị (mặc định 0). Example: 1
+     * @bodyParam is_active boolean optional Trạng thái hiển thị (mặc định true). Example: true
+     *
+     * @response 201 {
+     *   "success": true,
+     *   "data": {
+     *     "id": 2,
+     *     "name": "Chim bồ câu sống",
+     *     "slug": "chim-bo-cau-song",
+     *     "parent_id": 1,
+     *     "is_active": true,
+     *     "children": []
+     *   }
+     * }
+     */
     public function store(CreateCategoryRequest $request): JsonResponse
     {
         $validated = $request->validated();
@@ -58,6 +101,24 @@ final class CategoryController
         ], 201);
     }
 
+    /**
+     * Chi tiết danh mục
+     *
+     * Trả về thông tin chi tiết một danh mục theo ID.
+     *
+     * @response 200 {
+     *   "success": true,
+     *   "data": {
+     *     "id": 1,
+     *     "name": "Chim bồ câu",
+     *     "slug": "chim-bo-cau",
+     *     "parent_id": null,
+     *     "is_active": true,
+     *     "children": []
+     *   }
+     * }
+     * @response 404 {"message": "Danh mục không tồn tại."}
+     */
     public function show(int $category): JsonResponse
     {
         $model = CategoryModel::find($category);
@@ -72,6 +133,31 @@ final class CategoryController
         ]);
     }
 
+    /**
+     * Cập nhật danh mục
+     *
+     * Cập nhật thông tin danh mục theo ID.
+     *
+     * @bodyParam name string required Tên danh mục. Example: Bồ câu thịt
+     * @bodyParam slug string required Slug URL. Example: bo-cau-thit
+     * @bodyParam parent_id integer optional ID danh mục cha. Example: 1
+     * @bodyParam description string optional Mô tả danh mục. Example: Bồ câu làm sẵn bán theo kg
+     * @bodyParam sort_order integer optional Thứ tự hiển thị. Example: 2
+     * @bodyParam is_active boolean optional Trạng thái hiển thị. Example: true
+     *
+     * @response 200 {
+     *   "success": true,
+     *   "data": {
+     *     "id": 1,
+     *     "name": "Bồ câu thịt",
+     *     "slug": "bo-cau-thit",
+     *     "parent_id": null,
+     *     "is_active": true,
+     *     "children": []
+     *   }
+     * }
+     * @response 404 {"message": "Danh mục không tồn tại."}
+     */
     public function update(UpdateCategoryRequest $request, int $category): JsonResponse
     {
         $validated = $request->validated();
@@ -94,6 +180,14 @@ final class CategoryController
         ]);
     }
 
+    /**
+     * Xóa danh mục
+     *
+     * Xóa danh mục theo ID. Không thể xóa danh mục đang có sản phẩm.
+     *
+     * @response 204 {}
+     * @response 404 {"message": "Danh mục không tồn tại."}
+     */
     public function destroy(int $category): JsonResponse
     {
         $this->deleteAction->handle($category);
