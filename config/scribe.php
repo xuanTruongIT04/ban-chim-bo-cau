@@ -59,7 +59,7 @@ return [
     // - "static" will generate a static HTMl page in the /public/docs folder,
     // - "laravel" will generate the documentation as a Blade view, so you can add routing and authentication.
     // - "external_static" and "external_laravel" do the same as above, but pass the OpenAPI spec as a URL to an external UI template
-    'type' => 'laravel',
+    'type' => 'static',
 
     // See https://scribe.knuckles.wtf/laravel/reference/config#theme for supported options
     'theme' => 'default',
@@ -167,7 +167,18 @@ return [
         // You can override this by listing the groups, subgroups and endpoints here in the order you want them.
         // See https://scribe.knuckles.wtf/blog/laravel-v4#easier-sorting and https://scribe.knuckles.wtf/laravel/reference/config#order for details
         // Note: does not work for `external` docs types
-        'order' => [],
+        'order' => [
+            'Auth',
+            'Admin > Dashboard',
+            'Admin > Đơn hàng',
+            'Admin > Sản phẩm',
+            'Admin > Danh mục',
+            'Admin > Tồn kho',
+            'Admin > Ảnh sản phẩm',
+            'Public > Sản phẩm',
+            'Public > Giỏ hàng',
+            'Public > Checkout',
+        ],
     ],
 
     // Custom logo path. This will be used as the value of the src attribute for the <img> tag,
@@ -218,7 +229,14 @@ return [
             ...Defaults::QUERY_PARAMETERS_STRATEGIES,
         ],
         'bodyParameters' => [
-            ...Defaults::BODY_PARAMETERS_STRATEGIES,
+            // Use docblock @bodyParam annotations only — ValidationRules strategy
+            // has parsing issues with 'file' and 'array' rule combinations.
+            // All endpoints have explicit @bodyParam docblocks in controllers.
+            ...removeStrategies(
+                Defaults::BODY_PARAMETERS_STRATEGIES,
+                [Strategies\BodyParameters\GetFromFormRequest::class]
+            ),
+            Strategies\BodyParameters\GetFromBodyParamTag::class,
         ],
         'responses' => configureStrategy(
             Defaults::RESPONSES_STRATEGIES,

@@ -13,7 +13,7 @@ use App\Presentation\Http\Resources\OrderResource;
 use Illuminate\Http\JsonResponse;
 
 /**
- * @group Checkout
+ * @group Public > Checkout
  *
  * Đặt hàng từ giỏ hàng (không cần đăng nhập)
  *

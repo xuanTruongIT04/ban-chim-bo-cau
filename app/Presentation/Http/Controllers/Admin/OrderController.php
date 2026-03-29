@@ -21,7 +21,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 /**
- * @group Admin - Orders
+ * @group Admin > Đơn hàng
  *
  * Quản lý đơn hàng (yêu cầu đăng nhập admin)
  */

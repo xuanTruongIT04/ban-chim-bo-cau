@@ -26,8 +26,26 @@ final class AuthController
      * Đăng nhập admin
      *
      * Trả về Sanctum token để sử dụng cho các admin endpoint.
+     * Thêm header `Authorization: Bearer {token}` cho tất cả admin request.
      *
      * @unauthenticated
+     *
+     * @bodyParam email string required Email admin. Example: admin@example.com
+     * @bodyParam password string required Mật khẩu. Example: password
+     *
+     * @response 200 {
+     *   "success": true,
+     *   "data": {
+     *     "token": "1|abc123xyz...",
+     *     "expires_at": "2026-04-28T00:00:00.000000Z"
+     *   }
+     * }
+     * @response 422 {
+     *   "message": "Email hoặc mật khẩu không đúng.",
+     *   "errors": {
+     *     "email": ["Email hoặc mật khẩu không đúng."]
+     *   }
+     * }
      */
     public function login(LoginRequest $request): JsonResponse
     {
@@ -45,6 +63,16 @@ final class AuthController
         ], 200);
     }
 
+    /**
+     * Đăng xuất admin
+     *
+     * Thu hồi Sanctum token hiện tại. Token sẽ không còn hợp lệ sau khi đăng xuất.
+     *
+     * @response 200 {
+     *   "success": true,
+     *   "message": "Đã đăng xuất thành công."
+     * }
+     */
     public function logout(Request $request): JsonResponse
     {
         $this->logoutAction->handle($request);

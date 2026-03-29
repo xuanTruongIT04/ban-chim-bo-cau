@@ -1,0 +1,1608 @@
+{
+    "variable": [
+        {
+            "id": "baseUrl",
+            "key": "baseUrl",
+            "type": "string",
+            "name": "string",
+            "value": "http:\/\/127.0.0.1:8000"
+        }
+    ],
+    "info": {
+        "name": "Ban Chim B\u1ed3 C\u00e2u \u2014 API Documentation",
+        "_postman_id": "472fa326-1411-490a-af97-60603d24d893",
+        "description": "Backend API cho h\u1ec7 th\u1ed1ng b\u00e1n gia c\u1ea7m & th\u00fa nu\u00f4i. H\u1ed7 tr\u1ee3 qu\u1ea3n l\u00fd s\u1ea3n ph\u1ea9m, t\u1ed3n kho, \u0111\u01a1n h\u00e0ng.",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Auth",
+            "description": "\nX\u00e1c th\u1ef1c admin (Sanctum token)",
+            "item": [
+                {
+                    "name": "\u0110\u0103ng nh\u1eadp admin",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/login",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/login"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\":\"admin@example.com\",\"password\":\"password\"}"
+                        },
+                        "description": "Tr\u1ea3 v\u1ec1 Sanctum token \u0111\u1ec3 s\u1eed d\u1ee5ng cho c\u00e1c admin endpoint.\nTh\u00eam header `Authorization: Bearer {token}` cho t\u1ea5t c\u1ea3 admin request.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"success\": true,\n  \"data\": {\n    \"token\": \"1|abc123xyz...\",\n    \"expires_at\": \"2026-04-28T00:00:00.000000Z\"\n  }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n  \"message\": \"Email ho\u1eb7c m\u1eadt kh\u1ea9u kh\u00f4ng \u0111\u00fang.\",\n  \"errors\": {\n    \"email\": [\"Email ho\u1eb7c m\u1eadt kh\u1ea9u kh\u00f4ng \u0111\u00fang.\"]\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "\u0110\u0103ng xu\u1ea5t admin",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/logout",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/logout"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Thu h\u1ed3i Sanctum token hi\u1ec7n t\u1ea1i. Token s\u1ebd kh\u00f4ng c\u00f2n h\u1ee3p l\u1ec7 sau khi \u0111\u0103ng xu\u1ea5t."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"success\": true,\n  \"message\": \"\u0110\u00e3 \u0111\u0103ng xu\u1ea5t th\u00e0nh c\u00f4ng.\"\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Admin > Dashboard",
+            "description": "\nTong quan don hang cho admin",
+            "item": [
+                {
+                    "name": "Dashboard tong quan don hang",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/dashboard",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/dashboard"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Tra ve so don hang theo tung trang thai."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"success\": true, \"data\": {\"orders_by_status\": {\"cho_xac_nhan\": 5, \"xac_nhan\": 3, \"dang_giao\": 2, \"hoan_thanh\": 10, \"huy\": 1}}}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Admin > \u0110\u01a1n h\u00e0ng",
+            "description": "\nQu\u1ea3n l\u00fd \u0111\u01a1n h\u00e0ng (y\u00eau c\u1ea7u \u0111\u0103ng nh\u1eadp admin)",
+            "item": [
+                {
+                    "name": "Danh sach don hang (filter\/search\/pagination)",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/orders",
+                            "query": [
+                                {
+                                    "key": "filter%5Bstatus%5D",
+                                    "value": "cho_xac_nhan",
+                                    "description": "Loc theo trang thai: cho_xac_nhan, xac_nhan, dang_giao, hoan_thanh, huy.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "filter%5Bsearch%5D",
+                                    "value": "Nguyen",
+                                    "description": "Tim theo ten hoac SDT khach.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "filter%5Bdate_from%5D",
+                                    "value": "2026-01-01",
+                                    "description": "Loc tu ngay (YYYY-MM-DD).",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "filter%5Bdate_to%5D",
+                                    "value": "2026-12-31",
+                                    "description": "Loc den ngay (YYYY-MM-DD).",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "sort",
+                                    "value": "-created_at",
+                                    "description": "Sap xep: created_at hoac -created_at.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "page",
+                                    "value": "1",
+                                    "description": "Trang.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "per_page",
+                                    "value": "20",
+                                    "description": "So ban ghi moi trang (mac dinh 20).",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/orders?filter%5Bstatus%5D=cho_xac_nhan&filter%5Bsearch%5D=Nguyen&filter%5Bdate_from%5D=2026-01-01&filter%5Bdate_to%5D=2026-12-31&sort=-created_at&page=1&per_page=20"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Loc theo trang thai, khoang ngay, tim theo ten\/SDT khach.\nMac dinh: sap xep theo ngay tao giam dan (don moi nhat truoc), 20 ban ghi\/trang."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"success\": true, \"data\": [{\"id\": 1, \"customer_name\": \"Nguyen Van A\", \"order_status\": \"cho_xac_nhan\"}], \"meta\": {\"current_page\": 1, \"last_page\": 1, \"per_page\": 20, \"total\": 1}, \"links\": {\"first\": \"...\", \"last\": \"...\", \"prev\": null, \"next\": null}}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Create a manual order (admin)",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/orders",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/orders"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"customer_name\":\"Tr\u1ea7n Th\u1ecb B\",\"customer_phone\":\"0909876543\",\"delivery_address\":\"456 \u0110\u01b0\u1eddng XYZ, H\u00e0 N\u1ed9i\",\"payment_method\":\"cod\",\"items\":[\"architecto\"]}"
+                        },
+                        "description": "Admin nh\u1eadp \u0111\u01a1n h\u00e0ng th\u1ee7 c\u00f4ng cho kh\u00e1ch Zalo\/\u0111i\u1ec7n tho\u1ea1i.\nD\u00f9ng c\u00f9ng c\u01a1 ch\u1ebf lock atomic nh\u01b0 checkout kh\u00e1ch h\u00e0ng."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 2,\n    \"customer_name\": \"Tr\u1ea7n Th\u1ecb B\",\n    \"order_status\": \"cho_xac_nhan\",\n    \"payment_status\": \"chua_thanh_toan\",\n    \"created_by\": 1\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Get order detail (admin)",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/orders\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/orders\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "architecto",
+                                    "description": "The ID of the order."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Xem chi ti\u1ebft \u0111\u01a1n h\u00e0ng theo ID."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"customer_name\": \"Nguy\u1ec5n V\u0103n A\",\n    \"order_status\": \"cho_xac_nhan\",\n    \"items\": []\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Update order status (admin)",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/orders\/:order\/status",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/orders\/:order\/status",
+                            "variable": [
+                                {
+                                    "id": "order",
+                                    "key": "order",
+                                    "value": "architecto",
+                                    "description": "The order."
+                                }
+                            ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"status\":\"xac_nhan\"}"
+                        },
+                        "description": "Chuy\u1ec3n tr\u1ea1ng th\u00e1i \u0111\u01a1n h\u00e0ng theo state machine h\u1ee3p l\u1ec7.\nKh\u00f4ng d\u00f9ng endpoint n\u00e0y \u0111\u1ec3 h\u1ee7y \u0111\u01a1n \u2014 d\u00f9ng POST \/orders\/{order}\/cancel."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"order_status\": \"xac_nhan\"\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Cancel order (admin)",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/orders\/:order\/cancel",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/orders\/:order\/cancel",
+                            "variable": [
+                                {
+                                    "id": "order",
+                                    "key": "order",
+                                    "value": "architecto",
+                                    "description": "The order."
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "H\u1ee7y \u0111\u01a1n h\u00e0ng v\u00e0 ho\u00e0n l\u1ea1i t\u1ed3n kho trong c\u00f9ng m\u1ed9t transaction.\nKh\u00f4ng th\u1ec3 h\u1ee7y \u0111\u01a1n \u0111\u00e3 ho\u00e0n th\u00e0nh (hoan_thanh)."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"success\": true,\n  \"message\": \"Don hang da duoc huy.\",\n  \"data\": {\n    \"id\": 1,\n    \"order_status\": \"huy\"\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Confirm payment (admin)",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/orders\/:order\/payment-status",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/orders\/:order\/payment-status",
+                            "variable": [
+                                {
+                                    "id": "order",
+                                    "key": "order",
+                                    "value": "architecto",
+                                    "description": "The order."
+                                }
+                            ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "X\u00e1c nh\u1eadn thanh to\u00e1n \u0111\u01a1n h\u00e0ng (payment_status -> da_thanh_toan).\nIdempotent: g\u1ecdi nhi\u1ec1u l\u1ea7n v\u1eabn tr\u1ea3 v\u1ec1 200 v\u1edbi da_thanh_toan."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"success\": true,\n  \"message\": \"Da xac nhan thanh toan.\",\n  \"data\": {\n    \"id\": 1,\n    \"payment_status\": \"da_thanh_toan\"\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Set delivery method (admin)",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/orders\/:order\/delivery-method",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/orders\/:order\/delivery-method",
+                            "variable": [
+                                {
+                                    "id": "order",
+                                    "key": "order",
+                                    "value": "architecto",
+                                    "description": "The order."
+                                }
+                            ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"delivery_method\":\"noi_tinh\"}"
+                        },
+                        "description": "G\u00e1n h\u00ecnh th\u1ee9c giao h\u00e0ng cho \u0111\u01a1n: noi_tinh (t\u1ef1 giao) ho\u1eb7c ngoai_tinh (xe kh\u00e1ch)."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"delivery_method\": \"noi_tinh\"\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Admin > S\u1ea3n ph\u1ea9m",
+            "description": "\nCRUD s\u1ea3n ph\u1ea9m v\u00e0 toggle tr\u1ea1ng th\u00e1i active",
+            "item": [
+                {
+                    "name": "Danh s\u00e1ch s\u1ea3n ph\u1ea9m (admin)",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/products",
+                            "query": [
+                                {
+                                    "key": "page",
+                                    "value": "1",
+                                    "description": "S\u1ed1 trang.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "per_page",
+                                    "value": "20",
+                                    "description": "S\u1ed1 s\u1ea3n ph\u1ea9m m\u1ed7i trang (m\u1eb7c \u0111\u1ecbnh 20).",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/products?page=1&per_page=20"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Tr\u1ea3 v\u1ec1 danh s\u00e1ch t\u1ea5t c\u1ea3 s\u1ea3n ph\u1ea9m c\u00f3 ph\u00e2n trang, bao g\u1ed3m s\u1ea3n ph\u1ea9m kh\u00f4ng active."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"data\": [\n    {\n      \"id\": 1,\n      \"name\": \"B\u1ed3 c\u00e2u s\u1ed1ng\",\n      \"price_vnd\": 85000,\n      \"unit_type\": \"con\",\n      \"stock_quantity\": \"50.000\",\n      \"is_active\": true\n    }\n  ],\n  \"links\": {\"first\": \"...\", \"last\": \"...\", \"prev\": null, \"next\": null},\n  \"meta\": {\"current_page\": 1, \"last_page\": 1, \"per_page\": 20, \"total\": 1}\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "T\u1ea1o s\u1ea3n ph\u1ea9m m\u1edbi",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/products",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/products"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"B\u1ed3 c\u00e2u s\u1ed1ng\",\"description\":\"B\u1ed3 c\u00e2u ta nu\u00f4i t\u1ef1 nhi\u00ean, b\u00e1n theo c\u1eb7p ho\u1eb7c l\u1ebb\",\"price_vnd\":85000,\"unit_type\":\"con\",\"category_id\":1,\"stock_quantity\":\"50\",\"is_active\":true}"
+                        },
+                        "description": "T\u1ea1o s\u1ea3n ph\u1ea9m v\u1edbi th\u00f4ng tin c\u01a1 b\u1ea3n v\u00e0 t\u1ed3n kho ban \u0111\u1ea7u."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"B\u1ed3 c\u00e2u s\u1ed1ng\",\n    \"price_vnd\": 85000,\n    \"unit_type\": \"con\",\n    \"stock_quantity\": \"50.000\",\n    \"is_active\": true,\n    \"category\": {\"id\": 1, \"name\": \"Chim b\u1ed3 c\u00e2u\"},\n    \"images\": []\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Chi ti\u1ebft s\u1ea3n ph\u1ea9m (admin)",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/products\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/products\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "architecto",
+                                    "description": "The ID of the product."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Tr\u1ea3 v\u1ec1 th\u00f4ng tin \u0111\u1ea7y \u0111\u1ee7 c\u1ee7a s\u1ea3n ph\u1ea9m bao g\u1ed3m t\u1ea5t c\u1ea3 \u1ea3nh v\u00e0 th\u00f4ng tin t\u1ed3n kho."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"B\u1ed3 c\u00e2u s\u1ed1ng\",\n    \"description\": \"B\u1ed3 c\u00e2u ta nu\u00f4i t\u1ef1 nhi\u00ean\",\n    \"price_vnd\": 85000,\n    \"unit_type\": \"con\",\n    \"stock_quantity\": \"50.000\",\n    \"is_active\": true,\n    \"category\": {\"id\": 1, \"name\": \"Chim b\u1ed3 c\u00e2u\"},\n    \"images\": []\n  }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"message\": \"S\u1ea3n ph\u1ea9m kh\u00f4ng t\u1ed3n t\u1ea1i.\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "C\u1eadp nh\u1eadt s\u1ea3n ph\u1ea9m",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/products\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/products\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "architecto",
+                                    "description": "The ID of the product."
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"B\u1ed3 c\u00e2u s\u1ed1ng (c\u1eb7p)\",\"description\":\"B\u1ed3 c\u00e2u ta nu\u00f4i t\u1ef1 nhi\u00ean, b\u00e1n theo c\u1eb7p\",\"price_vnd\":160000,\"unit_type\":\"con\",\"category_id\":1,\"is_active\":true}"
+                        },
+                        "description": "C\u1eadp nh\u1eadt th\u00f4ng tin s\u1ea3n ph\u1ea9m. T\u1ea5t c\u1ea3 tr\u01b0\u1eddng \u0111\u1ec1u t\u00f9y ch\u1ecdn ngo\u1ea1i tr\u1eeb name."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"B\u1ed3 c\u00e2u s\u1ed1ng (c\u1eb7p)\",\n    \"price_vnd\": 160000,\n    \"unit_type\": \"con\",\n    \"is_active\": true\n  }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"message\": \"S\u1ea3n ph\u1ea9m kh\u00f4ng t\u1ed3n t\u1ea1i.\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "X\u00f3a s\u1ea3n ph\u1ea9m",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/products\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/products\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "architecto",
+                                    "description": "The ID of the product."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "X\u00f3a s\u1ea3n ph\u1ea9m v\u00e0 t\u1ea5t c\u1ea3 \u1ea3nh li\u00ean quan. Kh\u00f4ng th\u1ec3 ho\u00e0n t\u00e1c."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 204,
+                            "body": "{}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"message\": \"S\u1ea3n ph\u1ea9m kh\u00f4ng t\u1ed3n t\u1ea1i.\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "B\u1eadt\/t\u1eaft tr\u1ea1ng th\u00e1i s\u1ea3n ph\u1ea9m",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/products\/:product\/toggle-active",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/products\/:product\/toggle-active",
+                            "variable": [
+                                {
+                                    "id": "product",
+                                    "key": "product",
+                                    "value": "architecto",
+                                    "description": "The product."
+                                }
+                            ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Toggle tr\u1ea1ng th\u00e1i hi\u1ec3n th\u1ecb s\u1ea3n ph\u1ea9m (active\/inactive).\nS\u1ea3n ph\u1ea9m inactive s\u1ebd kh\u00f4ng hi\u1ec7n trong danh s\u00e1ch public."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"B\u1ed3 c\u00e2u s\u1ed1ng\",\n    \"is_active\": false\n  }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"message\": \"S\u1ea3n ph\u1ea9m kh\u00f4ng t\u1ed3n t\u1ea1i.\"}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Admin > Danh m\u1ee5c",
+            "description": "\nQu\u1ea3n l\u00fd danh m\u1ee5c s\u1ea3n ph\u1ea9m (max 2 c\u1ea5p)",
+            "item": [
+                {
+                    "name": "Danh s\u00e1ch danh m\u1ee5c",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/categories",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/categories"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Tr\u1ea3 v\u1ec1 to\u00e0n b\u1ed9 danh m\u1ee5c k\u00e8m danh m\u1ee5c con (t\u1ed1i \u0111a 2 c\u1ea5p)."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"name\": \"Chim b\u1ed3 c\u00e2u\",\n      \"slug\": \"chim-bo-cau\",\n      \"parent_id\": null,\n      \"is_active\": true,\n      \"children\": []\n    }\n  ]\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "T\u1ea1o danh m\u1ee5c m\u1edbi",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/categories",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/categories"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"Chim b\u1ed3 c\u00e2u s\u1ed1ng\",\"slug\":\"chim-bo-cau-song\",\"parent_id\":1,\"description\":\"B\u1ed3 c\u00e2u s\u1ed1ng b\u00e1n theo con\",\"sort_order\":1,\"is_active\":true}"
+                        },
+                        "description": "T\u1ea1o danh m\u1ee5c g\u1ed1c ho\u1eb7c danh m\u1ee5c con (t\u1ed1i \u0111a 2 c\u1ea5p)."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 2,\n    \"name\": \"Chim b\u1ed3 c\u00e2u s\u1ed1ng\",\n    \"slug\": \"chim-bo-cau-song\",\n    \"parent_id\": 1,\n    \"is_active\": true,\n    \"children\": []\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Chi ti\u1ebft danh m\u1ee5c",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/categories\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/categories\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "architecto",
+                                    "description": "The ID of the category."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Tr\u1ea3 v\u1ec1 th\u00f4ng tin chi ti\u1ebft m\u1ed9t danh m\u1ee5c theo ID."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"Chim b\u1ed3 c\u00e2u\",\n    \"slug\": \"chim-bo-cau\",\n    \"parent_id\": null,\n    \"is_active\": true,\n    \"children\": []\n  }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"message\": \"Danh m\u1ee5c kh\u00f4ng t\u1ed3n t\u1ea1i.\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "C\u1eadp nh\u1eadt danh m\u1ee5c",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/categories\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/categories\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "architecto",
+                                    "description": "The ID of the category."
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"B\u1ed3 c\u00e2u th\u1ecbt\",\"slug\":\"bo-cau-thit\",\"parent_id\":1,\"description\":\"B\u1ed3 c\u00e2u l\u00e0m s\u1eb5n b\u00e1n theo kg\",\"sort_order\":2,\"is_active\":true}"
+                        },
+                        "description": "C\u1eadp nh\u1eadt th\u00f4ng tin danh m\u1ee5c theo ID."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"B\u1ed3 c\u00e2u th\u1ecbt\",\n    \"slug\": \"bo-cau-thit\",\n    \"parent_id\": null,\n    \"is_active\": true,\n    \"children\": []\n  }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"message\": \"Danh m\u1ee5c kh\u00f4ng t\u1ed3n t\u1ea1i.\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "X\u00f3a danh m\u1ee5c",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/categories\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/categories\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "architecto",
+                                    "description": "The ID of the category."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "X\u00f3a danh m\u1ee5c theo ID. Kh\u00f4ng th\u1ec3 x\u00f3a danh m\u1ee5c \u0111ang c\u00f3 s\u1ea3n ph\u1ea9m."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 204,
+                            "body": "{}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"message\": \"Danh m\u1ee5c kh\u00f4ng t\u1ed3n t\u1ea1i.\"}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Admin > T\u1ed3n kho",
+            "description": "\n\u0110i\u1ec1u ch\u1ec9nh t\u1ed3n kho v\u00e0 xem l\u1ecbch s\u1eed thay \u0111\u1ed5i",
+            "item": [
+                {
+                    "name": "L\u1ecbch s\u1eed \u0111i\u1ec1u ch\u1ec9nh t\u1ed3n kho",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/products\/:product_id\/stock-adjustments",
+                            "query": [
+                                {
+                                    "key": "per_page",
+                                    "value": "15",
+                                    "description": "S\u1ed1 b\u1ea3n ghi m\u1ed7i trang (m\u1eb7c \u0111\u1ecbnh 15).",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "page",
+                                    "value": "1",
+                                    "description": "S\u1ed1 trang.",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/products\/:product_id\/stock-adjustments?per_page=15&page=1",
+                            "variable": [
+                                {
+                                    "id": "product_id",
+                                    "key": "product_id",
+                                    "value": "architecto",
+                                    "description": "The ID of the product."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Tr\u1ea3 v\u1ec1 l\u1ecbch s\u1eed t\u1ea5t c\u1ea3 \u0111i\u1ec1u ch\u1ec9nh t\u1ed3n kho c\u1ee7a m\u1ed9t s\u1ea3n ph\u1ea9m, m\u1edbi nh\u1ea5t tr\u01b0\u1edbc."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"product_id\": 1,\n      \"delta\": \"10.000\",\n      \"adjustment_type\": \"nhap_hang\",\n      \"note\": \"Nh\u1eadp h\u00e0ng t\u1eeb tr\u1ea1i\",\n      \"created_at\": \"2026-03-01T08:00:00.000000Z\"\n    }\n  ],\n  \"meta\": {\"total\": 1, \"per_page\": 15, \"current_page\": 1}\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "\u0110i\u1ec1u ch\u1ec9nh t\u1ed3n kho",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/products\/:product_id\/stock-adjustments",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/products\/:product_id\/stock-adjustments",
+                            "variable": [
+                                {
+                                    "id": "product_id",
+                                    "key": "product_id",
+                                    "value": "architecto",
+                                    "description": "The ID of the product."
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"delta\":\"10\",\"adjustment_type\":\"nhap_hang\",\"note\":\"Nh\u1eadp h\u00e0ng t\u1eeb tr\u1ea1i\"}"
+                        },
+                        "description": "C\u1ed9ng ho\u1eb7c tr\u1eeb t\u1ed3n kho th\u1ee7 c\u00f4ng. Lo\u1ea1i nhap_hang\/kiem_ke c\u1ed9ng delta;\nlo\u1ea1i xuat_hang\/huy_hang tr\u1eeb delta. Ghi l\u1ecbch s\u1eed \u0111\u1ea7y \u0111\u1ee7 v\u1edbi admin ID."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 5,\n    \"product_id\": 1,\n    \"delta\": \"10.000\",\n    \"adjustment_type\": \"nhap_hang\",\n    \"note\": \"Nh\u1eadp h\u00e0ng t\u1eeb tr\u1ea1i\",\n    \"admin_user_id\": 1,\n    \"created_at\": \"2026-03-29T08:00:00.000000Z\"\n  }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"message\": \"T\u1ed3n kho kh\u00f4ng \u0111\u1ee7 \u0111\u1ec3 tr\u1eeb.\"}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Admin > \u1ea2nh s\u1ea3n ph\u1ea9m",
+            "description": "\nUpload, \u0111\u1eb7t \u1ea3nh ch\u00ednh, x\u00f3a \u1ea3nh s\u1ea3n ph\u1ea9m (l\u01b0u tr\u00ean S3)",
+            "item": [
+                {
+                    "name": "Upload \u1ea3nh s\u1ea3n ph\u1ea9m",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/products\/:product_id\/images",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/products\/:product_id\/images",
+                            "variable": [
+                                {
+                                    "id": "product_id",
+                                    "key": "product_id",
+                                    "value": "architecto",
+                                    "description": "The ID of the product."
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "multipart\/form-data"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "is_primary",
+                                    "value": "",
+                                    "type": "text",
+                                    "description": "optional \u0110\u1eb7t l\u00e0m \u1ea3nh ch\u00ednh (m\u1eb7c \u0111\u1ecbnh false)."
+                                },
+                                {
+                                    "key": "image",
+                                    "src": [],
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        "description": "Upload \u1ea3nh m\u1edbi cho s\u1ea3n ph\u1ea9m. \u1ea2nh \u0111\u01b0\u1ee3c l\u01b0u tr\u00ean S3 v\u00e0 resize t\u1ef1 \u0111\u1ed9ng.\nN\u1ebfu s\u1ea3n ph\u1ea9m ch\u01b0a c\u00f3 \u1ea3nh n\u00e0o, \u1ea3nh \u0111\u1ea7u ti\u00ean s\u1ebd t\u1ef1 \u0111\u1ed9ng l\u00e0 \u1ea3nh ch\u00ednh."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 3,\n    \"product_id\": 1,\n    \"url\": \"https:\/\/s3.amazonaws.com\/bucket\/products\/abc123.jpg\",\n    \"is_primary\": false\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "\u0110\u1eb7t \u1ea3nh ch\u00ednh",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/products\/:product\/images\/:image\/primary",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/products\/:product\/images\/:image\/primary",
+                            "variable": [
+                                {
+                                    "id": "product",
+                                    "key": "product",
+                                    "value": "architecto",
+                                    "description": "The product."
+                                },
+                                {
+                                    "id": "image",
+                                    "key": "image",
+                                    "value": "architecto",
+                                    "description": "The image."
+                                }
+                            ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "\u0110\u1eb7t \u1ea3nh n\u00e0y l\u00e0m \u1ea3nh \u0111\u1ea1i di\u1ec7n ch\u00ednh cho s\u1ea3n ph\u1ea9m.\n\u1ea2nh ch\u00ednh c\u0169 s\u1ebd t\u1ef1 \u0111\u1ed9ng chuy\u1ec3n th\u00e0nh \u1ea3nh ph\u1ee5."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 3,\n    \"product_id\": 1,\n    \"url\": \"https:\/\/s3.amazonaws.com\/bucket\/products\/abc123.jpg\",\n    \"is_primary\": true\n  }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"message\": \"\u1ea2nh kh\u00f4ng t\u1ed3n t\u1ea1i.\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "X\u00f3a \u1ea3nh s\u1ea3n ph\u1ea9m",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/products\/:product_id\/images\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/products\/:product_id\/images\/:id",
+                            "variable": [
+                                {
+                                    "id": "product_id",
+                                    "key": "product_id",
+                                    "value": "architecto",
+                                    "description": "The ID of the product."
+                                },
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "architecto",
+                                    "description": "The ID of the image."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "X\u00f3a \u1ea3nh kh\u1ecfi S3 v\u00e0 c\u01a1 s\u1edf d\u1eef li\u1ec7u. N\u1ebfu \u1ea3nh b\u1ecb x\u00f3a l\u00e0 \u1ea3nh ch\u00ednh,\n\u1ea3nh ti\u1ebfp theo s\u1ebd t\u1ef1 \u0111\u1ed9ng \u0111\u01b0\u1ee3c \u0111\u1eb7t l\u00e0m \u1ea3nh ch\u00ednh."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 204,
+                            "body": "{}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"message\": \"\u1ea2nh kh\u00f4ng t\u1ed3n t\u1ea1i.\"}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Public > S\u1ea3n ph\u1ea9m",
+            "description": "\nXem danh s\u00e1ch v\u00e0 chi ti\u1ebft s\u1ea3n ph\u1ea9m (kh\u00f4ng c\u1ea7n \u0111\u0103ng nh\u1eadp)",
+            "item": [
+                {
+                    "name": "Danh s\u00e1ch s\u1ea3n ph\u1ea9m (public)",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/products",
+                            "query": [
+                                {
+                                    "key": "filter%5Bcategory_id%5D",
+                                    "value": "1",
+                                    "description": "L\u1ecdc theo danh m\u1ee5c.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "sort",
+                                    "value": "-created_at",
+                                    "description": "S\u1eafp x\u1ebfp: name, price_vnd, -name, -price_vnd, created_at, -created_at.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "per_page",
+                                    "value": "20",
+                                    "description": "S\u1ed1 s\u1ea3n ph\u1ea9m m\u1ed7i trang (m\u1eb7c \u0111\u1ecbnh 20).",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "page",
+                                    "value": "1",
+                                    "description": "S\u1ed1 trang.",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}\/api\/v1\/products?filter%5Bcategory_id%5D=1&sort=-created_at&per_page=20&page=1"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Tr\u1ea3 v\u1ec1 danh s\u00e1ch s\u1ea3n ph\u1ea9m \u0111ang b\u00e1n (is_active=true) v\u1edbi ph\u00e2n trang v\u00e0 l\u1ecdc.\nCh\u1ec9 hi\u1ec3n th\u1ecb \u1ea3nh ch\u00ednh c\u1ee7a m\u1ed7i s\u1ea3n ph\u1ea9m.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"data\": [\n    {\n      \"id\": 1,\n      \"name\": \"B\u1ed3 c\u00e2u s\u1ed1ng\",\n      \"price_vnd\": 85000,\n      \"unit_type\": \"con\",\n      \"stock_quantity\": \"50.000\",\n      \"primary_image\": \"https:\/\/s3.amazonaws.com\/bucket\/products\/abc123.jpg\"\n    }\n  ],\n  \"links\": {\"first\": \"...\", \"last\": \"...\", \"prev\": null, \"next\": null},\n  \"meta\": {\"current_page\": 1, \"last_page\": 1, \"per_page\": 20, \"total\": 1}\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Chi ti\u1ebft s\u1ea3n ph\u1ea9m (public)",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/products\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/products\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "architecto",
+                                    "description": "The ID of the product."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Tr\u1ea3 v\u1ec1 th\u00f4ng tin \u0111\u1ea7y \u0111\u1ee7 s\u1ea3n ph\u1ea9m bao g\u1ed3m t\u1ea5t c\u1ea3 \u1ea3nh, danh m\u1ee5c, v\u00e0 t\u1ed3n kho hi\u1ec7n t\u1ea1i.\nCh\u1ec9 tr\u1ea3 v\u1ec1 s\u1ea3n ph\u1ea9m \u0111ang active.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"B\u1ed3 c\u00e2u s\u1ed1ng\",\n    \"description\": \"B\u1ed3 c\u00e2u ta nu\u00f4i t\u1ef1 nhi\u00ean\",\n    \"price_vnd\": 85000,\n    \"unit_type\": \"con\",\n    \"stock_quantity\": \"50.000\",\n    \"category\": {\"id\": 1, \"name\": \"Chim b\u1ed3 c\u00e2u\"},\n    \"images\": [\n      {\"id\": 1, \"url\": \"https:\/\/s3.amazonaws.com\/bucket\/products\/abc123.jpg\", \"is_primary\": true}\n    ]\n  }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"message\": \"S\u1ea3n ph\u1ea9m kh\u00f4ng t\u1ed3n t\u1ea1i.\"}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Public > Gi\u1ecf h\u00e0ng",
+            "description": "\nQu\u1ea3n l\u00fd gi\u1ecf h\u00e0ng kh\u00e1ch (kh\u00f4ng c\u1ea7n \u0111\u0103ng nh\u1eadp)",
+            "item": [
+                {
+                    "name": "T\u1ea1o gi\u1ecf h\u00e0ng m\u1edbi",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/cart",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/cart"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Tr\u1ea3 v\u1ec1 UUID token \u0111\u1ec3 s\u1eed d\u1ee5ng trong header X-Cart-Token cho c\u00e1c request ti\u1ebfp theo.\nToken c\u00f3 hi\u1ec7u l\u1ef1c 7 ng\u00e0y.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n  \"success\": true,\n  \"data\": {\n    \"token\": \"550e8400-e29b-41d4-a716-446655440000\",\n    \"expires_at\": \"2026-04-05T12:00:00.000000Z\"\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Xem gi\u1ecf h\u00e0ng",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/cart",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/cart"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "X-Cart-Token",
+                                "value": "required UUID token t\u1eeb POST \/cart. Example: 550e8400-e29b-41d4-a716-446655440000"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Tr\u1ea3 v\u1ec1 danh s\u00e1ch s\u1ea3n ph\u1ea9m trong gi\u1ecf v\u1edbi gi\u00e1 hi\u1ec7n t\u1ea1i v\u00e0 t\u1ed5ng ti\u1ec1n.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"success\": true,\n  \"data\": {\n    \"token\": \"550e8400-e29b-41d4-a716-446655440000\",\n    \"expires_at\": \"2026-04-05T12:00:00.000000Z\",\n    \"total_amount\": 170000,\n    \"items\": [\n      {\n        \"id\": 1,\n        \"product_id\": 1,\n        \"product_name\": \"B\u1ed3 c\u00e2u s\u1ed1ng\",\n        \"quantity\": \"2.000\",\n        \"unit_price\": 85000,\n        \"subtotal\": 170000\n      }\n    ]\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Th\u00eam s\u1ea3n ph\u1ea9m v\u00e0o gi\u1ecf",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/cart\/items",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/cart\/items"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "X-Cart-Token",
+                                "value": "required UUID token t\u1eeb POST \/cart. Example: 550e8400-e29b-41d4-a716-446655440000"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"product_id\":1,\"quantity\":\"2\"}"
+                        },
+                        "description": "N\u1ebfu s\u1ea3n ph\u1ea9m \u0111\u00e3 c\u00f3 trong gi\u1ecf, s\u1ed1 l\u01b0\u1ee3ng s\u1ebd \u0111\u01b0\u1ee3c c\u1ed9ng th\u00eam.\nTr\u1ea3 v\u1ec1 gi\u1ecf h\u00e0ng \u0111\u1ea7y \u0111\u1ee7 sau khi th\u00eam.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n  \"success\": true,\n  \"data\": {\n    \"token\": \"550e8400-e29b-41d4-a716-446655440000\",\n    \"total_amount\": 170000,\n    \"items\": [\n      {\n        \"id\": 1,\n        \"product_id\": 1,\n        \"product_name\": \"B\u1ed3 c\u00e2u s\u1ed1ng\",\n        \"quantity\": \"2.000\",\n        \"unit_price\": 85000,\n        \"subtotal\": 170000\n      }\n    ]\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "C\u1eadp nh\u1eadt s\u1ed1 l\u01b0\u1ee3ng s\u1ea3n ph\u1ea9m trong gi\u1ecf",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/cart\/items\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/cart\/items\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "architecto",
+                                    "description": "The ID of the item."
+                                }
+                            ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "X-Cart-Token",
+                                "value": "required UUID token t\u1eeb POST \/cart. Example: 550e8400-e29b-41d4-a716-446655440000"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"quantity\":\"3\"}"
+                        },
+                        "description": "C\u1eadp nh\u1eadt s\u1ed1 l\u01b0\u1ee3ng m\u1ee5c gi\u1ecf h\u00e0ng theo ID m\u1ee5c.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"success\": true,\n  \"data\": {\n    \"token\": \"550e8400-e29b-41d4-a716-446655440000\",\n    \"total_amount\": 255000,\n    \"items\": [\n      {\n        \"id\": 1,\n        \"product_id\": 1,\n        \"quantity\": \"3.000\",\n        \"unit_price\": 85000,\n        \"subtotal\": 255000\n      }\n    ]\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "X\u00f3a s\u1ea3n ph\u1ea9m kh\u1ecfi gi\u1ecf h\u00e0ng",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/cart\/items\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/cart\/items\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "architecto",
+                                    "description": "The ID of the item."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "X-Cart-Token",
+                                "value": "required UUID token t\u1eeb POST \/cart. Example: 550e8400-e29b-41d4-a716-446655440000"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "X\u00f3a m\u1ed9t m\u1ee5c kh\u1ecfi gi\u1ecf h\u00e0ng theo ID m\u1ee5c.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"success\": true,\n  \"message\": \"\u0110\u00e3 x\u00f3a s\u1ea3n ph\u1ea9m kh\u1ecfi gi\u1ecf h\u00e0ng.\"\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Public > Checkout",
+            "description": "\n\u0110\u1eb7t h\u00e0ng t\u1eeb gi\u1ecf h\u00e0ng (kh\u00f4ng c\u1ea7n \u0111\u0103ng nh\u1eadp)",
+            "item": [
+                {
+                    "name": "Place an order from cart",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/checkout",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/checkout"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"customer_name\":\"Nguy\u1ec5n V\u0103n A\",\"customer_phone\":\"0901234567\",\"delivery_address\":\"123 \u0110\u01b0\u1eddng ABC, TP.HCM\",\"payment_method\":\"cod\"}"
+                        },
+                        "description": "\u0110\u1eb7t h\u00e0ng t\u1eeb gi\u1ecf h\u00e0ng. Y\u00eau c\u1ea7u header `X-Cart-Token` v\u00e0 `Idempotency-Key` (UUID).\nT\u1ed3n kho \u0111\u01b0\u1ee3c tr\u1eeb atomic trong c\u00f9ng m\u1ed9t transaction.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"customer_name\": \"Nguy\u1ec5n V\u0103n A\",\n    \"customer_phone\": \"0901234567\",\n    \"delivery_address\": \"123 \u0110\u01b0\u1eddng ABC, TP.HCM\",\n    \"order_status\": \"cho_xac_nhan\",\n    \"order_status_label\": \"Ch\u1edd x\u00e1c nh\u1eadn\",\n    \"payment_method\": \"cod\",\n    \"payment_method_label\": \"Thanh to\u00e1n khi nh\u1eadn h\u00e0ng (COD)\",\n    \"payment_status\": \"chua_thanh_toan\",\n    \"payment_status_label\": \"Ch\u01b0a thanh to\u00e1n\",\n    \"delivery_method\": null,\n    \"delivery_method_label\": null,\n    \"total_amount\": \"150000\",\n    \"created_by\": null,\n    \"items\": []\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "bearer",
+        "bearer": [
+            {
+                "key": "Authorization",
+                "type": "string"
+            }
+        ]
+    }
+}
