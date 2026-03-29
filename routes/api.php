@@ -1,6 +1,7 @@
 <?php
 
 use App\Presentation\Http\Controllers\Admin\CategoryController;
+use App\Presentation\Http\Controllers\Admin\DashboardController;
 use App\Presentation\Http\Controllers\Admin\OrderController;
 use App\Presentation\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Presentation\Http\Controllers\Admin\ProductImageController;
@@ -39,7 +40,11 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
         Route::delete('products/{product}/images/{image}', [ProductImageController::class, 'destroy'])
             ->name('products.images.destroy');
 
-        // Admin order routes — ORDR-03, ORDR-04, ORDR-05, ORDR-06, ORDR-07, PAYM-04, DELV-02
+        // Dashboard — ADMN-01
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+        // Admin order routes — ADMN-02, ADMN-03, ADMN-04, ORDR-03, ORDR-04, ORDR-05, ORDR-06, ORDR-07, PAYM-04, DELV-02
+        Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
         Route::post('/orders', [OrderController::class, 'store'])
             ->middleware(\Infinitypaul\Idempotency\Middleware\EnsureIdempotency::class)
             ->name('orders.store');

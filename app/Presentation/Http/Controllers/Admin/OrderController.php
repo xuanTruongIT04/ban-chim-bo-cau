@@ -36,6 +36,44 @@ final class OrderController
     ) {}
 
     /**
+     * Danh sach don hang (filter/search/pagination)
+     *
+     * Loc theo trang thai, khoang ngay, tim theo ten/SDT khach.
+     * Mac dinh: sap xep theo ngay tao giam dan (don moi nhat truoc), 20 ban ghi/trang.
+     *
+     * @queryParam filter[status] string Loc theo trang thai: cho_xac_nhan, xac_nhan, dang_giao, hoan_thanh, huy. Example: cho_xac_nhan
+     * @queryParam filter[search] string Tim theo ten hoac SDT khach. Example: Nguyen
+     * @queryParam filter[date_from] string Loc tu ngay (YYYY-MM-DD). Example: 2026-01-01
+     * @queryParam filter[date_to] string Loc den ngay (YYYY-MM-DD). Example: 2026-12-31
+     * @queryParam sort string Sap xep: created_at hoac -created_at. Example: -created_at
+     * @queryParam page integer Trang. Example: 1
+     * @queryParam per_page integer So ban ghi moi trang (mac dinh 20). Example: 20
+     *
+     * @response 200 {"success": true, "data": [{"id": 1, "customer_name": "Nguyen Van A", "order_status": "cho_xac_nhan"}], "meta": {"current_page": 1, "last_page": 1, "per_page": 20, "total": 1}, "links": {"first": "...", "last": "...", "prev": null, "next": null}}
+     */
+    public function index(): JsonResponse
+    {
+        $paginator = $this->orders->listWithFilters();
+
+        return response()->json([
+            'success' => true,
+            'data'    => OrderResource::collection($paginator),
+            'meta'    => [
+                'current_page' => $paginator->currentPage(),
+                'last_page'    => $paginator->lastPage(),
+                'per_page'     => $paginator->perPage(),
+                'total'        => $paginator->total(),
+            ],
+            'links' => [
+                'first' => $paginator->url(1),
+                'last'  => $paginator->url($paginator->lastPage()),
+                'prev'  => $paginator->previousPageUrl(),
+                'next'  => $paginator->nextPageUrl(),
+            ],
+        ]);
+    }
+
+    /**
      * Create a manual order (admin)
      *
      * Admin nhập đơn hàng thủ công cho khách Zalo/điện thoại.

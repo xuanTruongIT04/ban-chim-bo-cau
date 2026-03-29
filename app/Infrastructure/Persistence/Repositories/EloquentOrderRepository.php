@@ -12,6 +12,11 @@ use App\Domain\Order\Repositories\OrderRepositoryInterface;
 use App\Infrastructure\Persistence\Eloquent\Models\OrderItemModel;
 use App\Infrastructure\Persistence\Eloquent\Models\OrderModel;
 use App\Infrastructure\Persistence\Mappers\OrderMapper;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\AllowedSort;
+use Spatie\QueryBuilder\QueryBuilder;
 
 final class EloquentOrderRepository implements OrderRepositoryInterface
 {
@@ -72,5 +77,57 @@ final class EloquentOrderRepository implements OrderRepositoryInterface
         $model->update(['delivery_method' => $method->value]);
 
         return OrderMapper::toDomain($model->fresh()->load('items'));
+    }
+
+    /**
+     * @return array<string, int>
+     */
+    public function countByStatus(): array
+    {
+        $rows = OrderModel::query()
+            ->selectRaw('order_status, COUNT(*) as total')
+            ->groupBy('order_status')
+            ->pluck('total', 'order_status');
+
+        $result = [];
+        foreach (OrderStatus::cases() as $status) {
+            $result[$status->value] = (int) ($rows[$status->value] ?? 0);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return LengthAwarePaginator<int, Order>
+     */
+    public function listWithFilters(): LengthAwarePaginator
+    {
+        $paginator = QueryBuilder::for(OrderModel::class)
+            ->allowedFilters(
+                AllowedFilter::exact('status', 'order_status'),
+                AllowedFilter::callback('search', function (Builder $query, string $value): void {
+                    $query->where(function (Builder $q) use ($value): void {
+                        $q->where('customer_name', 'LIKE', "%{$value}%")
+                          ->orWhere('customer_phone', 'LIKE', "%{$value}%");
+                    });
+                }),
+                AllowedFilter::callback('date_from', function (Builder $query, string $value): void {
+                    $query->whereDate('created_at', '>=', $value);
+                }),
+                AllowedFilter::callback('date_to', function (Builder $query, string $value): void {
+                    $query->whereDate('created_at', '<=', $value);
+                }),
+            )
+            ->allowedSorts(
+                AllowedSort::field('created_at'),
+            )
+            ->defaultSort('-created_at')
+            ->with('items')
+            ->paginate(perPage: (int) request()->get('per_page', 20));
+
+        /** @var LengthAwarePaginator<int, Order> $mapped */
+        $mapped = $paginator->through(fn (OrderModel $model): Order => OrderMapper::toDomain($model));
+
+        return $mapped;
     }
 }

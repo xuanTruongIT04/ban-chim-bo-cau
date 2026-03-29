@@ -24,4 +24,14 @@ interface OrderRepositoryInterface
     public function updatePaymentStatus(int $id, PaymentStatus $status): Order;
 
     public function updateDeliveryMethod(int $id, DeliveryMethod $method): Order;
+
+    /**
+     * @return array<string, int> keyed by OrderStatus::value
+     */
+    public function countByStatus(): array;
+
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Order>
+     */
+    public function listWithFilters(): \Illuminate\Contracts\Pagination\LengthAwarePaginator;
 }
