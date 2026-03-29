@@ -49,7 +49,7 @@ final class StockAdjustmentController
      */
     public function index(Request $request, int $product): JsonResponse
     {
-        $perPage = $request->integer('per_page', 15);
+        $perPage = $request->integer('per_page', 10);
         $page = $request->integer('page', 1);
 
         $result = $this->listAction->handle($product, $perPage, $page);

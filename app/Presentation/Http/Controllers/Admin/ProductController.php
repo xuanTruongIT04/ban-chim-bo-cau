@@ -56,7 +56,7 @@ final class ProductController
      */
     public function index(): AnonymousResourceCollection
     {
-        $products = ProductModel::with(['category', 'images'])->paginate(20);
+        $products = ProductModel::with(['category', 'images'])->paginate(10);
 
         return ProductResource::collection($products);
     }

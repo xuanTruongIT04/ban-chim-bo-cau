@@ -123,7 +123,7 @@ final class EloquentOrderRepository implements OrderRepositoryInterface
             )
             ->defaultSort('-created_at')
             ->with('items')
-            ->paginate(perPage: (int) request()->get('per_page', 20));
+            ->paginate(perPage: (int) request()->get('per_page', 10));
 
         /** @var LengthAwarePaginator<int, Order> $mapped */
         $mapped = $paginator->through(fn (OrderModel $model): Order => OrderMapper::toDomain($model));

@@ -57,7 +57,7 @@ final class ProductController
             ->defaultSort('name')
             ->allowedSorts('name', 'price_vnd', 'created_at')
             ->with(['images' => fn ($q) => $q->where('is_primary', true)])
-            ->paginate($request->integer('per_page', 20));
+            ->paginate($request->integer('per_page', 10));
 
         return ProductResource::collection($products);
     }
