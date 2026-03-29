@@ -5,6 +5,7 @@ use App\Presentation\Http\Controllers\Admin\ProductController as AdminProductCon
 use App\Presentation\Http\Controllers\Admin\ProductImageController;
 use App\Presentation\Http\Controllers\Admin\StockAdjustmentController;
 use App\Presentation\Http\Controllers\Auth\AuthController;
+use App\Presentation\Http\Controllers\Public\CartController;
 use App\Presentation\Http\Controllers\Public\ProductController as PublicProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,4 +43,14 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
         Route::get('/', [PublicProductController::class, 'index'])->name('index');
         Route::get('/{product}', [PublicProductController::class, 'show'])->name('show');
     });
+
+    // Cart routes (public, no auth) — CART-01..04
+    Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
+    Route::middleware(\App\Presentation\Http\Middleware\ResolveCartToken::class)
+        ->prefix('cart')->name('cart.')->group(function () {
+            Route::get('/', [CartController::class, 'show'])->name('show');
+            Route::post('/items', [CartController::class, 'addItem'])->name('items.store');
+            Route::patch('/items/{item}', [CartController::class, 'updateItem'])->name('items.update');
+            Route::delete('/items/{item}', [CartController::class, 'removeItem'])->name('items.destroy');
+        });
 });
