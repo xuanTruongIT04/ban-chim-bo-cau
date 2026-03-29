@@ -14,11 +14,12 @@ final class NewOrderNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public bool $afterCommit = true; // KEY: only queued after transaction commits
-
     public function __construct(
         private readonly Order $order,
-    ) {}
+    ) {
+        // KEY: only queued after transaction commits
+        $this->afterCommit = true;
+    }
 
     /** @return array<string> */
     public function via(object $notifiable): array
