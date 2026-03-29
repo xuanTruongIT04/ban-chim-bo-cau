@@ -11,7 +11,7 @@
 - [ ] **Phase 1: Foundation** — Clean Architecture skeleton, database migrations, Sanctum auth, global JSON error envelope, PHPStan + Pest scaffolding
 - [ ] **Phase 2: Product & Inventory** — Full product catalog CRUD with category management, mixed-unit inventory with admin stock adjustment and audit log
 - [x] **Phase 3: Orders, Cart & Payments** — Atomic order placement with pessimistic locking, idempotency, cart, order state machine, payment tracking, delivery fields, new-order email notification (completed 2026-03-29)
-- [ ] **Phase 4: Admin Operations & Docs** — Admin dashboard, order filtering and search, payment confirmation, Scribe API documentation
+- [x] **Phase 4: Admin Operations & Docs** — Admin dashboard, order filtering and search, payment confirmation, Scribe API documentation (completed 2026-03-29)
 
 ---
 
@@ -99,11 +99,11 @@ Plans:
   3. Admin can confirm payment receipt for any order; the `payment_status` updates to `đã thanh toán` and the response reflects the change immediately
   4. Running `php artisan scribe:generate` produces a browsable API reference that covers all v1 endpoints with accurate request/response examples
 
-**Plans:** 2 plans
+**Plans:** 2/2 plans complete
 
 Plans:
 - [x] 04-01-PLAN.md — Dashboard endpoint + order list with filter/search/pagination + tests
-- [ ] 04-02-PLAN.md — Scribe API documentation (docblocks on all controllers, generate docs)
+- [x] 04-02-PLAN.md — Scribe API documentation (docblocks on all controllers, generate docs)
 
 ---
 
@@ -114,7 +114,7 @@ Plans:
 | 1. Foundation | 2/2 | Complete | 2026-03-28 |
 | 2. Product & Inventory | 0/4 | Planned | - |
 | 3. Orders, Cart & Payments | 5/5 | Complete   | 2026-03-29 |
-| 4. Admin Operations & Docs | 0/2 | Planned | - |
+| 4. Admin Operations & Docs | 2/2 | Complete   | 2026-03-29 |
 
 ---
 

@@ -5,20 +5,20 @@ milestone_name: milestone
 current_phase: 04
 current_plan: 1
 status: unknown
-stopped_at: Completed 04-01-PLAN.md
-last_updated: "2026-03-29T01:47:30.126Z"
+stopped_at: Completed 04-02-PLAN.md (awaiting Task 2 human-verify checkpoint)
+last_updated: "2026-03-29T01:59:09.876Z"
 progress:
   total_phases: 4
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 13
-  completed_plans: 12
+  completed_plans: 13
 ---
 
 # Execution State
 
 **Project:** Ban Chim Bồ Câu — Laravel Backend
-**Last session:** 2026-03-29T01:47:30.123Z
-**Stopped at:** Completed 04-01-PLAN.md
+**Last session:** 2026-03-29T01:59:09.873Z
+**Stopped at:** Completed 04-02-PLAN.md (awaiting Task 2 human-verify checkpoint)
 
 ---
 
@@ -69,6 +69,8 @@ Overall:  [################----] Phase 1-2 complete → 7/11 plans done
 - [Phase 03-orders-cart-payments]: [03-04]: ConfirmPaymentAction is idempotent — second confirm returns 200 unchanged (no error)
 - [Phase 04-admin-operations-docs]: listWithFilters() uses FQCN return type in domain interface — satisfies NoLaravelImportInDomainRule, avoids Illuminate import in Domain layer
 - [Phase 04-admin-operations-docs]: spatie/laravel-query-builder allowedFilters() variadic not array — v7 uses variadic args; spread pattern required
+- [Phase 04-admin-operations-docs]: Switch Scribe type laravel to static — plan required public/docs/index.html artifact; laravel type generates Blade views not static HTML
+- [Phase 04-admin-operations-docs]: Disable GetFromFormRequest body params strategy — ValidationRules parser crashes on file+max and array+min rule combos; @bodyParam docblocks on all controllers make it redundant
 
 ## Blockers
 
@@ -99,3 +101,4 @@ None
 | Phase 03-orders-cart-payments P05 | 15min | 2 tasks | 8 files |
 | Phase 03-orders-cart-payments P04 | 4min | 2 tasks | 10 files |
 | Phase 04-admin-operations-docs P01 | 3min | 1 tasks | 8 files |
+| Phase 04-admin-operations-docs P02 | ~15min | 1 tasks | 10 files |
