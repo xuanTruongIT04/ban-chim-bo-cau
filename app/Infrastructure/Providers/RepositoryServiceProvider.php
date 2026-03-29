@@ -5,11 +5,15 @@ declare(strict_types=1);
 namespace App\Infrastructure\Providers;
 
 use App\Domain\Auth\Repositories\AdminUserRepositoryInterface;
+use App\Domain\Order\Repositories\CartRepositoryInterface;
+use App\Domain\Order\Repositories\OrderRepositoryInterface;
 use App\Domain\Product\Repositories\CategoryRepositoryInterface;
 use App\Domain\Product\Repositories\ProductRepositoryInterface;
 use App\Domain\Product\Repositories\StockAdjustmentRepositoryInterface;
 use App\Infrastructure\Persistence\Repositories\EloquentAdminUserRepository;
+use App\Infrastructure\Persistence\Repositories\EloquentCartRepository;
 use App\Infrastructure\Persistence\Repositories\EloquentCategoryRepository;
+use App\Infrastructure\Persistence\Repositories\EloquentOrderRepository;
 use App\Infrastructure\Persistence\Repositories\EloquentProductRepository;
 use App\Infrastructure\Persistence\Repositories\EloquentStockAdjustmentRepository;
 use Illuminate\Support\ServiceProvider;
@@ -36,6 +40,16 @@ final class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             StockAdjustmentRepositoryInterface::class,
             EloquentStockAdjustmentRepository::class,
+        );
+
+        $this->app->bind(
+            CartRepositoryInterface::class,
+            EloquentCartRepository::class,
+        );
+
+        $this->app->bind(
+            OrderRepositoryInterface::class,
+            EloquentOrderRepository::class,
         );
     }
 }

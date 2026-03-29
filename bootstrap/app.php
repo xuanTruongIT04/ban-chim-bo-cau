@@ -72,6 +72,36 @@ return Application::configure(basePath: dirname(__DIR__))
                     $e->getMessage(),
                     (object) [],
                 ],
+                $e instanceof \App\Domain\Order\Exceptions\CartNotFoundException => [
+                    404,
+                    'CART_NOT_FOUND',
+                    $e->getMessage(),
+                    (object) [],
+                ],
+                $e instanceof \App\Domain\Order\Exceptions\CartExpiredException => [
+                    410,
+                    'CART_EXPIRED',
+                    $e->getMessage(),
+                    (object) [],
+                ],
+                $e instanceof \App\Domain\Order\Exceptions\OrderNotFoundException => [
+                    404,
+                    'ORDER_NOT_FOUND',
+                    $e->getMessage(),
+                    (object) [],
+                ],
+                $e instanceof \App\Domain\Order\Exceptions\InvalidOrderTransitionException => [
+                    422,
+                    'INVALID_ORDER_TRANSITION',
+                    $e->getMessage(),
+                    (object) [],
+                ],
+                $e instanceof \App\Domain\Order\Exceptions\InactiveProductInCartException => [
+                    422,
+                    'INACTIVE_PRODUCT_IN_CART',
+                    $e->getMessage(),
+                    (object) [],
+                ],
                 $e instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException => [
                     404,
                     'NOT_FOUND',
