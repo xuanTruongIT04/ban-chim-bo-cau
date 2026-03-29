@@ -29,9 +29,9 @@
 
 ### Giỏ hàng (CART)
 
-- [ ] **CART-01**: Khách có thể thêm sản phẩm vào giỏ hàng (dùng session token, không cần đăng ký)
-- [ ] **CART-02**: Giỏ hàng hiển thị số lượng, giá, tổng tiền
-- [ ] **CART-03**: Khách có thể cập nhật số lượng hoặc xóa sản phẩm khỏi giỏ
+- [x] **CART-01**: Khách có thể thêm sản phẩm vào giỏ hàng (dùng session token, không cần đăng ký)
+- [x] **CART-02**: Giỏ hàng hiển thị số lượng, giá, tổng tiền
+- [x] **CART-03**: Khách có thể cập nhật số lượng hoặc xóa sản phẩm khỏi giỏ
 - [x] **CART-04**: Giỏ hàng KHÔNG trừ tồn kho — chỉ trừ khi đặt hàng thành công
 
 ### Đặt hàng (ORDR)
@@ -141,9 +141,9 @@
 | INVT-02 | Phase 2 | Complete |
 | INVT-03 | Phase 2 | Complete |
 | INVT-04 | Phase 2 | Complete |
-| CART-01 | Phase 3 | Pending |
-| CART-02 | Phase 3 | Pending |
-| CART-03 | Phase 3 | Pending |
+| CART-01 | Phase 3 | Complete |
+| CART-02 | Phase 3 | Complete |
+| CART-03 | Phase 3 | Complete |
 | CART-04 | Phase 3 | Complete |
 | ORDR-01 | Phase 3 | Pending |
 | ORDR-02 | Phase 3 | Pending |
