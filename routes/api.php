@@ -39,11 +39,19 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
         Route::delete('products/{product}/images/{image}', [ProductImageController::class, 'destroy'])
             ->name('products.images.destroy');
 
-        // Admin order routes — ORDR-03, ORDR-06
+        // Admin order routes — ORDR-03, ORDR-04, ORDR-05, ORDR-06, ORDR-07, PAYM-04, DELV-02
         Route::post('/orders', [OrderController::class, 'store'])
             ->middleware(\Infinitypaul\Idempotency\Middleware\EnsureIdempotency::class)
             ->name('orders.store');
         Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+        Route::patch('/orders/{order}/status', [OrderController::class, 'updateStatus'])
+            ->name('orders.update-status');
+        Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel'])
+            ->name('orders.cancel');
+        Route::patch('/orders/{order}/payment-status', [OrderController::class, 'confirmPayment'])
+            ->name('orders.confirm-payment');
+        Route::patch('/orders/{order}/delivery-method', [OrderController::class, 'updateDeliveryMethod'])
+            ->name('orders.update-delivery-method');
     });
 
     // Public customer routes — AUTH-03, PROD-01, PROD-05
