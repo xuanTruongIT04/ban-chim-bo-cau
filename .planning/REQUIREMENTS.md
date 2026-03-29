@@ -58,8 +58,8 @@
 
 ### Thông báo (NOTI)
 
-- [ ] **NOTI-01**: Admin (mẹ) nhận email khi có đơn hàng mới (gửi qua queued job, sau khi transaction commit)
-- [ ] **NOTI-02**: Email thông báo bằng tiếng Việt, ghi rõ sản phẩm, số lượng, địa chỉ giao hàng
+- [x] **NOTI-01**: Admin (mẹ) nhận email khi có đơn hàng mới (gửi qua queued job, sau khi transaction commit)
+- [x] **NOTI-02**: Email thông báo bằng tiếng Việt, ghi rõ sản phẩm, số lượng, địa chỉ giao hàng
 
 ### Admin Operations (ADMN)
 
@@ -158,8 +158,8 @@
 | PAYM-04 | Phase 3 | Pending |
 | DELV-01 | Phase 3 | Complete |
 | DELV-02 | Phase 3 | Complete |
-| NOTI-01 | Phase 3 | Pending |
-| NOTI-02 | Phase 3 | Pending |
+| NOTI-01 | Phase 3 | Complete |
+| NOTI-02 | Phase 3 | Complete |
 | TECH-05 | Phase 3 | Complete |
 | ADMN-01 | Phase 4 | Pending |
 | ADMN-02 | Phase 4 | Pending |

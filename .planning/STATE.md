@@ -5,20 +5,20 @@ milestone_name: milestone
 current_phase: 03
 current_plan: 1
 status: unknown
-stopped_at: Completed 03-03-PLAN.md
-last_updated: "2026-03-29T00:39:14.198Z"
+stopped_at: Completed 03-05-PLAN.md — new order notification and cart cleanup
+last_updated: "2026-03-29T00:45:23.901Z"
 progress:
   total_phases: 4
   completed_phases: 2
   total_plans: 11
-  completed_plans: 9
+  completed_plans: 10
 ---
 
 # Execution State
 
 **Project:** Ban Chim Bồ Câu — Laravel Backend
-**Last session:** 2026-03-29T00:39:14.195Z
-**Stopped at:** Completed 03-03-PLAN.md
+**Last session:** 2026-03-29T00:45:23.898Z
+**Stopped at:** Completed 03-05-PLAN.md — new order notification and cart cleanup
 
 ---
 
@@ -62,6 +62,8 @@ Overall:  [################----] Phase 1-2 complete → 7/11 plans done
 - [Phase 03-orders-cart-payments]: ResolveCartToken returns direct JSON response (not exception) for CART_TOKEN_REQUIRED/CART_NOT_FOUND — middleware-level responses bypass bootstrap/app.php exception handler
 - [Phase 03-orders-cart-payments]: PlaceOrderAction sorts product IDs ascending before locking — prevents deadlocks in concurrent orders
 - [Phase 03-orders-cart-payments]: bank_info returned inline in response body (not data envelope) for chuyen_khoan — matches D-19
+- [Phase 03-05]: afterCommit set in constructor not as property — Queueable trait already declares it; redeclaring causes PHP fatal
+- [Phase 03-05]: Notification dispatch OUTSIDE DB::transaction closure — makes intent clear, works with afterCommit=true
 
 ## Blockers
 
@@ -89,3 +91,4 @@ None
 | 03-orders-cart-payments | 01 | ~6min | 2 | 36 |
 | Phase 03-orders-cart-payments P02 | 3min | 2 tasks | 12 files |
 | Phase 03-orders-cart-payments P03 | 10min | 2 tasks | 13 files |
+| Phase 03-orders-cart-payments P05 | 15min | 2 tasks | 8 files |
