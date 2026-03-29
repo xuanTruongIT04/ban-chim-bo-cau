@@ -55,9 +55,9 @@ Plans:
 
 Plans:
 - [x] 02-01-PLAN.md — Domain layer, migrations, infrastructure (models/mappers/repos), category CRUD, Wave 0 test stubs
-- [ ] 02-02-PLAN.md — Product admin CRUD + public product API (list with filter/pagination, detail)
+- [x] 02-02-PLAN.md — Product admin CRUD + public product API (list with filter/pagination, detail)
 - [x] 02-03-PLAN.md — Stock adjustment with DB::transaction + lockForUpdate, adjustment history
-- [ ] 02-04-PLAN.md — Product image gallery (S3 upload + auto-thumbnail via Intervention Image)
+- [x] 02-04-PLAN.md — Product image gallery (S3 upload + auto-thumbnail via Intervention Image)
 
 ---
 
