@@ -5,8 +5,8 @@ milestone_name: milestone
 current_phase: 3
 current_plan: Not started
 status: unknown
-stopped_at: Completed 02-04-PLAN.md — product image management
-last_updated: "2026-03-28T13:58:13.062Z"
+stopped_at: Completed 03-01-PLAN.md
+last_updated: "2026-03-29T00:29:24.244Z"
 progress:
   total_phases: 4
   completed_phases: 2
@@ -17,8 +17,8 @@ progress:
 # Execution State
 
 **Project:** Ban Chim Bồ Câu — Laravel Backend
-**Last session:** 2026-03-28T12:55:00.000Z
-**Stopped at:** Completed 02-04-PLAN.md — product image management
+**Last session:** 2026-03-29T00:29:24.241Z
+**Stopped at:** Completed 03-01-PLAN.md
 
 ---
 
@@ -55,6 +55,8 @@ Overall:  [################----] Phase 1-2 complete → 5/6 plans done
 - [02-04]: Intervention Image 3.x uses read() not make() — v2 API make() does not exist in 3.x
 - [02-04]: UploadProductImageAction returns ProductImageModel — acceptable for Application layer feeding directly into Presentation resources without extra mapping
 - [02-04]: Auto-promote next image when primary deleted — prevents product having images but no primary
+- [Phase 03-orders-cart-payments]: @property Carbon $expires_at on CartModel — PHPStan cannot infer Carbon type from datetime cast; annotation required for CartMapper toDomain()
+- [Phase 03-orders-cart-payments]: Migration filenames use 000005-000008 suffix — avoid collision with Phase 2 migrations 000001-000004
 
 ## Blockers
 
@@ -79,3 +81,4 @@ None
 | 02-product-inventory | 01 | 11min | 2 | 46+ |
 | 02-product-inventory | 03 | 15min | 2 | 9+ |
 | 02-product-inventory | 04 | 18min | 1 | 7 |
+| Phase 03-orders-cart-payments P01 | 351min | 2 tasks | 36 files |
