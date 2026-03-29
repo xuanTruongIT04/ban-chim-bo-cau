@@ -9,7 +9,7 @@
 ## Phases
 
 - [ ] **Phase 1: Foundation** — Clean Architecture skeleton, database migrations, Sanctum auth, global JSON error envelope, PHPStan + Pest scaffolding
-- [ ] **Phase 2: Product & Inventory** — Full product catalog CRUD with category management, mixed-unit inventory with admin stock adjustment and audit log
+- [x] **Phase 2: Product & Inventory** — Full product catalog CRUD with category management, mixed-unit inventory with admin stock adjustment and audit log (completed 2026-03-29)
 - [x] **Phase 3: Orders, Cart & Payments** — Atomic order placement with pessimistic locking, idempotency, cart, order state machine, payment tracking, delivery fields, new-order email notification (completed 2026-03-29)
 - [x] **Phase 4: Admin Operations & Docs** — Admin dashboard, order filtering and search, payment confirmation, Scribe API documentation (completed 2026-03-29)
 
@@ -112,7 +112,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 2/2 | Complete | 2026-03-28 |
-| 2. Product & Inventory | 0/4 | Planned | - |
+| 2. Product & Inventory | 4/4 | Complete | 2026-03-29 |
 | 3. Orders, Cart & Payments | 5/5 | Complete   | 2026-03-29 |
 | 4. Admin Operations & Docs | 2/2 | Complete   | 2026-03-29 |
 
