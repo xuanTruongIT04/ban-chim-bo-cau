@@ -2,30 +2,30 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_phase: 4
-current_plan: Not started
+current_phase: 04
+current_plan: 1
 status: unknown
-stopped_at: Phase 4 context gathered
-last_updated: "2026-03-29T01:23:56.088Z"
+stopped_at: Completed 04-01-PLAN.md
+last_updated: "2026-03-29T01:47:30.126Z"
 progress:
   total_phases: 4
   completed_phases: 3
-  total_plans: 11
-  completed_plans: 11
+  total_plans: 13
+  completed_plans: 12
 ---
 
 # Execution State
 
 **Project:** Ban Chim Bồ Câu — Laravel Backend
-**Last session:** 2026-03-29T01:23:56.079Z
-**Stopped at:** Phase 4 context gathered
+**Last session:** 2026-03-29T01:47:30.123Z
+**Stopped at:** Completed 04-01-PLAN.md
 
 ---
 
 ## Position
 
-- **Current phase:** 4
-- **Current plan:** Not started
+- **Current phase:** 04
+- **Current plan:** 1
 - **Plans complete:** 4/4 in phase 02
 - **Overall progress:** 7 plans completed (phase 01 + phase 02 + 03-01)
 
@@ -67,6 +67,8 @@ Overall:  [################----] Phase 1-2 complete → 7/11 plans done
 - [Phase 03-orders-cart-payments]: [03-04]: CancelOrderAction rejects huy->huy: isCancellable() only guards HoanThanh, explicit Huy check added for re-cancel prevention
 - [Phase 03-orders-cart-payments]: [03-04]: UpdateOrderStatusRequest excludes huy — cancellation through dedicated endpoint with atomic stock restoration
 - [Phase 03-orders-cart-payments]: [03-04]: ConfirmPaymentAction is idempotent — second confirm returns 200 unchanged (no error)
+- [Phase 04-admin-operations-docs]: listWithFilters() uses FQCN return type in domain interface — satisfies NoLaravelImportInDomainRule, avoids Illuminate import in Domain layer
+- [Phase 04-admin-operations-docs]: spatie/laravel-query-builder allowedFilters() variadic not array — v7 uses variadic args; spread pattern required
 
 ## Blockers
 
@@ -96,3 +98,4 @@ None
 | Phase 03-orders-cart-payments P03 | 10min | 2 tasks | 13 files |
 | Phase 03-orders-cart-payments P05 | 15min | 2 tasks | 8 files |
 | Phase 03-orders-cart-payments P04 | 4min | 2 tasks | 10 files |
+| Phase 04-admin-operations-docs P01 | 3min | 1 tasks | 8 files |

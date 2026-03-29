@@ -102,7 +102,7 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 04-01-PLAN.md — Dashboard endpoint + order list with filter/search/pagination + tests
+- [x] 04-01-PLAN.md — Dashboard endpoint + order list with filter/search/pagination + tests
 - [ ] 04-02-PLAN.md — Scribe API documentation (docblocks on all controllers, generate docs)
 
 ---

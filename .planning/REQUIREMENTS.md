@@ -63,10 +63,10 @@
 
 ### Admin Operations (ADMN)
 
-- [ ] **ADMN-01**: Admin có dashboard hiển thị số đơn đang chờ xử lý
-- [ ] **ADMN-02**: Admin có thể lọc danh sách đơn hàng theo trạng thái và ngày
-- [ ] **ADMN-03**: Admin có thể tìm đơn hàng theo tên/SĐT khách
-- [ ] **ADMN-04**: Admin có thể xác nhận thanh toán và cập nhật trạng thái giao hàng từ danh sách đơn
+- [x] **ADMN-01**: Admin có dashboard hiển thị số đơn đang chờ xử lý
+- [x] **ADMN-02**: Admin có thể lọc danh sách đơn hàng theo trạng thái và ngày
+- [x] **ADMN-03**: Admin có thể tìm đơn hàng theo tên/SĐT khách
+- [x] **ADMN-04**: Admin có thể xác nhận thanh toán và cập nhật trạng thái giao hàng từ danh sách đơn
 
 ### Kỹ thuật (TECH)
 
@@ -161,10 +161,10 @@
 | NOTI-01 | Phase 3 | Complete |
 | NOTI-02 | Phase 3 | Complete |
 | TECH-05 | Phase 3 | Complete |
-| ADMN-01 | Phase 4 | Pending |
-| ADMN-02 | Phase 4 | Pending |
-| ADMN-03 | Phase 4 | Pending |
-| ADMN-04 | Phase 4 | Pending |
+| ADMN-01 | Phase 4 | Complete |
+| ADMN-02 | Phase 4 | Complete |
+| ADMN-03 | Phase 4 | Complete |
+| ADMN-04 | Phase 4 | Complete |
 | TECH-01 | Phase 1 | Complete (01-01) |
 | TECH-02 | Phase 1 | Complete (01-01) |
 | TECH-03 | Phase 1 | Complete |
