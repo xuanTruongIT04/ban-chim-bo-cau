@@ -8,6 +8,7 @@ use App\Presentation\Http\Controllers\Admin\ProductImageController;
 use App\Presentation\Http\Controllers\Admin\StockAdjustmentController;
 use App\Presentation\Http\Controllers\Auth\AuthController;
 use App\Presentation\Http\Controllers\Public\CartController;
+use App\Presentation\Http\Controllers\Public\CategoryController as PublicCategoryController;
 use App\Presentation\Http\Controllers\Public\CheckoutController;
 use App\Presentation\Http\Controllers\Public\ProductController as PublicProductController;
 use Illuminate\Support\Facades\Route;
@@ -60,6 +61,8 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
     });
 
     // Public customer routes — AUTH-03, PROD-01, PROD-05
+    Route::get('/categories', [PublicCategoryController::class, 'index'])->name('categories.index');
+
     Route::prefix('products')->name('products.')->group(function () {
         Route::get('/', [PublicProductController::class, 'index'])->name('index');
         Route::get('/{product}', [PublicProductController::class, 'show'])->name('show');

@@ -13,9 +13,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        // Pure API app — never redirect unauthenticated requests; always return null
-        // so AuthenticationException is thrown and our JSON handler takes over
-        $middleware->redirectGuestsTo(fn (Request $request) => null);
+        // Admin routes redirect to /admin login; client routes redirect to /
+        $middleware->redirectGuestsTo(fn (Request $request) =>
+            $request->is('api/v1/admin/*') || $request->is('admin/*') ? '/admin' : '/'
+        );
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         // Force JSON for all api/* routes (never return HTML) — TECH-03

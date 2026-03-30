@@ -20,10 +20,10 @@ describe('Cart API', function () {
         expect($token)->toMatch('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/');
     });
 
-    it('returns 401 when X-Cart-Token header is missing on cart endpoints', function () {
+    it('returns 422 when X-Cart-Token header is missing on cart endpoints', function () {
         $response = $this->getJson('/api/v1/cart');
 
-        $response->assertStatus(401)
+        $response->assertStatus(422)
             ->assertJsonPath('success', false)
             ->assertJsonPath('code', 'CART_TOKEN_REQUIRED');
     });

@@ -25,7 +25,7 @@ final class ResolveCartToken
                 'code'    => 'CART_TOKEN_REQUIRED',
                 'message' => 'Thiếu X-Cart-Token header.',
                 'errors'  => (object) [],
-            ], 401);
+            ], 422);
         }
 
         $cart = $this->carts->findByToken($token);
