@@ -92,7 +92,7 @@ final class CartController
 
         $eloquentCart = CartModel::query()
             ->where('id', $domainCart->id)
-            ->with('items.product')
+            ->with(['items.product.images' => fn ($q) => $q->where('is_primary', true)])
             ->firstOrFail();
 
         return response()->json([
@@ -143,7 +143,7 @@ final class CartController
 
         $eloquentCart = CartModel::query()
             ->where('id', $domainCart->id)
-            ->with('items.product')
+            ->with(['items.product.images' => fn ($q) => $q->where('is_primary', true)])
             ->firstOrFail();
 
         return response()->json([
@@ -190,7 +190,7 @@ final class CartController
 
         $eloquentCart = CartModel::query()
             ->where('id', $domainCart->id)
-            ->with('items.product')
+            ->with(['items.product.images' => fn ($q) => $q->where('is_primary', true)])
             ->firstOrFail();
 
         return response()->json([
