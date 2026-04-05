@@ -1,7 +1,9 @@
 <?php
 
 use App\Infrastructure\Persistence\Eloquent\Models\CartModel;
+use App\Infrastructure\Persistence\Eloquent\Models\ProductImageModel;
 use App\Infrastructure\Persistence\Eloquent\Models\ProductModel;
+use Illuminate\Support\Facades\Storage;
 
 describe('Cart API', function () {
 
@@ -180,6 +182,62 @@ describe('Cart API', function () {
 
         // total = 2 * 50000 + 1 * 30000 = 130000
         expect($response->json('data.total_amount'))->toBe(130000);
+    });
+
+    // -------------------------------------------------------------------------
+    // Primary image in cart items
+    // -------------------------------------------------------------------------
+
+    it('returns primary_image in cart item when product has primary image', function () {
+        Storage::fake('s3');
+
+        $cartResponse = $this->postJson('/api/v1/cart');
+        $token        = $cartResponse->json('data.token');
+
+        $product = ProductModel::factory()->create(['is_active' => true]);
+
+        ProductImageModel::create([
+            'product_id'     => $product->id,
+            'path'           => 'products/test-image.jpg',
+            'thumbnail_path' => 'products/thumbnails/test-image.jpg',
+            'is_primary'     => true,
+            'sort_order'     => 0,
+        ]);
+
+        $this->withHeaders(['X-Cart-Token' => $token])
+            ->postJson('/api/v1/cart/items', [
+                'product_id' => $product->id,
+                'quantity'   => 1,
+            ]);
+
+        $response = $this->withHeaders(['X-Cart-Token' => $token])
+            ->getJson('/api/v1/cart');
+
+        $response->assertStatus(200);
+        $item = $response->json('data.items.0');
+        expect($item['primary_image'])->not->toBeNull();
+        expect($item['primary_image'])->toHaveKeys(['url', 'thumbnail_url']);
+        expect($item['primary_image']['url'])->toContain('test-image.jpg');
+        expect($item['primary_image']['thumbnail_url'])->toContain('test-image.jpg');
+    });
+
+    it('returns null primary_image when product has no image', function () {
+        $cartResponse = $this->postJson('/api/v1/cart');
+        $token        = $cartResponse->json('data.token');
+
+        $product = ProductModel::factory()->create(['is_active' => true]);
+
+        $this->withHeaders(['X-Cart-Token' => $token])
+            ->postJson('/api/v1/cart/items', [
+                'product_id' => $product->id,
+                'quantity'   => 1,
+            ]);
+
+        $response = $this->withHeaders(['X-Cart-Token' => $token])
+            ->getJson('/api/v1/cart');
+
+        $response->assertStatus(200);
+        expect($response->json('data.items.0.primary_image'))->toBeNull();
     });
 
     // -------------------------------------------------------------------------
