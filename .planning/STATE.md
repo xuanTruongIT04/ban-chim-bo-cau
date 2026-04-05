@@ -81,6 +81,7 @@ None
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 260328-pl9 | Fix login response structure: createToken returns array with token + expires_at, wrap under data key | 2026-03-28 | cd575db | [260328-pl9-fix-login-response-structure-change-crea](.planning/quick/260328-pl9-fix-login-response-structure-change-crea/) |
+| 260405-lm4 | Add primary_image field to CartItemResource with eager loading in CartController (3 endpoints) | 2026-04-05 | ca26dfd | [260405-lm4-add-primary-image-field-to-cartitemresou](.planning/quick/260405-lm4-add-primary-image-field-to-cartitemresou/) |
 
 ## Performance Metrics
 
