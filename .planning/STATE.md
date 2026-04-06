@@ -6,7 +6,7 @@ current_phase: completed
 current_plan: none
 status: milestone_complete
 stopped_at: v1.0 milestone archived (2026-03-29)
-last_updated: "2026-03-29T02:48:50.164Z"
+last_updated: "2026-04-06T04:40:35Z"
 progress:
   total_phases: 4
   completed_phases: 4
@@ -83,6 +83,7 @@ None
 | 260328-pl9 | Fix login response structure: createToken returns array with token + expires_at, wrap under data key | 2026-03-28 | cd575db | [260328-pl9-fix-login-response-structure-change-crea](.planning/quick/260328-pl9-fix-login-response-structure-change-crea/) |
 | 260405-lm4 | Add primary_image field to CartItemResource with eager loading in CartController (3 endpoints) | 2026-04-05 | ca26dfd | [260405-lm4-add-primary-image-field-to-cartitemresou](.planning/quick/260405-lm4-add-primary-image-field-to-cartitemresou/) |
 | 260406-dkc | Set up GitHub Actions CI/CD pipeline: Pest + PHPStan on push to main, then SSH deploy to 103.166.185.155 | 2026-04-06 | aee827d | [260406-dkc-set-up-ci-cd-pipeline-for-laravel-app-de](.planning/quick/260406-dkc-set-up-ci-cd-pipeline-for-laravel-app-de/) |
+| 260406-g53 | Auto-generate slug from name using Str::slug() when slug not provided in category create/update | 2026-04-06 | d5a0c64 | [260406-g53-auto-generate-slug-from-name-using-str-s](.planning/quick/260406-g53-auto-generate-slug-from-name-using-str-s/) |
 
 ## Performance Metrics
 
