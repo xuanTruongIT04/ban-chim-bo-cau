@@ -50,8 +50,8 @@ final class CartItemResource extends JsonResource
         }
 
         return [
-            'url'           => Storage::disk('s3')->url($primary->path),
-            'thumbnail_url' => Storage::disk('s3')->url($primary->thumbnail_path),
+            'url'           => Storage::disk('public')->url($primary->path),
+            'thumbnail_url' => Storage::disk('public')->url($primary->thumbnail_path),
         ];
     }
 }

@@ -21,8 +21,8 @@ final class ProductImageResource extends JsonResource
     {
         return [
             'id'            => $this->id,
-            'url'           => Storage::disk('s3')->url($this->path),
-            'thumbnail_url' => Storage::disk('s3')->url($this->thumbnail_path),
+            'url'           => Storage::disk('public')->url($this->path),
+            'thumbnail_url' => Storage::disk('public')->url($this->thumbnail_path),
             'is_primary'    => $this->is_primary,
             'sort_order'    => $this->sort_order,
         ];
