@@ -51,18 +51,6 @@ jobs:
       - name: Generate application key
         run: php artisan key:generate
 
-      - name: Run database migrations
-        run: php artisan migrate --force
-        env:
-          DB_CONNECTION: sqlite
-          DB_DATABASE: ":memory:"
-
-      - name: Cache config, routes, views
-        run: |
-          php artisan config:cache
-          php artisan route:cache
-          php artisan view:cache
-
       - name: Run Pest tests
         # phpunit.xml configures SQLite in-memory — no MySQL service needed
         run: php artisan test
