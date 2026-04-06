@@ -20,7 +20,6 @@ final class CreateCategoryRequest extends FormRequest
     {
         return [
             'name'        => ['required', 'string', 'max:255'],
-            'slug'        => ['nullable', 'string', 'max:255', 'unique:categories,slug', 'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/'],
             'parent_id'   => ['nullable', 'integer', 'exists:categories,id'],
             'description' => ['nullable', 'string', 'max:1000'],
             'sort_order'  => ['integer', 'min:0'],
