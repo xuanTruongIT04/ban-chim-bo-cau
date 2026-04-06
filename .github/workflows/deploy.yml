@@ -1,0 +1,90 @@
+# GitHub Actions CI/CD Pipeline — Ban Chim Bồ Câu
+#
+# Required GitHub Secrets (Settings → Secrets and variables → Actions):
+#   SSH_HOST        — Server IP address (e.g., 103.166.185.155)
+#   SSH_USER        — SSH username on the server (e.g., ubuntu, deploy, root)
+#   SSH_PRIVATE_KEY — Full private key content (paste entire key including -----BEGIN/END----- lines)
+#   SSH_PORT        — SSH port number (default: 22)
+#   DEPLOY_PATH     — Absolute path to project on server (e.g., /var/www/ban-chim-bo-cau)
+#
+# Pipeline flow: push to main → test (Pest + PHPStan) → deploy (SSH git pull + artisan)
+# Deploy job only runs if test job passes. Concurrent deploys are queued, not cancelled.
+
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+# Queue concurrent deploys rather than cancelling them.
+# cancel-in-progress: false ensures a deploy in progress is not interrupted.
+concurrency:
+  group: deploy-main
+  cancel-in-progress: false
+
+jobs:
+  # ─────────────────────────────────────────────
+  # Job 1: Run tests and static analysis
+  # ─────────────────────────────────────────────
+  test:
+    name: Test (Pest + PHPStan)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up PHP 8.3
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          extensions: mbstring, xml, sqlite3, pdo_sqlite, bcmath, gd, intl, zip
+          coverage: none
+
+      - name: Copy .env for CI
+        run: cp .env.example .env
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Generate application key
+        run: php artisan key:generate
+
+      - name: Run Pest tests
+        # phpunit.xml configures SQLite in-memory — no MySQL service needed
+        run: php artisan test
+
+      - name: Run PHPStan static analysis
+        # Memory limit raised to 512M per project convention (see STATE.md)
+        run: php -d memory_limit=512M vendor/bin/phpstan analyse
+
+  # ─────────────────────────────────────────────
+  # Job 2: Deploy to production server via SSH
+  # ─────────────────────────────────────────────
+  deploy:
+    name: Deploy to production
+    runs-on: ubuntu-latest
+    needs: test  # Only runs if the test job succeeds
+
+    # Redundant safety guard: only deploy from main branch
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            set -e
+            cd ${{ secrets.DEPLOY_PATH }}
+            git pull origin main
+            composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+            php artisan migrate --force
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            php artisan queue:restart
