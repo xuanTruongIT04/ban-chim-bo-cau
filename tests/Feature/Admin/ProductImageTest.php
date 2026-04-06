@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 describe('Product Image Management', function () {
     beforeEach(function () {
-        Storage::fake('s3');
+        Storage::fake('public');
     });
 
     function makeAdminUser(): UserModel
@@ -16,7 +16,7 @@ describe('Product Image Management', function () {
         return UserModel::factory()->create();
     }
 
-    it('can upload an image to S3', function () {
+    it('can upload an image', function () {
         $admin = makeAdminUser();
         $product = ProductModel::factory()->create();
 
@@ -30,11 +30,11 @@ describe('Product Image Management', function () {
             ->assertJsonPath('success', true)
             ->assertJsonStructure(['data' => ['id', 'url', 'thumbnail_url', 'is_primary', 'sort_order']]);
 
-        // Verify files were stored in S3
+        // Verify files were stored
         $imageRecord = ProductImageModel::where('product_id', $product->id)->first();
         expect($imageRecord)->not->toBeNull();
-        Storage::disk('s3')->assertExists($imageRecord->path);
-        Storage::disk('s3')->assertExists($imageRecord->thumbnail_path);
+        Storage::disk('public')->assertExists($imageRecord->path);
+        Storage::disk('public')->assertExists($imageRecord->thumbnail_path);
     });
 
     it('generates thumbnail on upload', function () {
@@ -59,7 +59,7 @@ describe('Product Image Management', function () {
         expect($data['thumbnail_url'])->not->toBeNull();
         expect($data['thumbnail_url'])->not->toBe($data['url']);
 
-        Storage::disk('s3')->assertExists($imageRecord->thumbnail_path);
+        Storage::disk('public')->assertExists($imageRecord->thumbnail_path);
     });
 
     it('auto-sets first image as primary', function () {
@@ -136,9 +136,9 @@ describe('Product Image Management', function () {
         // Verify DB record deleted
         expect(ProductImageModel::find($imageId))->toBeNull();
 
-        // Verify S3 files deleted
-        Storage::disk('s3')->assertMissing($originalPath);
-        Storage::disk('s3')->assertMissing($thumbnailPath);
+        // Verify files deleted
+        Storage::disk('public')->assertMissing($originalPath);
+        Storage::disk('public')->assertMissing($thumbnailPath);
     });
 
     it('promotes next image when primary is deleted', function () {
