@@ -138,7 +138,7 @@ describe('Admin Order List', function () {
             ->getJson('/api/v1/admin/orders');
 
         $response->assertStatus(200)
-            ->assertJsonPath('meta.per_page', 20)
+            ->assertJsonPath('meta.per_page', 10)
             ->assertJsonPath('meta.current_page', 1);
     });
 
