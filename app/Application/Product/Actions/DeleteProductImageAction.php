@@ -13,9 +13,8 @@ final class DeleteProductImageAction
     {
         $image = ProductImageModel::findOrFail($imageId);
 
-        // Delete files from S3
-        Storage::disk('s3')->delete($image->path);
-        Storage::disk('s3')->delete($image->thumbnail_path);
+        Storage::disk('public')->delete($image->path);
+        Storage::disk('public')->delete($image->thumbnail_path);
 
         // Track whether this was the primary image before deleting
         $wasPrimary = $image->is_primary;
