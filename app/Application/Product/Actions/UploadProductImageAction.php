@@ -36,11 +36,11 @@ final class UploadProductImageAction
 
         // Upload original (resized to max 1200px wide for bandwidth)
         $resized = $image->scale(width: 1200);
-        Storage::disk('s3')->put($originalPath, $resized->toJpeg(quality: 85)->toString());
+        Storage::disk('public')->put($originalPath, $resized->toJpeg(quality: 85)->toString());
 
         // Generate and upload thumbnail (400px wide per research)
         $thumb = $image->scale(width: 400);
-        Storage::disk('s3')->put($thumbPath, $thumb->toJpeg(quality: 75)->toString());
+        Storage::disk('public')->put($thumbPath, $thumb->toJpeg(quality: 75)->toString());
 
         // If this is the first image for this product, auto-set as primary
         $isFirstImage = ProductImageModel::where('product_id', $productId)->count() === 0;
