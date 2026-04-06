@@ -43,6 +43,32 @@ describe('Category admin CRUD', function () {
             ->assertJsonPath('data.parent_id', $parent->id);
     });
 
+    it('auto-generates slug from name when slug not provided on create', function () {
+        $response = $this->withHeaders(makeAdminHeaders())
+            ->postJson('/api/v1/admin/categories', [
+                'name' => 'Chim Bo Cau Song',
+            ]);
+
+        $response->assertStatus(201)
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.name', 'Chim Bo Cau Song')
+            ->assertJsonPath('data.slug', 'chim-bo-cau-song');
+    });
+
+    it('auto-generates slug from name when slug not provided on update', function () {
+        $category = CategoryModel::factory()->create(['slug' => 'slug-cu']);
+
+        $response = $this->withHeaders(makeAdminHeaders())
+            ->putJson("/api/v1/admin/categories/{$category->id}", [
+                'name' => 'Ten Moi Cap Nhat',
+            ]);
+
+        $response->assertStatus(200)
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.name', 'Ten Moi Cap Nhat')
+            ->assertJsonPath('data.slug', 'ten-moi-cap-nhat');
+    });
+
     it('rejects creating a grandchild category (depth > 2)', function () {
         $grandparent = CategoryModel::factory()->create(['slug' => 'level-1']);
         $parent = CategoryModel::factory()->create([
