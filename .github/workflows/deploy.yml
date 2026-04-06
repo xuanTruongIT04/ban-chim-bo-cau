@@ -80,6 +80,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             set -e
+            git config --global --add safe.directory ${{ secrets.DEPLOY_PATH }}
             cd ${{ secrets.DEPLOY_PATH }}
             git pull origin main
             composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
