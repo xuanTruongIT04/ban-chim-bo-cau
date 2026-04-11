@@ -22,7 +22,7 @@ final class CartItemResource extends JsonResource
     {
         $product  = $this->product;
         $quantity = (string) $this->quantity;
-        $subtotal = (int) bcmul($quantity, (string) $product->price_vnd, 3);
+        $subtotal = (int) \bcmul($quantity, (string) $product->price_vnd, 3);
 
         return [
             'id'                => $this->id,

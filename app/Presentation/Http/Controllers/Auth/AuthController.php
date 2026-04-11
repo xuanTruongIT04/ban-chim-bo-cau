@@ -64,6 +64,36 @@ final class AuthController
     }
 
     /**
+     * Thông tin admin hiện tại
+     *
+     * Trả về thông tin profile của admin đang đăng nhập dựa theo token.
+     *
+     * @response 200 {
+     *   "success": true,
+     *   "data": {
+     *     "id": 1,
+     *     "name": "Admin",
+     *     "email": "admin@example.com",
+     *     "role": "admin"
+     *   }
+     * }
+     */
+    public function me(Request $request): JsonResponse
+    {
+        $user = $request->user();
+
+        return response()->json([
+            'success' => true,
+            'data'    => [
+                'id'    => $user->id,
+                'name'  => $user->name,
+                'email' => $user->email,
+                'role'  => 'admin',
+            ],
+        ]);
+    }
+
+    /**
      * Đăng xuất admin
      *
      * Thu hồi Sanctum token hiện tại. Token sẽ không còn hợp lệ sau khi đăng xuất.

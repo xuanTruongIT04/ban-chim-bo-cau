@@ -11,6 +11,7 @@ use App\Presentation\Http\Resources\ProductResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 /**
@@ -53,7 +54,7 @@ final class ProductController
         $qb = new QueryBuilder(ProductModel::query()->where('is_active', true), $request);
 
         $products = $qb
-            ->allowedFilters('category_id')
+            ->allowedFilters('category_id', AllowedFilter::partial('name'))
             ->defaultSort('name')
             ->allowedSorts('name', 'price_vnd', 'created_at')
             ->with(['images' => fn ($q) => $q->where('is_primary', true)])

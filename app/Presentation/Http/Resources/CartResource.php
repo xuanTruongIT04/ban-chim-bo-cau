@@ -20,7 +20,7 @@ final class CartResource extends JsonResource
     {
         // Compute total_amount as sum of (quantity * current price) for each item
         $totalAmount = $this->items->reduce(function (int $carry, \App\Infrastructure\Persistence\Eloquent\Models\CartItemModel $item) {
-            $subtotal = (int) bcmul((string) $item->quantity, (string) $item->product->price_vnd, 3);
+            $subtotal = (int) \bcmul((string) $item->quantity, (string) $item->product->price_vnd, 3);
 
             return $carry + $subtotal;
         }, 0);
