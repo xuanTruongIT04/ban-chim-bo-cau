@@ -5,14 +5,8 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 use App\Infrastructure\Persistence\Eloquent\Models\CategoryModel;
-use App\Infrastructure\Persistence\Eloquent\Models\ProductImageModel;
 use App\Infrastructure\Persistence\Eloquent\Models\ProductModel;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use Intervention\Image\Drivers\Gd\Driver;
-use Intervention\Image\ImageManager;
 
 class ProductCategorySeeder extends Seeder
 {
@@ -34,7 +28,7 @@ class ProductCategorySeeder extends Seeder
             // Parent categories
             ['name' => 'Chim Bồ Câu',          'slug' => 'chim-bo-cau',          'parent' => null, 'sort' => 1],
             ['name' => 'Gia Cầm',               'slug' => 'gia-cam',               'parent' => null, 'sort' => 2],
-            ['name' => 'Thức Ăn & Phụ Kiện',   'slug' => 'thuc-an-phu-kien',      'parent' => null, 'sort' => 3],
+            ['name' => 'Lợn',                   'slug' => 'lon',                   'parent' => null, 'sort' => 3],
 
             // Chim Bồ Câu children
             ['name' => 'Bồ Câu Sống',           'slug' => 'bo-cau-song',           'parent' => 'chim-bo-cau',     'sort' => 1],
@@ -44,11 +38,12 @@ class ProductCategorySeeder extends Seeder
             // Gia Cầm children
             ['name' => 'Gà',                     'slug' => 'ga',                    'parent' => 'gia-cam',         'sort' => 1],
             ['name' => 'Vịt',                    'slug' => 'vit',                   'parent' => 'gia-cam',         'sort' => 2],
-            ['name' => 'Chim Cút',               'slug' => 'chim-cut',              'parent' => 'gia-cam',         'sort' => 3],
+            ['name' => 'Ngan',                   'slug' => 'ngan',                  'parent' => 'gia-cam',         'sort' => 3],
+            ['name' => 'Ngỗng',                  'slug' => 'ngong',                 'parent' => 'gia-cam',         'sort' => 4],
+            // Lợn children
+            ['name' => 'Lợn Mán',                'slug' => 'lon-man',               'parent' => 'lon',             'sort' => 1],
+            ['name' => 'Lợn Rừng',               'slug' => 'lon-rung',              'parent' => 'lon',             'sort' => 2],
 
-            // Thức Ăn children
-            ['name' => 'Thức Ăn Chim',          'slug' => 'thuc-an-chim',          'parent' => 'thuc-an-phu-kien','sort' => 1],
-            ['name' => 'Phụ Kiện Nuôi Chim',    'slug' => 'phu-kien-nuoi-chim',    'parent' => 'thuc-an-phu-kien','sort' => 2],
         ];
 
         $slugToId = [];
@@ -98,184 +93,191 @@ class ProductCategorySeeder extends Seeder
             // ── Bồ Câu Sống ──────────────────────────────────────────
             [
                 'category' => 'bo-cau-song',
-                'name'     => 'Bồ Câu Pháp Sống (1 con)',
-                'desc'     => 'Bồ câu Pháp thuần chủng, trọng lượng 500–600g/con. Nuôi sạch, không hormone. Thích hợp làm thực phẩm hoặc nuôi sinh sản.',
+                'name'     => 'Bồ Câu Pháp Sống',
+                'desc'     => 'Bồ câu Pháp (Mimas) thuần chủng nhập giống từ Pháp, được nuôi theo quy trình sạch: chuồng thông thoáng, thức ăn là thóc + hỗn hợp hạt dinh dưỡng, không sử dụng hormone hay kháng sinh tăng trưởng. Trọng lượng đạt 500–600g/con khi xuất bán (khoảng 28–30 ngày tuổi). Thịt mềm, ngọt, màu hồng nhạt, rất thơm. Thích hợp làm thực phẩm cao cấp (tiềm, hầm thuốc bắc, quay) hoặc nuôi sinh sản. Giao hàng còn sống, đóng lồng thoáng khí. Cam kết đúng trọng lượng, bồi hoàn nếu chết trong quá trình vận chuyển.',
                 'price'    => 85000,
                 'unit'     => 'con',
                 'stock'    => 120,
-                'images'   => ['https://images.unsplash.com/photo-1548681528-6a5c45dbe38f?w=1200', 'https://images.unsplash.com/photo-1444464666168-49d633b86797?w=1200'],
             ],
             [
                 'category' => 'bo-cau-song',
-                'name'     => 'Bồ Câu Ta Sống (1 con)',
-                'desc'     => 'Bồ câu ta nuôi tự nhiên, thịt ngọt chắc. Trọng lượng 350–450g/con. Thích hợp nấu cháo, hầm thuốc bắc.',
+                'name'     => 'Bồ Câu Ta Sống',
+                'desc'     => 'Bồ câu ta giống địa phương, nuôi thả tự nhiên trong chuồng rộng, ăn thóc và ngô xay. Không tiêm phòng hormone, không dùng cám tăng trọng. Trọng lượng 350–450g/con. Thịt chắc, đậm vị hơn bồ câu Pháp, màu đỏ hồng đặc trưng. Rất thích hợp để nấu cháo bồ câu hầm hạt sen, tiềm thuốc bắc (đương quy, kỷ tử, táo đỏ), hoặc luộc chấm muối chanh. Người già và trẻ nhỏ dùng rất tốt. Giao hàng còn sống, buộc chắc chắn.',
                 'price'    => 65000,
                 'unit'     => 'con',
                 'stock'    => 80,
-                'images'   => ['https://images.unsplash.com/photo-1444464666168-49d633b86797?w=1200'],
             ],
             [
                 'category' => 'bo-cau-song',
-                'name'     => 'Bồ Câu Pháp Sống (Cặp đôi)',
-                'desc'     => 'Combo 2 con bồ câu Pháp (1 trống + 1 mái). Giá ưu đãi khi mua cặp. Thích hợp cho khách muốn mua số lượng lớn.',
+                'name'     => 'Bồ Câu Pháp Sống Cặp Đôi',
+                'desc'     => 'Combo 2 con bồ câu Pháp (1 trống + 1 mái) cùng lứa, trọng lượng mỗi con 500–600g. Giá ưu đãi hơn mua lẻ. Phù hợp cho gia đình muốn mua đủ một bữa hoặc khách đặt số lượng lớn theo cặp. Bồ câu Pháp nuôi sạch, không hormone, xuất chuồng đúng ngày. Đóng lồng đôi thoáng khí, vận chuyển an toàn. Cam kết đúng số lượng và trọng lượng, bồi hoàn nếu có sự cố trong vận chuyển.',
                 'price'    => 160000,
                 'unit'     => 'con',
                 'stock'    => 40,
-                'images'   => ['https://images.unsplash.com/photo-1548681528-6a5c45dbe38f?w=1200'],
             ],
 
             // ── Bồ Câu Thịt ──────────────────────────────────────────
             [
                 'category' => 'bo-cau-thit',
-                'name'     => 'Bồ Câu Pháp Làm Sẵn (1 con)',
-                'desc'     => 'Bồ câu Pháp đã làm sạch, bỏ lông, bỏ nội tạng. Đóng túi hút chân không. Trọng lượng tịnh 400–480g/con. Bảo quản ngăn đá được 3 tháng.',
+                'name'     => 'Bồ Câu Pháp Làm Sẵn',
+                'desc'     => 'Bồ câu Pháp đã làm sạch hoàn toàn: vặt lông, bỏ đầu, bỏ chân, lấy nội tạng sạch (tim, mề để riêng kèm theo nếu khách muốn). Rửa nước muối loãng, để ráo, đóng túi zip hút chân không. Trọng lượng tịnh 400–480g/con. Bảo quản ngăn mát dùng trong 2 ngày, ngăn đá được 2–3 tháng. Rã đông tự nhiên trong ngăn mát 4–6 tiếng trước khi chế biến để giữ độ ngọt thịt. Thích hợp quay giòn, tiềm, nướng mật ong.',
                 'price'    => 95000,
                 'unit'     => 'con',
                 'stock'    => 60,
-                'images'   => ['https://images.unsplash.com/photo-1604503468506-a8da13d82791?w=1200', 'https://images.unsplash.com/photo-1548681528-6a5c45dbe38f?w=1200'],
             ],
             [
                 'category' => 'bo-cau-thit',
-                'name'     => 'Bồ Câu Thịt Nguyên Con (1kg)',
-                'desc'     => 'Bồ câu thịt tươi bán theo kg. Đã làm sạch, không đầu, không chân. Thích hợp cho nhà hàng, quán ăn.',
+                'name'     => 'Bồ Câu Thịt Nguyên Con',
+                'desc'     => 'Bồ câu thịt tươi bán theo kg, phù hợp cho nhà hàng, quán ăn đặt số lượng lớn. Đã làm sạch lông, bỏ đầu và chân, lấy nội tạng, rửa sạch. Bán nguyên con không cắt khúc. Trọng lượng tính theo kg tịnh sau khi làm sạch. Thịt tươi giết mổ trong ngày, không qua đông lạnh, màu hồng tươi, không mùi lạ. Giao hàng sáng sớm trước 8h cho các đơn nhà hàng. Đặt trước ít nhất 1 ngày với số lượng từ 5kg trở lên.',
                 'price'    => 220000,
                 'unit'     => 'kg',
                 'stock'    => 15.5,
-                'images'   => ['https://images.unsplash.com/photo-1604503468506-a8da13d82791?w=1200'],
             ],
 
             // ── Bồ Câu Con (Squab) ────────────────────────────────────
             [
                 'category' => 'bo-cau-con',
-                'name'     => 'Squab Bồ Câu Non 28 Ngày (1 con)',
-                'desc'     => 'Squab bồ câu non 28 ngày tuổi, trọng lượng 280–320g/con. Thịt mềm, thơm, giàu dinh dưỡng. Món đặc sản cao cấp cho nhà hàng.',
+                'name'     => 'Squab Bồ Câu Non 28 Ngày',
+                'desc'     => 'Squab là bồ câu non chưa tập bay, đúng 25–28 ngày tuổi — thời điểm thịt đạt chất lượng ngon nhất: mềm, không dai, hương thơm nhẹ đặc trưng. Trọng lượng 280–350g/con sau khi làm sạch. Da mỏng, ít mỡ, thịt màu đỏ nhạt rất đẹp. Đây là nguyên liệu cao cấp trong ẩm thực nhà hàng: bồ câu quay Bắc Kinh, bồ câu tiềm bát bửu, bồ câu nướng sốt cam. Đặt trước 2 ngày để đảm bảo đúng độ tuổi. Giao tươi hoặc đã làm sạch theo yêu cầu.',
                 'price'    => 120000,
                 'unit'     => 'con',
                 'stock'    => 30,
-                'images'   => ['https://images.unsplash.com/photo-1444464666168-49d633b86797?w=1200'],
             ],
 
             // ── Gà ────────────────────────────────────────────────────
             [
                 'category' => 'ga',
-                'name'     => 'Gà Ta Thả Vườn Sống (1 con)',
-                'desc'     => 'Gà ta nuôi thả vườn, ăn thóc và rau. Trọng lượng 1.5–2kg/con. Thịt dai ngon, không thuốc tăng trưởng.',
+                'name'     => 'Gà Ta Thả Vườn Sống',
+                'desc'     => 'Gà ta nuôi thả vườn theo phương pháp truyền thống: ăn thóc, ngô, rau xanh và côn trùng tự nhiên. Không dùng cám tăng trọng, không kháng sinh, không hormone. Thời gian nuôi 4–5 tháng mới xuất chuồng nên thịt săn, da vàng ươm, mỡ vàng đẹp. Trọng lượng hơi 1.5–2kg/con. Thích hợp gà luộc chấm muối chanh, gà hầm sả, gà nướng mọi, hoặc nấu phở. Giao hàng còn sống, đảm bảo con khỏe mạnh.',
                 'price'    => 180000,
                 'unit'     => 'con',
                 'stock'    => 25,
-                'images'   => ['https://images.unsplash.com/photo-1612170153139-6f881ff067e0?w=1200', 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=1200'],
             ],
             [
                 'category' => 'ga',
-                'name'     => 'Gà Mái Đẻ Sống (1 con)',
-                'desc'     => 'Gà mái đẻ, trọng lượng 1.8–2.2kg. Thịt ngọt mềm hơn gà trống. Thích hợp nấu phở, luộc, hấp muối.',
+                'name'     => 'Gà Mái Đẻ Sống',
+                'desc'     => 'Gà mái đẻ loại thải sau chu kỳ đẻ trứng 12–18 tháng. Trọng lượng 1.8–2.2kg/con. Thịt mái ngọt hơn thịt trống, ít xơ hơn gà già, phù hợp nấu lâu (hầm, tần). Da có màu vàng nhạt, lớp mỡ vừa phải. Đặc biệt thích hợp nấu phở gà, gà hầm hạt sen, gà tiềm đông trùng hạ thảo. Gà còn sống, khỏe mạnh, không bệnh tật. Giao hàng buổi sáng, cam kết đúng trọng lượng.',
                 'price'    => 160000,
                 'unit'     => 'con',
                 'stock'    => 18,
-                'images'   => ['https://images.unsplash.com/photo-1612170153139-6f881ff067e0?w=1200'],
             ],
             [
                 'category' => 'ga',
-                'name'     => 'Gà Làm Sẵn (1kg)',
-                'desc'     => 'Gà ta làm sẵn, bán theo kg. Đã vặt lông, bỏ nội tạng, rửa sạch. Giao hàng trong ngày.',
+                'name'     => 'Gà Ta Làm Sẵn',
+                'desc'     => 'Gà ta thả vườn đã làm sạch hoàn toàn: vặt lông, bỏ nội tạng, rửa nước muối loãng, để ráo nước. Bán theo kg tịnh sau khi làm sạch. Thịt tươi giết mổ trong buổi sáng, không qua đông lạnh. Da vàng ươm đặc trưng gà ta thả vườn. Thích hợp cho gia đình muốn mua sẵn về chế biến ngay, không mất công làm lông. Giao hàng trước 10h sáng. Đặt trước từ tối hôm trước để đảm bảo hàng.',
                 'price'    => 130000,
                 'unit'     => 'kg',
                 'stock'    => 20.0,
-                'images'   => ['https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=1200'],
             ],
 
             // ── Vịt ───────────────────────────────────────────────────
             [
                 'category' => 'vit',
-                'name'     => 'Vịt Xiêm (Muscovy) Sống (1 con)',
-                'desc'     => 'Vịt Xiêm (vịt Pháp) nuôi thả, trọng lượng 2–3kg/con. Thịt nạc, ít mỡ, đặc trưng nấu vịt nướng, vịt kho gừng.',
-                'price'    => 250000,
+                'name'     => 'Vịt Cỏ Sống',
+                'desc'     => 'Vịt cỏ giống bản địa miền Bắc, còn gọi là vịt ta hay vịt cánh sẻ. Nuôi thả đồng, ăn lúa rơi, cá tép tự nhiên và cám gạo, không dùng thức ăn công nghiệp. Thời gian nuôi 3–4 tháng. Trọng lượng hơi 1.5–2.5kg/con. Thịt chắc, ít mỡ, thơm ngon đặc trưng. Da mỏng, giòn sau khi chế biến. Đặc biệt ngon khi làm vịt nướng chao, vịt om sấu, vịt nấu măng. Giao hàng còn sống, buộc chân an toàn.',
+                'price'    => 95000,
                 'unit'     => 'con',
-                'stock'    => 15,
-                'images'   => ['https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=1200'],
+                'stock'    => 30,
             ],
             [
                 'category' => 'vit',
-                'name'     => 'Vịt Cỏ Sống (1 con)',
-                'desc'     => 'Vịt cỏ nuôi tự nhiên, trọng lượng 1.2–1.8kg/con. Thịt thơm ngon, da giòn. Thích hợp vịt quay, vịt nướng than hoa.',
-                'price'    => 150000,
+                'name'     => 'Vịt Trời Sống',
+                'desc'     => 'Vịt trời (tên khoa học Anas platyrhynchos) nuôi bán hoang dã trong ao rộng thoáng, ăn cá tép tự nhiên và lúa. Không phải vịt nhà, con nhỏ hơn nhưng thịt ngon hơn hẳn. Trọng lượng 0.8–1.5kg/con. Thịt màu đỏ đậm, chắc, thơm mùi đặc trưng của vịt trời — hoàn toàn khác với vịt nhà thông thường. Rất được ưa chuộng ở các nhà hàng đặc sản miền núi phía Bắc (Lạng Sơn, Cao Bằng, Hà Giang). Thích hợp: om với rau tía tô + gừng, quay mắc khén, nướng than hoa. Số lượng hạn chế, đặt trước 2–3 ngày.',
+                'price'    => 250000,
+                'unit'     => 'con',
+                'stock'    => 15,
+            ],
+            [
+                'category' => 'vit',
+                'name'     => 'Vịt Siêu Thịt Sống',
+                'desc'     => 'Vịt siêu thịt giống Cherry Valley nhập từ Anh, được lai tạo chuyên cho thịt: tăng trọng nhanh (45–50 ngày đạt 3kg), tỷ lệ thịt/xương cao, ức dày, ít mỡ. Nuôi chuồng có hệ thống thông gió, ăn cám viên công nghiệp cân đối dinh dưỡng. Trọng lượng hơi 3–4kg/con khi xuất bán. Thịt màu trắng hồng, mềm, phù hợp tiêu thụ đại trà: vịt luộc, vịt quay, vịt om sấu, bún vịt. Giá hợp lý, phổ biến ở chợ Hà Nội và các tỉnh đồng bằng Bắc Bộ.',
+                'price'    => 190000,
+                'unit'     => 'con',
+                'stock'    => 25,
+            ],
+
+            // ── Ngan ──────────────────────────────────────────────────
+            [
+                'category' => 'ngan',
+                'name'     => 'Ngan Ta Sống',
+                'desc'     => 'Ngan ta (vịt xiêm nội) giống địa phương, có nguồn gốc từ Nam Mỹ nhưng đã thích nghi với điều kiện Việt Nam qua nhiều thế hệ. Lông đen tuyền hoặc đen trắng xen, đầu có mào đỏ đặc trưng. Nuôi thả tự nhiên, ăn cám gạo, rau muống, cá tạp. Thời gian nuôi 3–4 tháng. Trọng lượng con đực 3–3.5kg, con mái 2–2.2kg. Thịt đỏ đậm, chắc, thơm và ít mỡ hơn vịt — rất được ưa chuộng ở miền Bắc. Thích hợp: ngan om sấu, ngan nấu giả cầy, ngan hấp bia gừng. Giao hàng còn sống.',
+                'price'    => 200000,
                 'unit'     => 'con',
                 'stock'    => 20,
-                'images'   => ['https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=1200'],
+            ],
+            [
+                'category' => 'ngan',
+                'name'     => 'Ngan Pháp R71 Sống',
+                'desc'     => 'Ngan Pháp dòng R71 (Muscovy trắng cao sản), nhập giống từ Pháp qua Công ty Giống gia cầm Đại Xuyên. Đây là dòng ngan to nhất và nhiều thịt nhất hiện nay tại Việt Nam. Con đực trưởng thành đạt 5.5–6.5kg, con mái 2.8–3.2kg. Lông trắng tuyền, thịt trắng hồng, tỷ lệ nạc cao, ít mỡ, da giòn sau khi chế biến. Nuôi chuồng sạch, thức ăn cân đối, xuất bán sau 80–90 ngày. Rất thích hợp cho nhà hàng đặc sản cần nguyên liệu to, đẹp: ngan quay, ngan hấp, ngan om sấu kiểu nhà hàng. Đặt trước 3–5 ngày với số lượng lớn.',
+                'price'    => 380000,
+                'unit'     => 'con',
+                'stock'    => 12,
             ],
 
-            // ── Chim Cút ─────────────────────────────────────────────
+            // ── Ngỗng ─────────────────────────────────────────────────
             [
-                'category' => 'chim-cut',
-                'name'     => 'Chim Cút Sống (1 con)',
-                'desc'     => 'Chim cút nuôi chuồng sạch, trọng lượng 150–200g/con. Giàu đạm, ít mỡ. Thích hợp chiên, nướng, kho tiêu.',
-                'price'    => 18000,
+                'category' => 'ngong',
+                'name'     => 'Ngỗng Cỏ Sống',
+                'desc'     => 'Ngỗng ta giống bản địa, phổ biến ở vùng đồng bằng và trung du Bắc Bộ (Hà Nam, Nam Định, Thái Bình). Nuôi thả đồng, ăn cỏ, rau muống, lúa rơi — hoàn toàn tự nhiên. Thời gian nuôi 5–6 tháng. Trọng lượng hơi 4–6kg/con. Thịt chắc, ngọt, thơm đặc trưng, lớp mỡ dưới da vừa phải tạo độ béo ngậy. Da vàng nhạt sau khi luộc, rất đẹp. Ngỗng ta là đặc sản bữa cỗ truyền thống miền Bắc: ngỗng luộc chấm mắm gừng, ngỗng om sấu, tiết canh ngỗng. Số lượng ít, nên đặt trước 3–5 ngày.',
+                'price'    => 350000,
                 'unit'     => 'con',
-                'stock'    => 200,
-                'images'   => ['https://images.unsplash.com/photo-1444464666168-49d633b86797?w=1200'],
+                'stock'    => 15,
             ],
             [
-                'category' => 'chim-cut',
-                'name'     => 'Trứng Cút Tươi (1 vỉ 30 quả)',
-                'desc'     => 'Trứng cút tươi mới đẻ trong ngày. 30 quả/vỉ. Giàu dinh dưỡng, tốt cho trẻ em và người già.',
-                'price'    => 35000,
-                'unit'     => 'con',
-                'stock'    => 50,
-                'images'   => ['https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?w=1200'],
-            ],
-
-            // ── Thức Ăn Chim ─────────────────────────────────────────
-            [
-                'category' => 'thuc-an-chim',
-                'name'     => 'Thóc Nuôi Bồ Câu (5kg)',
-                'desc'     => 'Thóc sạch, phơi khô, không mốc. Thức ăn chính cho bồ câu. Túi 5kg, bảo quản nơi khô ráo được 3 tháng.',
-                'price'    => 55000,
-                'unit'     => 'kg',
-                'stock'    => 100.0,
-                'images'   => ['https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=1200'],
-            ],
-            [
-                'category' => 'thuc-an-chim',
-                'name'     => 'Hỗn Hợp Hạt Dinh Dưỡng (2kg)',
-                'desc'     => 'Hỗn hợp đậu xanh, đậu đỏ, ngô, lúa mì. Bổ sung vitamin và khoáng chất cho chim. Túi 2kg.',
-                'price'    => 48000,
-                'unit'     => 'kg',
-                'stock'    => 50.0,
-                'images'   => ['https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=1200'],
-            ],
-
-            // ── Phụ Kiện ─────────────────────────────────────────────
-            [
-                'category' => 'phu-kien-nuoi-chim',
-                'name'     => 'Máng Ăn Bồ Câu (Nhựa)',
-                'desc'     => 'Máng ăn nhựa dành cho bồ câu, dung tích 500ml. Dễ vệ sinh, bền, không gỉ sét. Phù hợp chuồng nuôi gia đình và trang trại nhỏ.',
-                'price'    => 25000,
-                'unit'     => 'con',
-                'stock'    => 75,
-                'images'   => ['https://images.unsplash.com/photo-1585559606984-5b685b4b6e9d?w=1200'],
-            ],
-            [
-                'category' => 'phu-kien-nuoi-chim',
-                'name'     => 'Lồng Vận Chuyển Chim (Sắt)',
-                'desc'     => 'Lồng sắt mạ kẽm để vận chuyển bồ câu và gia cầm. Kích thước 60x40x30cm. Chứa được 10–15 con bồ câu. Tháo lắp dễ dàng.',
-                'price'    => 320000,
+                'category' => 'ngong',
+                'name'     => 'Ngỗng Sư Tử Sống',
+                'desc'     => 'Ngỗng Sư Tử (còn gọi là ngỗng Trung Quốc hay ngỗng Phi) đặc sản vùng ngoại thành Hà Nội và đồng bằng sông Hồng. Nhận biết qua cái mào thịt to màu đen trên đầu rất đặc trưng, lông xám đen hoặc nâu xám. Đây là giống ngỗng to nhất Việt Nam: con đực trưởng thành 6–8kg, con mái 4.5–5.5kg. Thịt đỏ đậm, chắc, nhiều nạc, hương vị đậm đà hơn ngỗng ta thông thường. Nuôi thả ao rộng, ăn rau cỏ và cám gạo tự nhiên. Phù hợp làm ngỗng quay nguyên con cho tiệc, ngỗng nhồi táo nướng, hoặc làm cỗ đám. Đặt trước 5–7 ngày.',
+                'price'    => 650000,
                 'unit'     => 'con',
                 'stock'    => 10,
-                'images'   => ['https://images.unsplash.com/photo-1585559606984-5b685b4b6e9d?w=1200'],
             ],
+            [
+                'category' => 'ngong',
+                'name'     => 'Ngỗng Lai Sống',
+                'desc'     => 'Ngỗng lai giữa ngỗng Sư Tử (bố) × ngỗng ta (mẹ), phổ biến ở Hà Tây cũ (Hà Nội mở rộng) và các tỉnh lân cận. Kết hợp ưu điểm của cả hai dòng: to hơn ngỗng ta thuần (4–5.5kg), thịt mềm hơn ngỗng Sư Tử thuần, tăng trọng nhanh hơn, chi phí nuôi thấp hơn. Lông thường xám trắng hoặc trắng xen xám. Thịt ngon, da vừa dày vừa giòn khi chế biến. Mức giá trung bình, phù hợp gia đình và tiệc quy mô vừa. Thích hợp: ngỗng luộc, ngỗng nướng lá chuối, om rau củ. Giao hàng còn sống.',
+                'price'    => 480000,
+                'unit'     => 'con',
+                'stock'    => 18,
+            ],
+
+            // ── Lợn Mán ───────────────────────────────────────────────
+            [
+                'category' => 'lon-man',
+                'name'     => 'Lợn Mán Hơi Nguyên Con',
+                'desc'     => 'Lợn mán (lợn mọi, heo mọi) là giống lợn bản địa của đồng bào dân tộc vùng Tây Bắc (Sơn La, Điện Biên, Lai Châu). Nuôi hoàn toàn thả rông trên đồi núi, tự kiếm ăn: rễ cây, quả rừng, rau cỏ tự nhiên, bổ sung thêm ngô và sắn của bà con. Không dùng cám công nghiệp, không kháng sinh, không hormone. Thời gian nuôi 8–12 tháng mới đạt trọng lượng xuất bán. Trọng lượng hơi 15–25kg/con — nhỏ hơn lợn nhà nhưng thịt cực kỳ chắc và thơm. Lớp mỡ mỏng (1–2cm), thịt nạc màu đỏ đậm, vân mỡ đẹp như thịt bò wagyu. Hương vị ngọt, đậm đà, hoàn toàn khác thịt lợn siêu nạc công nghiệp. Thích hợp: lợn mán quay giòn da, nướng nguyên con trên than củi, hay chế biến thành đặc sản tiệc Tết. Bán theo kg hơi (cân sống), mổ ngay tại chỗ nếu khách yêu cầu.',
+                'price'    => 135000,
+                'unit'     => 'kg',
+                'stock'    => 80.0,
+            ],
+
+            // ── Lợn Rừng ──────────────────────────────────────────────
+            [
+                'category' => 'lon-rung',
+                'name'     => 'Lợn Rừng Thuần Chủng F1 Hơi',
+                'desc'     => 'Lợn rừng F1 là con lai thế hệ thứ nhất giữa lợn rừng đực thuần chủng (Sus scrofa) × lợn mọi cái bản địa. Nuôi bán hoang dã trong khu vực rừng có rào lưới rộng, tự kiếm ăn rễ cây, côn trùng, quả rừng — bổ sung thêm cám gạo và rau củ. Không dùng thức ăn công nghiệp, không kháng sinh. Thời gian nuôi 8–10 tháng đạt 25–35kg. Đây là dòng giữ nguyên bản chất lợn rừng nhiều nhất: thịt đỏ đậm như thịt bò, vân mỡ trắng xen đẹp, lớp mỡ rất mỏng (dưới 1cm). Hương thơm đặc biệt, ngọt sâu, không hôi như lợn nhà. Xương chắc, nước hầm ngọt. Thích hợp: lẩu lợn rừng lá rừng, nướng muối ớt, quay mắc khén kiểu Tây Bắc. Bán kg hơi, thu mua trực tiếp từ trang trại.',
+                'price'    => 250000,
+                'unit'     => 'kg',
+                'stock'    => 50.0,
+            ],
+            [
+                'category' => 'lon-rung',
+                'name'     => 'Lợn Rừng Lai Tuyển Chọn Hơi',
+                'desc'     => 'Lợn rừng lai tuyển chọn là dòng lợn rừng F2–F3, được lai tiếp với lợn mọi hoặc lợn địa phương để cải thiện tốc độ tăng trọng mà vẫn giữ phần lớn đặc tính lợn rừng. Nuôi trong chuồng bán thả rộng, ăn cám gạo + rau củ + thức ăn thô tự nhiên, không dùng cám tăng trọng công nghiệp. Thời gian nuôi 6–8 tháng đạt 35–55kg. Thịt vẫn đỏ hơn lợn nhà thông thường, ít mỡ, thơm ngon, nhưng giá thành thấp hơn F1 thuần. Phù hợp với khách muốn thưởng thức thịt lợn rừng ngon mà ngân sách hợp lý hơn. Thích hợp nấu các món đặc sản: lẩu, nướng, rang muối. Bán kg hơi.',
+                'price'    => 190000,
+                'unit'     => 'kg',
+                'stock'    => 70.0,
+            ],
+
         ];
 
-        $manager = new ImageManager(new Driver());
-
-        foreach ($products as $idx => $data) {
+        foreach ($products as $data) {
             $catId = $categories[$data['category']] ?? null;
             if ($catId === null) {
                 $this->command->warn("   Category '{$data['category']}' not found, skipping.");
                 continue;
             }
 
-            /** @var ProductModel $product */
-            $product = ProductModel::updateOrCreate(
+            ProductModel::updateOrCreate(
                 ['name' => $data['name']],
                 [
                     'category_id'    => $catId,
@@ -287,79 +289,7 @@ class ProductCategorySeeder extends Seeder
                 ]
             );
 
-            // Remove existing images if re-seeding
-            ProductImageModel::where('product_id', $product->id)->delete();
-            Storage::disk('public')->deleteDirectory("products/{$product->id}");
-
-            $sortOrder  = 0;
-            $isPrimary  = true;
-
-            foreach ($data['images'] as $imageUrl) {
-                $this->command->line("   Downloading image for [{$product->name}]...");
-                $imageData = $this->fetchImage($imageUrl);
-
-                if ($imageData === null) {
-                    $this->command->warn("   ⚠ Failed to download: {$imageUrl}");
-                    // Fallback: generate a colored placeholder
-                    $imageData = $this->generatePlaceholder($product->name, $idx);
-                }
-
-                $filename     = Str::uuid() . '.jpg';
-                $originalPath = "products/{$product->id}/{$filename}";
-                $thumbPath    = "products/{$product->id}/thumb_{$filename}";
-
-                $img = $manager->read($imageData);
-
-                $resized = $img->scale(width: 1200);
-                Storage::disk('public')->put($originalPath, $resized->toJpeg(quality: 85)->toString());
-
-                $thumb = $img->scale(width: 400);
-                Storage::disk('public')->put($thumbPath, $thumb->toJpeg(quality: 75)->toString());
-
-                ProductImageModel::create([
-                    'product_id'     => $product->id,
-                    'path'           => $originalPath,
-                    'thumbnail_path' => $thumbPath,
-                    'is_primary'     => $isPrimary,
-                    'sort_order'     => $sortOrder,
-                ]);
-
-                $isPrimary = false;
-                $sortOrder++;
-            }
-
-            $this->command->info("   ✓ [{$product->name}] — {$sortOrder} image(s)");
+            $this->command->info("   ✓ {$data['name']}");
         }
-    }
-
-    private function fetchImage(string $url): ?string
-    {
-        try {
-            $response = Http::timeout(15)->get($url);
-            if ($response->successful()) {
-                return $response->body();
-            }
-        } catch (\Throwable) {
-            // fall through to null
-        }
-        return null;
-    }
-
-    /** Generate a simple colored placeholder image with text */
-    private function generatePlaceholder(string $label, int $seed): string
-    {
-        $colors = [
-            [139, 90,  43],
-            [180, 140, 60],
-            [100, 140, 70],
-            [60,  110, 160],
-            [160, 70,  70],
-        ];
-        [$r, $g, $b] = $colors[$seed % count($colors)];
-
-        $manager = new ImageManager(new Driver());
-        $img = $manager->create(1200, 900)->fill("rgb({$r},{$g},{$b})");
-
-        return $img->toJpeg(quality: 80)->toString();
     }
 }
