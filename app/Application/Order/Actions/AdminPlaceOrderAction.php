@@ -65,13 +65,13 @@ final class AdminPlaceOrderAction
                 $quantity  = (string) $item['quantity'];
                 $product   = $products[$productId];
 
-                $newStock = bcadd($product->stockQuantity, '-' . $quantity, 3);
-                if (bccomp($newStock, '0', 3) < 0) {
+                $newStock = \bcadd($product->stockQuantity, '-' . $quantity, 3);
+                if (\bccomp($newStock, '0', 3) < 0) {
                     throw new InsufficientStockException($product->stockQuantity, $quantity);
                 }
                 $this->products->updateStock($productId, $newStock);
 
-                $subtotal = (int) round((float) bcmul((string) $product->priceVnd, $quantity, 3));
+                $subtotal = (int) round((float) \bcmul((string) $product->priceVnd, $quantity, 3));
                 $orderItems[] = [
                     'product_id'   => $productId,
                     'product_name' => $product->name,
@@ -79,7 +79,7 @@ final class AdminPlaceOrderAction
                     'quantity'     => $quantity,
                     'subtotal_vnd' => $subtotal,
                 ];
-                $totalAmount = bcadd($totalAmount, (string) $subtotal, 0);
+                $totalAmount = \bcadd($totalAmount, (string) $subtotal, 0);
             }
 
             // 4. Create order with created_by = adminUserId (per D-23)

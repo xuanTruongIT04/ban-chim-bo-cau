@@ -33,7 +33,7 @@ final class AddToCartAction
 
         if ($existing !== null) {
             // D-04: Accumulate quantity when same product added again
-            $newQuantity = bcadd($existing->quantity, $quantity, 3);
+            $newQuantity = \bcadd($existing->quantity, $quantity, 3);
 
             return $this->carts->updateItemQuantity($existing->id, $newQuantity);
         }

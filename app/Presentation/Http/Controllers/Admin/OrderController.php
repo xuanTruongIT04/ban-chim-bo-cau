@@ -82,7 +82,6 @@ final class OrderController
      * @bodyParam customer_name string required Họ tên khách hàng. Example: Trần Thị B
      * @bodyParam customer_phone string required Số điện thoại 10 chữ số bắt đầu 0. Example: 0909876543
      * @bodyParam delivery_address string required Địa chỉ giao hàng. Example: 456 Đường XYZ, Hà Nội
-     * @bodyParam payment_method string required Phương thức thanh toán: cod hoặc chuyen_khoan. Example: cod
      * @bodyParam items array required Danh sách sản phẩm.
      * @bodyParam items[].product_id integer required Mã sản phẩm. Example: 1
      * @bodyParam items[].quantity numeric required Số lượng. Example: 2
@@ -106,7 +105,7 @@ final class OrderController
             customerName: $validated['customer_name'],
             customerPhone: $validated['customer_phone'],
             deliveryAddress: $validated['delivery_address'],
-            paymentMethod: PaymentMethod::from($validated['payment_method']),
+            paymentMethod: PaymentMethod::Cod,
             items: $validated['items'],
             adminUserId: (int) $request->user()->id,
         );

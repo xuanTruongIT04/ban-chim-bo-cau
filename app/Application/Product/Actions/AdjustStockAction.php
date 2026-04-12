@@ -29,9 +29,9 @@ final class AdjustStockAction
             }
 
             $stockBefore = $product->stockQuantity;
-            $stockAfter = bcadd($stockBefore, $delta, 3);
+            $stockAfter = \bcadd($stockBefore, $delta, 3);
 
-            if (bccomp($stockAfter, '0', 3) < 0) {
+            if (\bccomp($stockAfter, '0', 3) < 0) {
                 throw new InsufficientStockException($stockBefore, $delta);
             }
 

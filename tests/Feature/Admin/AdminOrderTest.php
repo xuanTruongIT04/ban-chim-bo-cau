@@ -27,7 +27,6 @@ describe('Admin Orders', function () {
                 'customer_name'    => 'Trần Thị B',
                 'customer_phone'   => '0909876543',
                 'delivery_address' => '456 Đường XYZ, Hà Nội',
-                'payment_method'   => 'cod',
                 'items'            => [
                     ['product_id' => $product->id, 'quantity' => '3'],
                 ],
@@ -91,7 +90,6 @@ describe('Admin Orders', function () {
                 'customer_name'    => 'Lê Văn D',
                 'customer_phone'   => '0987654321',
                 'delivery_address' => '321 Đường GHI',
-                'payment_method'   => 'cod',
                 'items'            => [
                     ['product_id' => $product->id, 'quantity' => '10'],
                 ],
@@ -118,7 +116,6 @@ describe('Admin Orders', function () {
             'customer_name'    => 'Test',
             'customer_phone'   => '0901234567',
             'delivery_address' => 'Test address',
-            'payment_method'   => 'cod',
             'items'            => [
                 ['product_id' => $product->id, 'quantity' => '1'],
             ],
