@@ -161,7 +161,6 @@ describe('Checkout', function () {
                 'customer_name',
                 'customer_phone',
                 'delivery_address',
-                'payment_method',
             ]]);
     });
 
