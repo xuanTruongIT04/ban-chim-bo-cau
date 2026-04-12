@@ -34,7 +34,6 @@ describe('NewOrderNotification', function () {
             'customer_name'    => 'Nguyen Van A',
             'customer_phone'   => '0901234567',
             'delivery_address' => '123 Duong ABC, TPHCM',
-            'payment_method'   => 'cod',
         ])->assertStatus(201);
 
         Notification::assertSentTo($admin, NewOrderNotification::class);
@@ -58,7 +57,6 @@ describe('NewOrderNotification', function () {
                 'customer_name'    => 'Tran Thi B',
                 'customer_phone'   => '0909876543',
                 'delivery_address' => '456 Duong XYZ, Ha Noi',
-                'payment_method'   => 'cod',
                 'items'            => [
                     ['product_id' => $product->id, 'quantity' => '3'],
                 ],
@@ -95,7 +93,6 @@ describe('NewOrderNotification', function () {
             'customer_name'    => 'Le Van C',
             'customer_phone'   => '0912345678',
             'delivery_address' => $deliveryAddress,
-            'payment_method'   => 'cod',
         ])->assertStatus(201);
 
         Notification::assertSentTo(
@@ -163,7 +160,6 @@ describe('NewOrderNotification', function () {
             'customer_name'    => 'Pham Van D',
             'customer_phone'   => '0987654321',
             'delivery_address' => '321 Duong GHI',
-            'payment_method'   => 'cod',
         ])->assertStatus(201);
 
         $orderId = $response->json('data.id');

@@ -22,7 +22,6 @@ final class CheckoutRequest extends FormRequest
             'customer_name'    => 'required|string|max:255',
             'customer_phone'   => 'required|string|regex:/^0\d{9}$/',
             'delivery_address' => 'required|string|max:1000',
-            'payment_method'   => 'required|string|in:cod,chuyen_khoan',
         ];
     }
 
@@ -36,8 +35,6 @@ final class CheckoutRequest extends FormRequest
             'customer_phone.required'   => 'Vui lòng nhập số điện thoại.',
             'customer_phone.regex'      => 'Số điện thoại phải có 10 chữ số và bắt đầu bằng 0.',
             'delivery_address.required' => 'Vui lòng nhập địa chỉ giao hàng.',
-            'payment_method.required'   => 'Vui lòng chọn phương thức thanh toán.',
-            'payment_method.in'         => 'Phương thức thanh toán không hợp lệ. Chọn cod hoặc chuyen_khoan.',
         ];
     }
 }

@@ -35,7 +35,6 @@ final class CheckoutController
      * @bodyParam customer_name string required Họ tên khách hàng. Example: Nguyễn Văn A
      * @bodyParam customer_phone string required Số điện thoại 10 chữ số bắt đầu 0. Example: 0901234567
      * @bodyParam delivery_address string required Địa chỉ giao hàng. Example: 123 Đường ABC, TP.HCM
-     * @bodyParam payment_method string required Phương thức thanh toán: cod hoặc chuyen_khoan. Example: cod
      *
      * @response 201 {
      *   "success": true,
@@ -79,19 +78,12 @@ final class CheckoutController
             customerName: $validated['customer_name'],
             customerPhone: $validated['customer_phone'],
             deliveryAddress: $validated['delivery_address'],
-            paymentMethod: PaymentMethod::from($validated['payment_method']),
+            paymentMethod: PaymentMethod::Cod,
         );
 
-        $responseData = [
+        return response()->json([
             'success' => true,
             'data'    => new OrderResource($order),
-        ];
-
-        // Per D-19: include bank account info for chuyen_khoan
-        if ($validated['payment_method'] === 'chuyen_khoan') {
-            $responseData['bank_info'] = config('bank');
-        }
-
-        return response()->json($responseData, 201);
+        ], 201);
     }
 }

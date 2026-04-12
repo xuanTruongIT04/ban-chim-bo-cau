@@ -58,7 +58,7 @@ final class CancelOrderAction
                 $product = $this->products->findByIdForUpdate($item->productId);
 
                 if ($product !== null) {
-                    $restoredStock = bcadd($product->stockQuantity, $item->quantity, 3);
+                    $restoredStock = \bcadd($product->stockQuantity, $item->quantity, 3);
                     $this->products->updateStock($item->productId, $restoredStock);
                 }
                 // If product was deleted, skip stock restoration (defensive)

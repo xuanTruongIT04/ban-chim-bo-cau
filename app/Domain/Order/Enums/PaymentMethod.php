@@ -6,8 +6,7 @@ namespace App\Domain\Order\Enums;
 
 enum PaymentMethod: string
 {
-    case Cod          = 'cod';
-    case ChuyenKhoan  = 'chuyen_khoan';
+    case Cod = 'cod';
 
     /**
      * Vietnamese display label.
@@ -15,8 +14,7 @@ enum PaymentMethod: string
     public function label(): string
     {
         return match ($this) {
-            self::Cod         => 'Thanh toán khi nhận hàng (COD)',
-            self::ChuyenKhoan => 'Chuyển khoản ngân hàng',
+            self::Cod => 'Thanh toán khi nhận hàng',
         };
     }
 }

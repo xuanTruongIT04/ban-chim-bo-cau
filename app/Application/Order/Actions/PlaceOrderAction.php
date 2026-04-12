@@ -61,13 +61,13 @@ final class PlaceOrderAction
             $totalAmount = '0';
             foreach ($cart->items as $item) {
                 $product  = $products[$item->productId];
-                $newStock = bcadd($product->stockQuantity, '-' . $item->quantity, 3);
-                if (bccomp($newStock, '0', 3) < 0) {
+                $newStock = \bcadd($product->stockQuantity, '-' . $item->quantity, 3);
+                if (\bccomp($newStock, '0', 3) < 0) {
                     throw new InsufficientStockException($product->stockQuantity, $item->quantity);
                 }
                 $this->products->updateStock($item->productId, $newStock);
 
-                $subtotal = (int) round((float) bcmul((string) $product->priceVnd, $item->quantity, 3));
+                $subtotal = (int) round((float) \bcmul((string) $product->priceVnd, $item->quantity, 3));
                 $orderItems[] = [
                     'product_id'   => $item->productId,
                     'product_name' => $product->name,
@@ -75,7 +75,7 @@ final class PlaceOrderAction
                     'quantity'     => $item->quantity,
                     'subtotal_vnd' => $subtotal,
                 ];
-                $totalAmount = bcadd($totalAmount, (string) $subtotal, 0);
+                $totalAmount = \bcadd($totalAmount, (string) $subtotal, 0);
             }
 
             // 4. Create order

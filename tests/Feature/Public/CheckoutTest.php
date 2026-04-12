@@ -35,7 +35,6 @@ describe('Checkout', function () {
             'customer_name'    => 'Nguyễn Văn A',
             'customer_phone'   => '0901234567',
             'delivery_address' => '123 Đường ABC, TP.HCM',
-            'payment_method'   => 'cod',
         ], $override);
     }
 
@@ -182,30 +181,6 @@ describe('Checkout', function () {
         $response->assertStatus(201)
             ->assertJsonPath('data.payment_status', 'chua_thanh_toan')
             ->assertJsonPath('data.payment_method', 'cod');
-    });
-
-    it('returns bank info for chuyen_khoan payment', function () {
-        config([
-            'bank.account_name'   => 'NGUYEN VAN A',
-            'bank.account_number' => '1234567890',
-            'bank.bank_name'      => 'Vietcombank',
-        ]);
-
-        [$cart] = makeCartWithItems(
-            [['stock_quantity' => '10.000']],
-            ['1'],
-        );
-
-        $response = $this->withHeaders([
-            'X-Cart-Token'   => $cart->token,
-            'Idempotency-Key' => (string) Str::uuid(),
-        ])->postJson('/api/v1/checkout', validCheckoutPayload([
-            'payment_method' => 'chuyen_khoan',
-        ]));
-
-        $response->assertStatus(201)
-            ->assertJsonPath('data.payment_method', 'chuyen_khoan')
-            ->assertJsonPath('bank_info.account_name', 'NGUYEN VAN A');
     });
 
     it('deletes cart after successful checkout', function () {
